@@ -31,7 +31,7 @@ summary::-webkit-details-marker {
   left: 0;
   width: 0;
   height: 3px;
-  background: linear-gradient(90deg, #3442aa, #6184ed);
+  background: linear-gradient(90deg, oklch(70.949% 0.15105 263.812), oklch(54.6% 0.245 262.881));
   border-radius: 0;
   transition: all 0.5s ease-out;
 }
