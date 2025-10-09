@@ -17,8 +17,8 @@ export default function MitraTestimoni() {
             <div className="absolute z-0 top-140 -left-40 w-100 h-100 bg-radial from-blue-600 to-gray-50/0 to-60% rounded-full blur-[180px]"></div>
 
             {/* Trust Section */}
-            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 ">
-                <div className="text-left mb-16">
+            <section className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-16 relative z-10 ">
+                <div className="text-left mb-10">
                     <h3 className="text-2xl font-semibold text-blue-600 mb-2 tracking-wider">ART & Nanny</h3>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                         Temukan Asisten Rumah Tangga & Nanny
@@ -28,9 +28,11 @@ export default function MitraTestimoni() {
                 <div className="flex flex-col justify-center items-center">
                     <div>
                         {/* Mitra Cards Grid */}
-                        <div className="h-90 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 lg:gap-4 mb-8 w-full">
+                        <div className="flex max-w-[1100px] w-screen overflow-x-auto sm:overflow-hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 md:gap-1 mb-8 pb-4 py-4 px-4 scrollbar-hide">
                             {mitraData.slice(0, 4).map((mitra) => (
-                                <MitraCard key={mitra.id} data={mitra} />
+                                <div className="flex-shrink-0 sm:w-auto" key={mitra.id}>
+                                    <MitraCard data={mitra} />
+                                </div>
                             ))}
                         </div>
                     </div>

@@ -19,9 +19,9 @@ export const MitraCard = ({ data }) => {
   };
 
   return (
-    <div className="w-65 h-full w-max-1/2 bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 relative">
+    <div className="w-60 h-full ml-2 w-max-1/5 bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 relative">
       {/* Profile Image */}
-      <div className="relative w-full h-90 bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden">
+      <div className="relative h-90 bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden">
         <img
           src={data.image || "/api/placeholder/300/400"}
           alt={data.name}

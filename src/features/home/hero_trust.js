@@ -12,7 +12,7 @@ export default function AboutUsHero() {
             <div className="absolute bottom-20 right-32 w-12 h-12 bg-blue-400 rounded-full opacity-60"></div>
             <div className="absolute top-1/2 right-20 w-8 h-8 bg-orange-300 rounded-full opacity-70"></div>
 
-            <main className="max-w-6xl z-10 mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-30 md:pt-25">
+            <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-30 md:pt-25">
                 <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
                     {/* Left Content */}
                     <div className="space-y-8">
@@ -114,17 +114,17 @@ export default function AboutUsHero() {
             </main>
 
             {/* Trust Section */}
-            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-                <div className="text-left mb-16">
+            <section className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-16 relative z-10">
+                <div className="text-left mb-12">
                     <h3 className="text-2xl font-semibold text-blue-600 mb-2 tracking-wider">Mengapa Memilih Kami?</h3>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                         Keamanan dan Kepercayaan Adalah Prioritas
                     </h2>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+                <div className="grid md:grid-cols-3 gap-4 lg:gap-12">
                     {/* Verifikasi Identitas */}
-                    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div className="bg-gray-50 rounded-3xl p-8 box-shadow-default hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -145,7 +145,7 @@ export default function AboutUsHero() {
                     </div>
 
                     {/* Kontrak Jelas */}
-                    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div className="bg-gray-50 rounded-3xl p-8 box-shadow-default hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -166,7 +166,7 @@ export default function AboutUsHero() {
                     </div>
 
                     {/* Komunitas Aman */}
-                    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+                    <div className="bg-gray-50 rounded-3xl p-8 box-shadow-default hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">

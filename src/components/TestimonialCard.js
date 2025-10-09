@@ -19,7 +19,7 @@ export const TestimonialCard = ({ testimonial }) => {
   };
 
   return (
-    <div className={`bg-gray-50 rounded-3xl p-8 mx-4 shadow-[0_0px_60px_rgba(0,0,0,0.06)] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col justify-between`}>
+    <div className={`bg-gray-50 rounded-3xl p-8 mx-4 box-shadow-default hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 min-h-[400px] flex flex-col justify-between`}>
       {/* User Info */}
       <div className="text-center mb-6">
         <div className={`w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ${testimonial.bgColor.replace('100', '200')}`}>
