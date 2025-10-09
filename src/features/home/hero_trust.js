@@ -116,7 +116,7 @@ export default function AboutUsHero() {
             {/* Trust Section */}
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
                 <div className="text-left mb-16">
-                    <h3 className="text-2xl font-semibold text-blue-600 mb-4 tracking-wider">Mengapa Memilih Kami?</h3>
+                    <h3 className="text-2xl font-semibold text-blue-600 mb-2 tracking-wider">Mengapa Memilih Kami?</h3>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                         Keamanan dan Kepercayaan Adalah Prioritas
                     </h2>
