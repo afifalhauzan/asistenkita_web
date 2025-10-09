@@ -52,8 +52,8 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white fixed w-full z-50 top-0 ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white/30 backdrop-blur-2xl fixed w-full z-50 top-0">
+      <div className="max-w-7xl mx-auto px-6 py-2 sm:px-6 lg:px-12">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3">
@@ -69,9 +69,9 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className={`relative font-medium transition-colors pb-1 ${isActiveLink('/')
-                ? 'text-blue-600'
-                : 'text-gray-700 hover:text-gray-900'
+              className={`relative transition-colors pb-1 ${isActiveLink('/')
+                ? 'text-blue-600 font-bold'
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
               Beranda
@@ -81,9 +81,9 @@ export const Navbar = () => {
             </Link>
             <Link
               href="/bantuan"
-              className={`relative font-medium transition-colors pb-1 ${isActiveLink('/bantuan')
-                ? 'text-blue-600'
-                : 'text-gray-700 hover:text-gray-900'
+              className={`relative transition-colors pb-1 ${isActiveLink('/bantuan')
+                ? 'text-blue-600 font-bold'
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
               Cari Bantuan
@@ -93,9 +93,9 @@ export const Navbar = () => {
             </Link>
             <Link
               href="/mitra"
-              className={`relative font-medium transition-colors pb-1 ${isActiveLink('/mitra')
-                ? 'text-blue-600'
-                : 'text-gray-700 hover:text-gray-900'
+              className={`relative transition-colors pb-1 ${isActiveLink('/mitra')
+                ? 'text-blue-600 font-bold'
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
               Jadi Mitra Kerja
@@ -105,9 +105,9 @@ export const Navbar = () => {
             </Link>
             <Link
               href="/aboutus"
-              className={`relative font-medium transition-colors pb-1 ${isActiveLink('/aboutus')
-                ? 'text-blue-600'
-                : 'text-gray-700 hover:text-gray-900'
+              className={`relative transition-colors pb-1 ${isActiveLink('/aboutus')
+                ? 'text-blue-600 font-bold'
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link '
                 }`}
             >
               Tentang Kami
@@ -192,16 +192,16 @@ export const Navbar = () => {
                 )}
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-6">
                 <Link
                   href="/login"
-                  className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
+                  className="text-gray-700 font-bold hover:text-gray-900 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   href="/signup"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-colors"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold transition-colors"
                 >
                   Sign Up
                 </Link>
@@ -214,13 +214,25 @@ export const Navbar = () => {
             <button
               type="button"
               onClick={toggleMobileMenu}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition-colors duration-200"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M6 18L18 6M6 6l12 12"
+                    className="animate-in duration-200"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M4 6h16M4 12h16M4 18h16"
+                    className="animate-in duration-200"
+                  />
                 )}
               </svg>
             </button>
@@ -229,113 +241,129 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-            {/* Navigation Links */}
-            <Link
-              href="/"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${isActiveLink('/')
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Beranda
-            </Link>
-            <Link
-              href="/bantuan"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${isActiveLink('/bantuan')
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Cari Bantuan
-            </Link>
-            <Link
-              href="/mitra"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${isActiveLink('/mitra')
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Jadi Mitra Kerja
-            </Link>
-            <Link
-              href="/aboutus"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${isActiveLink('/aboutus')
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Tentang Kami
-            </Link>
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+        isMobileMenuOpen 
+          ? 'max-h-screen opacity-100' 
+          : 'max-h-0 opacity-0'
+      }`}>
+        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${
+          isMobileMenuOpen 
+            ? 'transform translate-y-0' 
+            : 'transform -translate-y-2'
+        }`}>
+          {/* Navigation Links */}
+          <Link
+            href="/"
+            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${isActiveLink('/')
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Beranda
+          </Link>
+          <Link
+            href="/bantuan"
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${isActiveLink('/bantuan')
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Cari Bantuan
+          </Link>
+          <Link
+            href="/mitra"
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${isActiveLink('/mitra')
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Jadi Mitra Kerja
+          </Link>
+          <Link
+            href="/aboutus"
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${isActiveLink('/aboutus')
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Tentang Kami
+          </Link>
 
-            {/* Auth Section */}
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              {loading ? (
+          {/* Auth Section */}
+          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${
+            isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+          }`}>
+            {loading ? (
+              <div className="flex items-center px-3 py-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+                <span className="text-sm text-gray-500">Loading...</span>
+              </div>
+            ) : isAuthenticated ? (
+              <div className="space-y-1">
                 <div className="flex items-center px-3 py-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
-                  <span className="text-sm text-gray-500">Loading...</span>
-                </div>
-              ) : isAuthenticated ? (
-                <div className="space-y-1">
-                  <div className="flex items-center px-3 py-2">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                      <span className="text-blue-600 text-xs font-medium">
-                        {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
-                      </span>
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-base font-medium text-gray-900">
-                        {user?.name || 'User'}
-                      </p>
-                      <p className="text-sm text-gray-500">{user?.email}</p>
-                    </div>
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-blue-600 text-xs font-medium">
+                      {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
+                    </span>
                   </div>
-                  <Link
-                    href="/dashboard"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    disabled={isLoggingOut}
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50"
-                  >
-                    {isLoggingOut ? 'Signing out...' : 'Sign out'}
-                  </button>
+                  <div className="flex flex-col">
+                    <p className="text-base font-medium text-gray-900">
+                      {user?.name || 'User'}
+                    </p>
+                    <p className="text-sm text-gray-500">{user?.email}</p>
+                  </div>
                 </div>
-              ) : (
-                <div className="space-y-1">
-                  <Link
-                    href="/login"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
-            </div>
+                <Link
+                  href="/dashboard"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  disabled={isLoggingOut}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 disabled:opacity-50 transition-colors duration-200"
+                >
+                  {isLoggingOut ? 'Signing out...' : 'Sign out'}
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <Link
+                  href="/login"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

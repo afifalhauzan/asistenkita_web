@@ -18,3 +18,25 @@ summary::-webkit-details-marker {
   z-index: -1;
   background-position-x: center;
 }
+
+/* Navigation Link Animation */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3442aa, #6184ed);
+  border-radius: 0;
+  transition: all 0.5s ease-out;
+}
+
+.nav-link:hover::before {
+  width: 100%;
+  border-radius: 50%;
+}

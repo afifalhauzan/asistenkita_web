@@ -12,16 +12,6 @@ export default function Home() {
       <Navbar />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Welcome to Appwrite + Next.js
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            A modern authentication starter with feature-based architecture
-          </p>
-        </div>
-
         {/* Auth Status Card */}
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">

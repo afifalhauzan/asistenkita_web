@@ -4,6 +4,7 @@ import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useAuthActions } from '@/features/auth/hooks/useAuthActions';
 import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   return (
@@ -29,13 +30,18 @@ function DashboardContent() {
       <nav className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
+              <Link href="/" className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <span className="text-gray-600 font-bold text-sm">AK</span>
+                </div>
+              </Link>
               <h1 className="text-xl font-semibold text-gray-900">
                 Dashboard
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-700">
+              <span className="hidden sm:block text-sm text-gray-700">
                 Welcome, {user?.name || user?.email}
               </span>
               <button
@@ -51,32 +57,27 @@ function DashboardContent() {
       </nav>
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 p-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                🎉 Welcome to your Dashboard!
-              </h2>
-              
-              <div className="bg-white shadow rounded-lg p-6 max-w-md mx-auto">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  User Information
-                </h3>
-                <dl className="space-y-2">
-                  <div className="flex justify-between">
-                    <dt className="text-sm font-medium text-gray-500">Name:</dt>
-                    <dd className="text-sm text-gray-900">{user?.name || 'N/A'}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-sm font-medium text-gray-500">Email:</dt>
-                    <dd className="text-sm text-gray-900">{user?.email}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-sm font-medium text-gray-500">Role:</dt>
-                    <dd className="text-sm text-green-600 font-medium">{user?.labels || 'N/A'}</dd>
-                  </div>
-                </dl>
-              </div>
+        <div className="border-gray-200 rounded-lg h-96 p-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Welcome to your Dashboard!
+            </h2>
+
+            <div className="bg-white shadow rounded-lg p-6 max-w-md mx-auto">
+              <dl className="space-y-2">
+                <div className="flex justify-between">
+                  <dt className="text-sm font-medium text-gray-500">Name:</dt>
+                  <dd className="text-sm text-gray-900">{user?.name || 'N/A'}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-sm font-medium text-gray-500">Email:</dt>
+                  <dd className="text-sm text-gray-900">{user?.email}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-sm font-medium text-gray-500">Role:</dt>
+                  <dd className="text-sm text-green-600 font-medium">{user?.labels || 'N/A'}</dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
