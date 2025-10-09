@@ -57,9 +57,6 @@ function DashboardContent() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 🎉 Welcome to your Dashboard!
               </h2>
-              <p className="text-gray-600 mb-6">
-                You are successfully authenticated with Appwrite.
-              </p>
               
               <div className="bg-white shadow rounded-lg p-6 max-w-md mx-auto">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -73,10 +70,6 @@ function DashboardContent() {
                   <div className="flex justify-between">
                     <dt className="text-sm font-medium text-gray-500">Email:</dt>
                     <dd className="text-sm text-gray-900">{user?.email}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-sm font-medium text-gray-500">User ID:</dt>
-                    <dd className="text-sm text-gray-900 font-mono">{user?.$id}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-sm font-medium text-gray-500">Role:</dt>

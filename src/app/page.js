@@ -1,6 +1,5 @@
 "use client";
 
-import "./app.css";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
