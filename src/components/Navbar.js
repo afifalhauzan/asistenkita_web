@@ -29,7 +29,6 @@ export const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -43,7 +42,6 @@ export const Navbar = () => {
     };
   }, []);
 
-  // Helper function to check if link is active
   const isActiveLink = (href) => {
     if (href === '/') {
       return pathname === '/';
@@ -125,13 +123,13 @@ export const Navbar = () => {
                   href="/login"
                   className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   href="/signup"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-colors"
                 >
-                  Sign Up
+                  Daftar
                 </Link>
               </div>
             ) : isAuthenticated ? (
@@ -197,13 +195,13 @@ export const Navbar = () => {
                   href="/login"
                   className="text-gray-700 font-bold hover:text-gray-900 transition-colors"
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   href="/signup"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold transition-colors"
                 >
-                  Sign Up
+                  Daftar
                 </Link>
               </div>
             )}
@@ -350,14 +348,14 @@ export const Navbar = () => {
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Login
+                  Masuk
                 </Link>
                 <Link
                   href="/signup"
                   className="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Sign Up
+                  Daftar
                 </Link>
               </div>
             )}
