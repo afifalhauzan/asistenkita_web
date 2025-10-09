@@ -3,21 +3,21 @@
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
+import Img from "next/image";
 
 export default function AboutUsHero() {
     const { user, isAuthenticated, loading } = useAuth();
 
     return (
         <div className="min-h-screen bg-gray-50 relative overflow-hidden">
-            <div className="absolute bottom-20 right-32 w-12 h-12 bg-blue-400 rounded-full opacity-60"></div>
-            <div className="absolute top-1/2 right-20 w-8 h-8 bg-orange-300 rounded-full opacity-70"></div>
+            {/* <div className="absolute top-20 right-50 w-8 h-8 bg-orange-300 rounded-full opacity-70"></div> */}
 
-            <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-30 md:pt-25">
+            <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-30 md:pt-20">
                 <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
                     {/* Left Content */}
                     <div className="space-y-8">
                         <div className="space-y-6">
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-bold leading-tight">
                                 <span className="text-gray-900">Temukan Bantuan</span>
                                 <br />
                                 <span className="text-gray-900">Terpercaya,</span>
@@ -26,9 +26,9 @@ export default function AboutUsHero() {
                                 <br />
                                 <span className="text-blue-600">Ketenangan.</span>
                             </h1>
-                            
-                            <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
-                                Platform aman yang menghubungkan keluarga dengan Asisten Rumah Tangga & 
+
+                            <p className="text-md md:text-md lg:text-md xl:text-lg text-gray-600 leading-relaxed max-w-lg">
+                                Platform aman yang menghubungkan keluarga dengan Asisten Rumah Tangga &
                                 Nanny terverifikasi di seluruh Indonesia.
                             </p>
                         </div>
@@ -47,51 +47,48 @@ export default function AboutUsHero() {
                     </div>
 
                     {/* Right Content - Image Grid */}
-                    <div className="relative">
+                    <div className="relative max-h-xl">
                         <div className="grid grid-cols-2 gap-4">
                             {/* Top Left - Child with fork */}
-                            <div className="relative">
-                                <div className="bg-white rounded-2xl p-6 shadow-lg transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                                    <div className="w-full h-48 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 bg-green-300 rounded-full mx-auto mb-3 flex items-center justify-center">
-                                                <span className="text-2xl">😊</span>
-                                            </div>
-                                            <p className="text-sm font-semibold text-green-700">Anak Bahagia</p>
-                                        </div>
+                            <div className="flex items-center justify-center">
+                                <div className="bg-white  rotate-3 hover:rotate-6 transition-all duration-300">
+                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-45 rounded-2xl" />
+                                    <div className="absolute top-40 -left-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                        <span className="text-2xl">🏠</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Top Right - Family reading */}
-                            <div className="relative mt-8">
-                                <div className="bg-white rounded-2xl p-6 shadow-lg transform -rotate-2 hover:-rotate-3 transition-transform duration-300">
-                                    <div className="w-full h-48 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
-                                                <span className="text-2xl">👨‍👩‍👧</span>
-                                            </div>
-                                            <p className="text-sm font-semibold text-orange-700">Keluarga Harmonis</p>
-                                        </div>
+                            <div className="flex items-center justify-center">
+                                <div className="h-full bg-white -rotate-2 hover:-rotate-4 transition-all duration-300">
+                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-55 rounded-2xl" />
+                                    <div className="absolute top-0 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                        <span className="text-2xl">👨‍👩‍👧</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Bottom Left - Couple outdoor */}
-                            <div className="relative -mt-4">
-                                <div className="bg-white rounded-2xl p-6 shadow-lg transform rotate-1 hover:rotate-2 transition-transform duration-300">
-                                    <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 bg-blue-300 rounded-full mx-auto mb-3 flex items-center justify-center">
-                                                <span className="text-2xl">💑</span>
-                                            </div>
-                                            <p className="text-sm font-semibold text-blue-700">Waktu Berkualitas</p>
-                                        </div>
+
+                            <div className="flex items-center justify-center">
+                                <div className="h-full bg-white  -rotate-4 hover:-rotate-2 transition-all duration-300">
+                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-55 rounded-2xl" />
+                                    <div className="absolute top-10 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                        <span className="text-2xl">💑</span>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Bottom Right - Family with boxes */}
+                            <div className="flex items-center justify-center">
+                                <div className="bg-white  rotate-2 hover:rotate-5 transition-all duration-300">
+                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-50 rounded-2xl" />
+                                    <div className="absolute top-40 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                        <span className="text-2xl">💑</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {/* Bottom Right - Family with boxes
                             <div className="relative">
                                 <div className="bg-white rounded-2xl p-6 shadow-lg transform -rotate-1 hover:-rotate-2 transition-transform duration-300">
                                     <div className="w-full h-48 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
@@ -103,11 +100,11 @@ export default function AboutUsHero() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Floating decorative elements */}
-                        <div className="absolute -top-4 -left-4 w-8 h-8 bg-yellow-300 rounded-full opacity-70 animate-bounce"></div>
+                        <div className="absolute top-4 left-60 w-8 h-8 bg-yellow-300 rounded-full opacity-70 animate-bounce"></div>
                         <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-pink-300 rounded-full opacity-60 animate-pulse"></div>
                     </div>
                 </div>
@@ -129,16 +126,16 @@ export default function AboutUsHero() {
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                 </svg>
                             </div>
-                            
+
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                                 Verifikasi Identitas
                             </h3>
-                            
+
                             <p className="text-gray-600 leading-relaxed">
-                                Setiap calon pekerja kami dorong untuk melewati 
+                                Setiap calon pekerja kami dorong untuk melewati
                                 proses verifikasi identitas untuk keamanan Anda.
                             </p>
                         </div>
@@ -150,16 +147,16 @@ export default function AboutUsHero() {
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                                 </svg>
                             </div>
-                            
+
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                                 Kontrak Jelas
                             </h3>
-                            
+
                             <p className="text-gray-600 leading-relaxed">
-                                Sediakan ekspektasi yang jelas dari awal dengan fitur 
+                                Sediakan ekspektasi yang jelas dari awal dengan fitur
                                 kontrak digital kami untuk menghindari kesalahpahaman.
                             </p>
                         </div>
@@ -171,16 +168,16 @@ export default function AboutUsHero() {
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M16,4C18.11,4 20.11,4.89 21.39,6.39C22.67,7.89 23,9.67 23,12C23,14.33 22.67,16.11 21.39,17.61C20.11,19.11 18.11,20 16,20H7C4.24,20 2,17.76 2,15C2,12.36 4.24,10.22 7,10.22C7,6.27 10.13,3 14,3C14.65,3 15.25,3.11 15.84,3.28C16.2,3.11 16.59,3 17,3C18.1,3 19,3.9 19,5C19,5.34 18.91,5.67 18.74,5.95C17.86,4.75 16.5,4 15,4C13.36,4 12,5.36 12,7C12,8.64 13.36,10 15,10C15.36,10 15.69,9.93 16,9.81C16.65,9.93 17.32,10 18,10C19.1,10 20,10.9 20,12C20,13.1 19.1,14 18,14H16C14.89,14 14,13.1 14,12C14,10.9 14.89,10 16,10C16,8.89 15.1,8 14,8C12.89,8 12,8.89 12,10C12,11.1 12.89,12 14,12H16Z"/>
+                                    <path d="M16,4C18.11,4 20.11,4.89 21.39,6.39C22.67,7.89 23,9.67 23,12C23,14.33 22.67,16.11 21.39,17.61C20.11,19.11 18.11,20 16,20H7C4.24,20 2,17.76 2,15C2,12.36 4.24,10.22 7,10.22C7,6.27 10.13,3 14,3C14.65,3 15.25,3.11 15.84,3.28C16.2,3.11 16.59,3 17,3C18.1,3 19,3.9 19,5C19,5.34 18.91,5.67 18.74,5.95C17.86,4.75 16.5,4 15,4C13.36,4 12,5.36 12,7C12,8.64 13.36,10 15,10C15.36,10 15.69,9.93 16,9.81C16.65,9.93 17.32,10 18,10C19.1,10 20,10.9 20,12C20,13.1 19.1,14 18,14H16C14.89,14 14,13.1 14,12C14,10.9 14.89,10 16,10C16,8.89 15.1,8 14,8C12.89,8 12,8.89 12,10C12,11.1 12.89,12 14,12H16Z" />
                                 </svg>
                             </div>
-                            
+
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                                 Komunitas Aman
                             </h3>
-                            
+
                             <p className="text-gray-600 leading-relaxed">
-                                Sistem ulasan dua arah membantu membangun 
+                                Sistem ulasan dua arah membantu membangun
                                 komunitas yang akuntabel dan saling menghormati.
                             </p>
                         </div>
@@ -190,7 +187,7 @@ export default function AboutUsHero() {
 
             <div className="absolute -top-20 -left-40 w-100 h-100 bg-radial from-blue-600 to-gray-50/0 to-60% rounded-full blur-[180px]"></div>
             <div className="absolute bottom-60 -right-40 w-100 h-100 bg-radial from-blue-600 to-gray-50/0 to-60% rounded-full blur-[180px]"></div>
-            
+
         </div>
     );
 }
