@@ -6,11 +6,20 @@ import { useAuthActions } from '../hooks/useAuthActions';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LogoFull } from '../../../components/LogoFull';
+import type { SignupFormData, User } from '@/types/auth';
 
-export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+interface SignupFormProps {
+  onSuccess?: (user: User) => void;
+  redirectTo?: string;
+}
+
+export const SignupForm: React.FC<SignupFormProps> = ({ 
+  onSuccess, 
+  redirectTo = '/dashboard' 
+}) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { signup } = useAuthActions();
   const router = useRouter();
@@ -22,7 +31,7 @@ export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
     setError,
     clearErrors,
     watch
-  } = useForm({
+  } = useForm<SignupFormData>({
     defaultValues: {
       name: '',
       email: '',
@@ -46,7 +55,7 @@ export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
     }
   }, [name, email, password, confirmPassword, clearErrors]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
     clearErrors();
 
@@ -55,7 +64,7 @@ export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
       const result = await signup(data.email, data.password, data.name);
       console.log('SignupForm: Signup result:', result);
 
-      if (result.success) {
+      if (result.success && result.user) {
         if (onSuccess) {
           onSuccess(result.user);
         } else {
@@ -65,7 +74,7 @@ export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
         console.log('SignupForm: Setting error:', result.error);
         setError('root', {
           type: 'manual',
-          message: result.error
+          message: result.error || 'Pendaftaran gagal'
         });
       }
     } catch (err) {
@@ -258,7 +267,7 @@ export const SignupForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
                   autoComplete="new-password"
                   {...register('confirmPassword', {
                     required: 'Konfirmasi password harus diisi',
-                    validate: (value) => {
+                    validate: (value: string) => {
                       const passwordValue = watch('password');
                       return value === passwordValue || 'Password tidak cocok';
                     }

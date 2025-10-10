@@ -1,11 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { authService } from '../services/authService';
+import type { User, AuthResult, AuthContextType } from '@/types/auth';
 
-const AuthContext = createContext();
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuthContext = () => {
+export const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuthContext must be used within an AuthProvider');
@@ -13,14 +14,18 @@ export const useAuthContext = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [initialized, setInitialized] = useState(false);
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [initialized, setInitialized] = useState<boolean>(false);
 
   // Initialize auth state
   useEffect(() => {
-    const initializeAuth = async () => {
+    const initializeAuth = async (): Promise<void> => {
       try {
         setLoading(true);
         const currentUser = await authService.getCurrentUser();
@@ -37,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string): Promise<AuthResult> => {
     try {
       setLoading(true);
       console.log('AuthContext: Attempting login for:', email);
@@ -47,14 +52,14 @@ export const AuthProvider = ({ children }) => {
       return { success: true, user };
     } catch (error) {
       console.log('AuthContext: Login failed with error:', error);
-      console.log('AuthContext: Error message:', error.message);
-      return { success: false, error: error.message };
+      console.log('AuthContext: Error message:', (error as Error).message);
+      return { success: false, error: (error as Error).message };
     } finally {
       setLoading(false);
     }
   };
 
-  const signup = async (email, password, name) => {
+  const signup = async (email: string, password: string, name: string): Promise<AuthResult> => {
     try {
       setLoading(true);
       const user = await authService.signup(email, password, name);
@@ -62,13 +67,13 @@ export const AuthProvider = ({ children }) => {
       return { success: true, user };
     } catch (error) {
       console.error('Signup error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     } finally {
       setLoading(false);
     }
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<AuthResult> => {
     try {
       setLoading(true);
       await authService.logout();
@@ -76,13 +81,13 @@ export const AuthProvider = ({ children }) => {
       return { success: true };
     } catch (error) {
       console.error('Logout error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     } finally {
       setLoading(false);
     }
   };
 
-  const logoutAll = async () => {
+  const logoutAll = async (): Promise<AuthResult> => {
     try {
       setLoading(true);
       await authService.logoutAll();
@@ -90,49 +95,48 @@ export const AuthProvider = ({ children }) => {
       return { success: true };
     } catch (error) {
       console.error('Logout all error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     } finally {
       setLoading(false);
     }
   };
 
-  const sendPasswordResetEmail = async (email) => {
+  const sendPasswordResetEmail = async (email: string): Promise<AuthResult> => {
     try {
       await authService.sendPasswordResetEmail(email);
       return { success: true };
     } catch (error) {
       console.error('Password reset error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     }
   };
 
-  const updatePassword = async (newPassword, oldPassword) => {
+  const updatePassword = async (newPassword: string, oldPassword: string): Promise<AuthResult> => {
     try {
       await authService.updatePassword(newPassword, oldPassword);
       return { success: true };
     } catch (error) {
       console.error('Update password error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     }
   };
 
-  const updateProfile = async (name, email) => {
+  const updateProfile = async (name: string, email?: string): Promise<AuthResult> => {
     try {
       const updatedUser = await authService.updateProfile(name, email);
       setUser(updatedUser);
       return { success: true, user: updatedUser };
     } catch (error) {
       console.error('Update profile error:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: (error as Error).message };
     }
   };
 
-  const value = {
+  const value: AuthContextType = {
     // State
     user,
     loading,
     initialized,
-    isAuthenticated: !!user,
     
     // Actions
     login,

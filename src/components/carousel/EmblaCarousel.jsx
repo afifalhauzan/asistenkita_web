@@ -7,7 +7,7 @@ import {
 import { TestimonialCard } from '../TestimonialCard'
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
-import { testimonialsData } from '/src/app/data/testimonialsData'
+import { testimonialsData } from '/src/components/data/testimonialsData'
 import '/src/app/embla.css'
 
 

@@ -6,10 +6,10 @@ import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
 
 export default function LoginPage() {
   return (
-    <ProtectedRoute requireAuth={false}>
+    // <ProtectedRoute>
       <div className="min-h-screen w-full">
             <LoginForm />
       </div>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 }

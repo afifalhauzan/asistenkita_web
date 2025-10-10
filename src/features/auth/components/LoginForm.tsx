@@ -6,10 +6,19 @@ import { useAuthActions } from '../hooks/useAuthActions';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LogoFull } from '../../../components/LogoFull';
+import type { LoginFormData, User } from '@/types/auth';
 
-export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+interface LoginFormProps {
+  onSuccess?: (user: User) => void;
+  redirectTo?: string;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ 
+  onSuccess, 
+  redirectTo = '/dashboard' 
+}) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { login } = useAuthActions();
   const router = useRouter();
@@ -21,7 +30,7 @@ export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
     setError,
     clearErrors,
     watch
-  } = useForm({
+  } = useForm<LoginFormData & { agreeToTerms: boolean }>({
     defaultValues: {
       email: '',
       password: '',
@@ -47,7 +56,7 @@ export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
     }
   }, [email, password, clearErrors]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: LoginFormData & { agreeToTerms: boolean }) => {
     setIsLoading(true);
     clearErrors();
 
@@ -56,7 +65,7 @@ export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
       const result = await login(data.email, data.password);
       console.log('LoginForm: Login result:', result);
 
-      if (result.success) {
+      if (result.success && result.user) {
         if (onSuccess) {
           onSuccess(result.user);
         } else {
@@ -72,7 +81,6 @@ export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
       });
       // FIX: Set loading to false here, in the same logic block as setError
       setIsLoading(false);
-
 
     } catch (err) {
       console.log('LoginForm: Caught exception:', err);
@@ -151,7 +159,6 @@ export const LoginForm = ({ onSuccess, redirectTo = '/dashboard' }) => {
               </div>
             </div>
           )}
-
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 transition-transform duration-200">
