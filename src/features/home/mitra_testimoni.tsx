@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import { MitraCard } from "@/components/MitraCard";
@@ -8,8 +9,7 @@ import { mitraData } from "@/components/data/cardData";
 import { testimonialsData } from "@/components/data/testimonialsData";
 import Link from "next/link";
 
-
-export default function MitraTestimoni() {
+const MitraTestimoni: React.FC = () => {
     const { user, isAuthenticated, loading } = useAuth();
 
     return (
@@ -64,4 +64,6 @@ export default function MitraTestimoni() {
 
         </div>
     );
-}
+};
+
+export default MitraTestimoni;

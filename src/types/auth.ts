@@ -1,5 +1,3 @@
-// Core auth types for the application
-
 export interface User {
   $id: string;
   email: string;
@@ -39,6 +37,7 @@ export interface AuthContextType {
   user: User | null;
   loading: boolean;
   initialized: boolean;
+  isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<AuthResult>;
   signup: (email: string, password: string, name: string) => Promise<AuthResult>;
   logout: () => Promise<AuthResult>;

@@ -1,10 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../hooks/useAuth';
 
-export const ProtectedRoute = ({ 
+interface ProtectedRouteProps {
+  children: ReactNode;      // Proper React children typing
+  redirectTo?: string;      // Optional string for redirect URL
+  fallback?: ReactNode;     // Optional React component for loading state
+  requireAuth?: boolean;    // Optional boolean for auth requirement
+}
+
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   children, 
   redirectTo = '/login',
   fallback = null,
@@ -45,5 +52,5 @@ export const ProtectedRoute = ({
     return null;
   }
 
-  return children;
+  return <>{children}</>;
 };

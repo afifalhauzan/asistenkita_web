@@ -5,21 +5,22 @@ import { useAuthActions } from '@/features/auth/hooks/useAuthActions';
 import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
 import { useState } from 'react';
 import Link from 'next/link';
+import type { NextPage } from '@/types/routing';
 
-export default function DashboardPage() {
+const DashboardPage: NextPage = () => {
   return (
     <ProtectedRoute>
       <DashboardContent />
     </ProtectedRoute>
   );
-}
+};
 
-function DashboardContent() {
+function DashboardContent(): React.ReactElement {
   const { user } = useAuth();
   const { logout } = useAuthActions();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
 
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     setIsLoggingOut(true);
     await logout();
     // No need to redirect, the AuthContext will handle this
@@ -85,3 +86,5 @@ function DashboardContent() {
     </div>
   );
 }
+
+export default DashboardPage;

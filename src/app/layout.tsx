@@ -1,12 +1,14 @@
 import "/src/app/app.css";
 import { AuthProvider } from '@/features/auth/context/AuthContext';
+import type { LayoutProps } from '@/types/routing';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Appwrite + Next.js",
   description: "Appwrite starter for Next.js",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <head>

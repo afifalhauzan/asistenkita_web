@@ -3,8 +3,9 @@
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
+import type { NextPage } from '@/types/routing';
 
-export default function Home() {
+const MitraPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
 
     return (
@@ -12,8 +13,11 @@ export default function Home() {
             <Navbar />
 
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <h1> About us anjay</h1>
+                {/* Hero Section */}
+                <h1> Mitra kerja</h1>
             </main>
         </div>
     );
-}
+};
+
+export default MitraPage;

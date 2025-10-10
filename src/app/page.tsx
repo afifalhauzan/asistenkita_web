@@ -6,18 +6,17 @@ import Hero from "@/features/home/hero_trust";
 import Trusted from "@/features/home/trusted";
 import Link from "next/link";
 import MitraTestimoni from "@/features/home/mitra_testimoni";
+import type { NextPage } from '@/types/routing';
 
-export default function Home() {
-  const { user, isAuthenticated, loading } = useAuth();
-
+const Home: NextPage = () => {
   return (
     <div className="bg-gray-50">
       <Navbar />
-
-      {/* <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12"> */}
       <Hero />
       <Trusted />
       <MitraTestimoni />
     </div>
   );
-}
+};
+
+export default Home;

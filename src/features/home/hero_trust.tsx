@@ -1,11 +1,12 @@
 "use client";
 
+import React from 'react';
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
 import Img from "next/image";
 
-export default function AboutUsHero() {
+const AboutUsHero: React.FC = () => {
     const { user, isAuthenticated, loading } = useAuth();
 
     return (
@@ -190,4 +191,6 @@ export default function AboutUsHero() {
 
         </div>
     );
-}
+};
+
+export default AboutUsHero;

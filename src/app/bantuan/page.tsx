@@ -3,8 +3,9 @@
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
+import type { NextPage } from '@/types/routing';
 
-export default function Home() {
+const BantuanPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
 
     return (
@@ -17,4 +18,6 @@ export default function Home() {
             </main>
         </div>
     );
-}
+};
+
+export default BantuanPage;

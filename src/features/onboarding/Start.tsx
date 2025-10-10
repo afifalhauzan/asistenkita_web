@@ -8,11 +8,9 @@ export const Start = () => {
     return (
         <div className="min-h-screen w-full overflow-x-hidden bg-gray-50">
             <div className="relative min-h-screen w-full overflow-hidden">
-                {/* Background blur effects */}
                 <div className="absolute -bottom-30 -left-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>
                 <div className="absolute top-0 -right-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>
 
-                {/* Content */}
                 <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8 mt-6 md:mt-0">
                     {/* Logo */}
                     <div className="scale-120 mb-12 flex items-center justify-center">
@@ -34,7 +32,6 @@ export const Start = () => {
 
                     {/* Cards Container */}
                     <div className="grid md:grid-cols-2 gap-6 w-full max-w-3xl mt-6">
-                        {/* Client Card */}
                         <div className="bg-white rounded-2xl p-6 sm:p-8 box-shadow-default hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
                             <div className="flex flex-col items-start text-left ">
                                 <div>

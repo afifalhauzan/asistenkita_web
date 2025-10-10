@@ -5,35 +5,36 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useAuthActions } from '@/features/auth/hooks/useAuthActions';
 import { useState, useEffect, useRef } from 'react';
-import Img from 'next/image';
+import Image from 'next/image';
 import { LogoFull } from './LogoFull';
+import type { NavbarProps } from '@/types/components';
 
-export const Navbar = () => {
+export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
   const pathname = usePathname();
   const { user, isAuthenticated, loading } = useAuth();
   const { logout } = useAuthActions();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleLogout = async () => {
+  const handleLogout = async (): Promise<void> => {
     setIsLoggingOut(true);
     await logout();
     setIsLoggingOut(false);
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (): void => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = (): void => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
@@ -44,7 +45,7 @@ export const Navbar = () => {
     };
   }, []);
 
-  const isActiveLink = (href) => {
+  const isActiveLink = (href: string): boolean => {
     if (href === '/') {
       return pathname === '/';
     }
@@ -52,7 +53,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/50 backdrop-blur-2xl fixed w-full z-50 top-0">
+    <nav className={`bg-white/50 backdrop-blur-2xl fixed w-full z-50 top-0 ${className}`}>
       <div className="max-w-7xl mx-auto px-6 py-2 sm:px-6 md:px-7 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -102,7 +103,7 @@ export const Navbar = () => {
               href="/aboutus"
               className={`relative transition-colors pb-1 ${isActiveLink('/aboutus')
                 ? 'text-blue-600 font-bold'
-                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link '
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
               Tentang Kami
@@ -135,7 +136,6 @@ export const Navbar = () => {
                   onClick={toggleDropdown}
                   className="flex items-center space-x-3 rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors shadow-sm"
                 >
-
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                     <span className="text-blue-600 text-xs font-medium">
                       {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
@@ -236,63 +236,74 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${isMobileMenuOpen
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+        isMobileMenuOpen
           ? 'max-h-screen opacity-100'
           : 'max-h-0 opacity-0'
-        }`}>
-        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${isMobileMenuOpen
+      }`}>
+        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${
+          isMobileMenuOpen
             ? 'transform translate-y-0'
             : 'transform -translate-y-2'
-          }`}>
+        }`}>
           {/* Navigation Links */}
           <Link
             href="/"
-            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-              } ${isActiveLink('/')
+            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${
+              isActiveLink('/')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+            }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Beranda
           </Link>
           <Link
             href="/bantuan"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-              } ${isActiveLink('/bantuan')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${
+              isActiveLink('/bantuan')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+            }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Cari Bantuan
           </Link>
           <Link
             href="/mitra"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-              } ${isActiveLink('/mitra')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${
+              isActiveLink('/mitra')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+            }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Jadi Mitra Kerja
           </Link>
           <Link
             href="/aboutus"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-              } ${isActiveLink('/aboutus')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${
+              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            } ${
+              isActiveLink('/aboutus')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+            }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Tentang Kami
           </Link>
 
           {/* Auth Section */}
-          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            }`}>
+          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${
+            isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+          }`}>
             {loading ? (
               <div className="flex items-center px-3 py-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>

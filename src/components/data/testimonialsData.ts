@@ -1,4 +1,6 @@
-export const testimonialsData = [
+import type { Testimonial } from '@/types/components';
+
+export const testimonialsData: Testimonial[] = [
   {
     id: 1,
     name: "Rosa Mey",

@@ -1,9 +1,10 @@
 "use client";
 
 import React from 'react';
+import type { TestimonialCardProps } from '@/types/components';
 
-export const TestimonialCard = ({ testimonial }) => {
-  const renderStars = (rating) => {
+export const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
+  const renderStars = (rating: number): React.ReactNode[] => {
     return [...Array(5)].map((_, index) => (
       <svg
         key={index}

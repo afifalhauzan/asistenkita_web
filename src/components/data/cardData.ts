@@ -1,4 +1,6 @@
-export const mitraData = [
+import type { MitraData } from '@/types/components';
+
+export const mitraData: MitraData[] = [
   {
     id: 1,
     name: "Siti Rahmawati",

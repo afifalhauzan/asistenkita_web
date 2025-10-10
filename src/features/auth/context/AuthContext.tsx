@@ -137,6 +137,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     loading,
     initialized,
+    isAuthenticated: !!user,
     
     // Actions
     login,

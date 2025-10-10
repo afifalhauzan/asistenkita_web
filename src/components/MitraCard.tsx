@@ -1,9 +1,10 @@
 "use client";
 
 import React from 'react';
+import type { MitraCardProps } from '@/types/components';
 
-export const MitraCard = ({ data }) => {
-  const renderStars = (rating) => {
+export const MitraCard: React.FC<MitraCardProps> = ({ data }) => {
+  const renderStars = (rating: number): React.ReactNode[] => {
     return [...Array(5)].map((_, index) => (
       <svg
         key={index}

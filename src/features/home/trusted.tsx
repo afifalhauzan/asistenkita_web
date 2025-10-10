@@ -1,18 +1,18 @@
 "use client";
 
+import React, { useRef, useState } from 'react';
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
 import CountUp from 'react-countup';
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
 import Img from "next/image";
 
-export default function Trusted() {
+const Trusted: React.FC = () => {
     const { user, isAuthenticated, loading } = useAuth();
-    const statsRef = useRef(null);
-    const isInView = useInView(statsRef, { once: true, threshold: 0.3 });
-    const [hasAnimated, setHasAnimated] = useState(false);
+    const statsRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(statsRef, { once: true, amount: 0.3 });
+    const [hasAnimated, setHasAnimated] = useState<boolean>(false);
 
     // Trigger animation when in view
     if (isInView && !hasAnimated) {
@@ -172,4 +172,6 @@ export default function Trusted() {
             </main>
         </div>
     );
-}
+};
+
+export default Trusted;
