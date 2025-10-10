@@ -11,13 +11,24 @@ export interface Testimonial {
 }
 
 export interface MitraData {
-  id: number;
+  id: number | string;
   name: string;
   specialization: string;
   rating: number;
+  city: string;
   description: string;
-  image: string;
+  image?: string;
+  avatar?: string;
   isVerified: boolean;
+  reviewCount?: number;
+  experience?: number;
+  priceRange?: {
+    min: number;
+    max: number;
+    currency: string;
+    unit?: string;
+  };
+  isAvailable?: boolean;
 }
 
 // Component Props Interfaces

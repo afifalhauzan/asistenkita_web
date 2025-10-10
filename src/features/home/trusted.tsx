@@ -14,15 +14,12 @@ const Trusted: React.FC = () => {
     const isInView = useInView(statsRef, { once: true, amount: 0.3 });
     const [hasAnimated, setHasAnimated] = useState<boolean>(false);
 
-    // Trigger animation when in view
     if (isInView && !hasAnimated) {
         setHasAnimated(true);
     }
 
     return (
         <div className="min-h-screen">
-            <Navbar />
-
             <main className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-16">
                 <div className="flex flex-col md:flex-row gap-5 md:gap-12 lg:gap-8 xl:gap-20 items-center justify-start">
                     <div className="flex-1 w-full relative">
