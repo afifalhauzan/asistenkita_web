@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useAuthActions } from '@/features/auth/hooks/useAuthActions';
 import { useState, useEffect, useRef } from 'react';
+import Img from 'next/image';
+import { LogoFull } from './LogoFull';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -50,17 +52,12 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/30 backdrop-blur-2xl fixed w-full z-50 top-0">
-      <div className="max-w-7xl mx-auto px-6 py-2 sm:px-6 lg:px-12">
+    <nav className="bg-white/50 backdrop-blur-2xl fixed w-full z-50 top-0">
+      <div className="max-w-7xl mx-auto px-6 py-2 sm:px-6 md:px-7 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
-                <span className="text-gray-600 font-bold text-sm">AK</span>
-              </div>
-              <div className="hidden sm:block">
-                <span className="text-xl font-bold text-blue-600">AsistenKita</span>
-              </div>
+            <Link href="/" className="">
+              <LogoFull />
             </Link>
           </div>
 
@@ -216,18 +213,18 @@ export const Navbar = () => {
             >
               <svg className="h-6 w-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
                     d="M6 18L18 6M6 6l12 12"
                     className="animate-in duration-200"
                   />
                 ) : (
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
                     d="M4 6h16M4 12h16M4 18h16"
                     className="animate-in duration-200"
                   />
@@ -239,70 +236,63 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
-        isMobileMenuOpen 
-          ? 'max-h-screen opacity-100' 
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${isMobileMenuOpen
+          ? 'max-h-screen opacity-100'
           : 'max-h-0 opacity-0'
-      }`}>
-        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${
-          isMobileMenuOpen 
-            ? 'transform translate-y-0' 
-            : 'transform -translate-y-2'
         }`}>
+        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${isMobileMenuOpen
+            ? 'transform translate-y-0'
+            : 'transform -translate-y-2'
+          }`}>
           {/* Navigation Links */}
           <Link
             href="/"
-            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${isActiveLink('/')
-              ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/')
+                ? 'text-blue-600 bg-blue-50'
+                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Beranda
           </Link>
           <Link
             href="/bantuan"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${isActiveLink('/bantuan')
-              ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/bantuan')
+                ? 'text-blue-600 bg-blue-50'
+                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Cari Bantuan
           </Link>
           <Link
             href="/mitra"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${isActiveLink('/mitra')
-              ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/mitra')
+                ? 'text-blue-600 bg-blue-50'
+                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Jadi Mitra Kerja
           </Link>
           <Link
             href="/aboutus"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${isActiveLink('/aboutus')
-              ? 'text-blue-600 bg-blue-50'
-              : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/aboutus')
+                ? 'text-blue-600 bg-blue-50'
+                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Tentang Kami
           </Link>
 
           {/* Auth Section */}
-          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${
-            isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-          }`}>
+          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            }`}>
             {loading ? (
               <div className="flex items-center px-3 py-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>

@@ -3,10 +3,21 @@
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
+import CountUp from 'react-countup';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
 import Img from "next/image";
 
 export default function Trusted() {
     const { user, isAuthenticated, loading } = useAuth();
+    const statsRef = useRef(null);
+    const isInView = useInView(statsRef, { once: true, threshold: 0.3 });
+    const [hasAnimated, setHasAnimated] = useState(false);
+
+    // Trigger animation when in view
+    if (isInView && !hasAnimated) {
+        setHasAnimated(true);
+    }
 
     return (
         <div className="min-h-screen">
@@ -56,46 +67,106 @@ export default function Trusted() {
                         </div>
 
                         {/* Statistics Grid */}
-                        <div className="grid grid-cols-2 gap-4 md:gap-8">
-                            <div className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6">
+                        <motion.div 
+                            ref={statsRef}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="grid grid-cols-2 gap-4 md:gap-8"
+                        >
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.6, delay: 0.1 }}
+                                className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6"
+                            >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
-                                    1000+
+                                    {hasAnimated && (
+                                        <CountUp 
+                                            start={0}
+                                            end={1000} 
+                                            duration={3} 
+                                            separator="," 
+                                            suffix="+"
+                                        />
+                                    )}
+                                    {!hasAnimated && "0+"}
                                 </div>
                                 <div className="text-gray-500 font-medium">
                                     Asisten Terverifikasi
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* 500+ Keluarga Terdaftar */}
-                            <div className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6">
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6"
+                            >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
-                                    500+
+                                    {hasAnimated && (
+                                        <CountUp 
+                                            start={0}
+                                            end={500} 
+                                            duration={3} 
+                                            separator="," 
+                                            suffix="+"
+                                        />
+                                    )}
+                                    {!hasAnimated && "0+"}
                                 </div>
                                 <div className="text-gray-500 font-medium">
                                     Keluarga Terdaftar
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* 98% Tingkat Kepuasan */}
-                            <div className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6">
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6"
+                            >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
-                                    98%
+                                    {hasAnimated && (
+                                        <CountUp 
+                                            start={0}
+                                            end={98} 
+                                            duration={3} 
+                                            suffix="%"
+                                        />
+                                    )}
+                                    {!hasAnimated && "0%"}
                                 </div>
                                 <div className="text-gray-500 font-medium">
                                     Tingkat Kepuasan
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* 24/7 Dukungan */}
-                            <div className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6">
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                                className="text-center space-y-2 border-2 border-gray-200 rounded-4xl py-6"
+                            >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
-                                    24/7
+                                    {hasAnimated && (
+                                        <CountUp 
+                                            start={0}
+                                            end={24} 
+                                            duration={3} 
+                                            suffix="/7"
+                                        />
+                                    )}
+                                    {!hasAnimated && "0/7"}
                                 </div>
                                 <div className="text-gray-500 font-medium">
                                     Dukungan
                                 </div>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             </main>

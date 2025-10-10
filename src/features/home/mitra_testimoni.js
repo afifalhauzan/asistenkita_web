@@ -4,8 +4,8 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import { MitraCard } from "@/components/MitraCard";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
-import { mitraData } from "@/app/data/cardData";
-import { testimonialsData } from "@/app/data/testimonialsData";
+import { mitraData } from "@/components/data/cardData";
+import { testimonialsData } from "@/components/data/testimonialsData";
 import Link from "next/link";
 
 
@@ -18,7 +18,7 @@ export default function MitraTestimoni() {
 
             {/* Trust Section */}
             <section className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-16 relative z-10 ">
-                <div className="text-left mb-10">
+                <div className="text-left mb-2">
                     <h3 className="text-2xl font-semibold text-blue-600 mb-2 tracking-wider">ART & Nanny</h3>
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                         Temukan Asisten Rumah Tangga & Nanny
@@ -28,9 +28,9 @@ export default function MitraTestimoni() {
                 <div className="flex flex-col justify-center items-center">
                     <div>
                         {/* Mitra Cards Grid */}
-                        <div className="flex max-w-[1100px] w-screen overflow-x-auto sm:overflow-hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 md:gap-1 mb-8 pb-4 py-4 px-4 scrollbar-hide">
+                        <div className="flex max-w-[1100px] w-screen overflow-x-auto sm:overflow-hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 md:gap-1 mb-8 pb-0 py-4 px-4 scrollbar-hide">
                             {mitraData.slice(0, 4).map((mitra) => (
-                                <div className="flex-shrink-0 sm:w-auto" key={mitra.id}>
+                                <div className="flex-shrink-0 sm:w-auto py-8" key={mitra.id}>
                                     <MitraCard data={mitra} />
                                 </div>
                             ))}

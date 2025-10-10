@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons
+    PrevButton,
+    NextButton,
+    usePrevNextButtons
 } from './EmblaCarouselArrowButtons'
 import { TestimonialCard } from '../TestimonialCard'
 import Autoplay from 'embla-carousel-autoplay'
@@ -58,38 +58,39 @@ const EmblaCarousel = (props) => {
                         // Check if this slide is the center one
                         const isCenterSlide = index === selectedIndex
                         return (
-                            //   <div 
-                            //     className={`embla__slide transition-scale duration-300 ${
-                            //       isCenterSlide ? 'scale-100 z-10' : 'scale-80'
-                            //     }`} 
-                            //     key={testimonial.id}
-                            //   >
                             <div
-                                className={`embla__slide `}
+                                className={`embla__slide transition-scale duration-300 ${isCenterSlide ? 'scale-100 z-10' : 'scale-80'
+                                    }`}
                                 key={testimonial.id}
                             >
                                 <TestimonialCard testimonial={testimonial} />
                             </div>
+                            // <div
+                            //     className={`embla__slide `}
+                            //     key={testimonial.id}
+                            // >
+                            //     <TestimonialCard testimonial={testimonial} />
+                            // </div>
                         )
                     })}
-        </div>
-      </div>
+                </div>
+            </div>
 
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton 
-            onClick={onPrevButtonClick} 
-            disabled={prevBtnDisabled}
+            <div className="embla__controls">
+                <div className="embla__buttons">
+                    <PrevButton
+                        onClick={onPrevButtonClick}
+                        disabled={prevBtnDisabled}
 
-          />
-          <NextButton 
-            onClick={onNextButtonClick} 
-            disabled={nextBtnDisabled}
+                    />
+                    <NextButton
+                        onClick={onNextButtonClick}
+                        disabled={nextBtnDisabled}
 
-          />
-        </div>
-      </div>
-    </section>
+                    />
+                </div>
+            </div>
+        </section>
     )
 }
 
