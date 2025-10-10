@@ -26,17 +26,23 @@ const Trusted: React.FC = () => {
             <main className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-16">
                 <div className="flex flex-col md:flex-row gap-5 md:gap-12 lg:gap-8 xl:gap-20 items-center justify-start">
                     <div className="flex-1 w-full relative">
-                        <div className="absolute top-20 md:-top-5">
-                            <Img src="/orang_hero.png" alt="Trusted Person" width="300" height="450" className="w-140 h-80 md:h-120" />
+                        <div className="absolute top-20 md:-top-10">
+                            <Img
+                                src="/orang_hero.png"
+                                alt="Trusted Person"
+                                width="300"
+                                height="450"
+                                className="w-80 sm:w-100 md:w-115 lg:w-140 xl:w-160"
+                            />
                         </div>
                         {/* Decorative Circles */}
                         <div className="absolute top-12 right-12 w-12 h-12 bg-blue-300 rounded-full opacity-60 animate-float"></div>
                         <div className="absolute bottom-30 left-15 w-12 h-12 bg-yellow-300 rounded-full opacity-70 animate-float"></div>
-                    
+
                         {/* Background Circle */}
                         <div className="absolute inset-0 opacity-20 transform scale-110"></div>
 
-                        <div className="flex z-10 rounded-3xl p-8 items-center justify-center">
+                        <div className="flex z-10 rounded-3xl p-0 sm:p-8 py-6 sm:py-0 items-center justify-center">
 
                             <div className="w-full h-96 rounded-2xl flex items-center justify-center relative overflow-hidden">
                                 {/* Floating Elements */}
@@ -49,7 +55,7 @@ const Trusted: React.FC = () => {
                             </div>
                         </div>
 
-                        </div>
+                    </div>
 
                     {/* Right Side - Content */}
                     <div className="flex-1 space-y-10 md:max-w-2/5">
@@ -67,14 +73,14 @@ const Trusted: React.FC = () => {
                         </div>
 
                         {/* Statistics Grid */}
-                        <motion.div 
+                        <motion.div
                             ref={statsRef}
                             initial={{ opacity: 0, y: 50 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
                             className="grid grid-cols-2 gap-4 md:gap-8"
                         >
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -82,11 +88,11 @@ const Trusted: React.FC = () => {
                             >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
                                     {hasAnimated && (
-                                        <CountUp 
+                                        <CountUp
                                             start={0}
-                                            end={1000} 
-                                            duration={3} 
-                                            separator="," 
+                                            end={1000}
+                                            duration={3}
+                                            separator=","
                                             suffix="+"
                                         />
                                     )}
@@ -98,7 +104,7 @@ const Trusted: React.FC = () => {
                             </motion.div>
 
                             {/* 500+ Keluarga Terdaftar */}
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -106,11 +112,11 @@ const Trusted: React.FC = () => {
                             >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
                                     {hasAnimated && (
-                                        <CountUp 
+                                        <CountUp
                                             start={0}
-                                            end={500} 
-                                            duration={3} 
-                                            separator="," 
+                                            end={500}
+                                            duration={3}
+                                            separator=","
                                             suffix="+"
                                         />
                                     )}
@@ -122,7 +128,7 @@ const Trusted: React.FC = () => {
                             </motion.div>
 
                             {/* 98% Tingkat Kepuasan */}
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -130,10 +136,10 @@ const Trusted: React.FC = () => {
                             >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
                                     {hasAnimated && (
-                                        <CountUp 
+                                        <CountUp
                                             start={0}
-                                            end={98} 
-                                            duration={3} 
+                                            end={98}
+                                            duration={3}
                                             suffix="%"
                                         />
                                     )}
@@ -145,7 +151,7 @@ const Trusted: React.FC = () => {
                             </motion.div>
 
                             {/* 24/7 Dukungan */}
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -153,10 +159,10 @@ const Trusted: React.FC = () => {
                             >
                                 <div className="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600">
                                     {hasAnimated && (
-                                        <CountUp 
+                                        <CountUp
                                             start={0}
-                                            end={24} 
-                                            duration={3} 
+                                            end={24}
+                                            duration={3}
                                             suffix="/7"
                                         />
                                     )}

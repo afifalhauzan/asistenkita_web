@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                 : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
-              Cari Bantuan
+              Pasang Lowongan
               {isActiveLink('/bantuan') && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
               )}
@@ -155,8 +155,8 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10">
-                    <div className="px-4 py-3 border-b border-gray-100">
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg py-2 z-10">
+                    <div className="px-4 py-3">
                       <div className="flex flex-col">
                         <p className="text-sm font-medium text-gray-900">
                           {user?.name || 'User'}
@@ -271,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
             }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Cari Bantuan
+            Pasang Lowongan
           </Link>
           <Link
             href="/mitra"

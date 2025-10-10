@@ -49,10 +49,10 @@ const AboutUsHero: React.FC = () => {
 
                     {/* Right Content - Image Grid */}
                     <div className="relative max-h-xl">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="sm:grid grid-cols-2 gap-4">
                             {/* Top Left - Child with fork */}
-                            <div className="flex items-center justify-center">
-                                <div className="bg-white  rotate-3 hover:rotate-6 transition-all duration-300">
+                            <div className="flex items-center justify-center rounded-2xl">
+                                <div className="mr-30 sm:mr-0 rotate-3 hover:rotate-6 transition-all duration-300">
                                     <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-45 rounded-2xl" />
                                     <div className="absolute top-40 -left-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">🏠</span>
@@ -60,8 +60,8 @@ const AboutUsHero: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-center">
-                                <div className="h-full bg-white -rotate-2 hover:-rotate-4 transition-all duration-300">
+                            <div className="hidden sm:flex items-center justify-center">
+                                <div className="h-full -rotate-2 hover:-rotate-4 transition-all duration-300">
                                     <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-55 rounded-2xl" />
                                     <div className="absolute top-0 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">👨‍👩‍👧</span>
@@ -70,8 +70,8 @@ const AboutUsHero: React.FC = () => {
                             </div>
 
 
-                            <div className="flex items-center justify-center">
-                                <div className="h-full bg-white  -rotate-4 hover:-rotate-2 transition-all duration-300">
+                            <div className="hidden sm:flex items-center justify-center">
+                                <div className="h-full  -rotate-4 hover:-rotate-2 transition-all duration-300">
                                     <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-55 rounded-2xl" />
                                     <div className="absolute top-10 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">💑</span>
@@ -79,8 +79,8 @@ const AboutUsHero: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-center">
-                                <div className="bg-white  rotate-2 hover:rotate-5 transition-all duration-300">
+                            <div className="flex items-center justify-center rounded-2xl">
+                                <div className=" ml-30 sm:mr-0 rotate-2 hover:rotate-5 transition-all duration-300">
                                     <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-50 rounded-2xl" />
                                     <div className="absolute top-40 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">💑</span>

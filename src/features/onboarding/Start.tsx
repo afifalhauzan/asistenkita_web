@@ -35,14 +35,7 @@ export const Start = () => {
                         <div className="bg-white rounded-2xl p-6 sm:p-8 box-shadow-default hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
                             <div className="flex flex-col items-start text-left ">
                                 <div>
-                                    <div className="bg-gradient-to-br from-teal-400 to-teal-600 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                                        <div className="bg-white rounded-xl w-12 h-12 flex items-center justify-center">
-                                            <svg className="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                            </svg>
-                                            
-                                        </div>
-                                    </div>
+                                    <Img src="/photo_onboarding.png" alt="Needs Service Icon" width="100" height="80" className="mx-auto mb-6" />
                                 </div>
 
                                 <h3 className="text-xl font-semibold text-gray-600 mb-1">
@@ -65,14 +58,7 @@ export const Start = () => {
                             <div className="flex flex-col items-start text-left">
                                 {/* Icon */}
                                 <div>
-                                    <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-                                        <div className="bg-white rounded-xl w-12 h-12 flex items-center justify-center relative">
-                                            <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                            
-                                        </div>
-                                    </div>
+                                    <Img src="/notes_onboarding.png" alt="Needs Service Icon" width="100" height="80" className="mx-auto mb-6" />
                                 </div>
 
                                 <h3 className="text-xl font-bold text-gray-600 mb-1">
