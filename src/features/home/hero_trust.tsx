@@ -123,9 +123,7 @@ const AboutUsHero: React.FC = () => {
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                                </svg>
+                                <Img className="w-10 h-10 text-blue-600" src="/trusted_icon.svg" alt="Verifikasi Icon" width={32} height={32} />
                             </div>
 
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
@@ -144,9 +142,7 @@ const AboutUsHero: React.FC = () => {
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
-                                </svg>
+                                <Img className="w-10 h-10 text-blue-600" src="/document_icon.svg" alt="Verifikasi Icon" width={32} height={32} />
                             </div>
 
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
@@ -165,9 +161,7 @@ const AboutUsHero: React.FC = () => {
                         <div className="text-center">
                             {/* Icon */}
                             <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M16,4C18.11,4 20.11,4.89 21.39,6.39C22.67,7.89 23,9.67 23,12C23,14.33 22.67,16.11 21.39,17.61C20.11,19.11 18.11,20 16,20H7C4.24,20 2,17.76 2,15C2,12.36 4.24,10.22 7,10.22C7,6.27 10.13,3 14,3C14.65,3 15.25,3.11 15.84,3.28C16.2,3.11 16.59,3 17,3C18.1,3 19,3.9 19,5C19,5.34 18.91,5.67 18.74,5.95C17.86,4.75 16.5,4 15,4C13.36,4 12,5.36 12,7C12,8.64 13.36,10 15,10C15.36,10 15.69,9.93 16,9.81C16.65,9.93 17.32,10 18,10C19.1,10 20,10.9 20,12C20,13.1 19.1,14 18,14H16C14.89,14 14,13.1 14,12C14,10.9 14.89,10 16,10C16,8.89 15.1,8 14,8C12.89,8 12,8.89 12,10C12,11.1 12.89,12 14,12H16Z" />
-                                </svg>
+                                <Img className="w-10 h-10 text-blue-600" src="/community_icon.svg" alt="Komunitas Icon" width={32} height={32} />
                             </div>
 
                             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">

@@ -3,6 +3,7 @@ import { AuthProvider } from '@/features/auth/context/AuthContext';
 import { QueryProvider } from '@/providers/QueryProvider';
 import type { LayoutProps } from '@/types/routing';
 import type { Metadata } from 'next';
+import Providers from '@/app/providers';
 
 export const metadata: Metadata = {
   title: "AsistenKita - Platform Jasa ART Terpercaya",
@@ -25,7 +26,8 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className={"bg-[#FAFAFB] font-['Plus_Jakarta_Sans'] text-sm text-[#56565C]"}>
         <QueryProvider>
           <AuthProvider>
-            {children}
+            <Providers>{children}</Providers>
+
           </AuthProvider>
         </QueryProvider>
       </body>
