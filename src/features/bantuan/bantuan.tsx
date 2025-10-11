@@ -3,23 +3,27 @@
 import React from 'react';
 import Img from 'next/image';
 import Link from 'next/link';
-import { LogoFull } from '../../components/LogoFull';
+
 import { Hero } from './hero';
 import { MitraBantuanCard } from './components/MitraBantuanCard';
 import { useARTSearch } from './hooks/useARTs';
 
 export const Bantuan = () => {
     const {
-        data: arts,
-        loading,
-        pagination,
-        search,
-        searchActions,
-        actions
+        data,    
+        isLoading,         
+        isError,         
+        error,            
+        fetchNextPage,          
+        refetch,           
+        search,            
+        searchActions,     
     } = useARTSearch();
 
+    const arts = data?.arts ?? [];
+    const pagination = data?.pagination ?? null;
+
     const handleSearch = () => {
-        // Search is automatically triggered by the hook when filters change
         console.log('Search triggered');
     };
 
@@ -36,13 +40,15 @@ export const Bantuan = () => {
                 if (value === '') {
                     searchActions.updateFilters({ location: undefined });
                 } else {
-                    searchActions.updateFilters({ 
-                        location: { cities: [value] } 
+                    searchActions.updateFilters({
+                        location: { cities: [value] }
                     });
                 }
                 break;
         }
     };
+
+
     return (
         <div className="min-h-screen w-full overflow-x-hidden bg-gray-50">
             <div className="relative md:flex flex-col  items-center justify-start sm:justify-center min-h-screen overflow-hidden">
@@ -52,11 +58,10 @@ export const Bantuan = () => {
 
                 <Hero />
 
-                {/* Filter Section */}
                 <div className="relative z-10 max-w-7xl mx-auto px-6 py-8 w-full">
                     <div className="bg-gray-50 rounded-2xl p-6 box-shadow-default border border-gray-100 mb-8">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6">Cari dan Filter</h2>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             {/* Search Input */}
                             <div className="relative">
@@ -76,7 +81,7 @@ export const Bantuan = () => {
 
                             {/* Skills Filter */}
                             <div className="relative">
-                                <select 
+                                <select
                                     onChange={(e) => handleFilterChange('specialization', e.target.value)}
                                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 appearance-none bg-white"
                                 >
@@ -96,7 +101,7 @@ export const Bantuan = () => {
 
                             {/* Location Filter */}
                             <div className="relative">
-                                <select 
+                                <select
                                     onChange={(e) => handleFilterChange('location', e.target.value)}
                                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 appearance-none bg-white"
                                 >
@@ -115,12 +120,12 @@ export const Bantuan = () => {
                             </div>
 
                             {/* Search Button */}
-                            <button 
+                            <button
                                 onClick={handleSearch}
-                                disabled={loading.isLoading}
+                                disabled={isLoading}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 disabled:bg-blue-400"
                             >
-                                {loading.isLoading ? 'Mencari...' : 'Cari'}
+                                {isLoading ? 'Mencari...' : 'Cari'}
                             </button>
                         </div>
 
@@ -138,7 +143,7 @@ export const Bantuan = () => {
                     </div>
 
                     {/* Loading State */}
-                    {loading.isLoading && (
+                    {isLoading && (
                         <div className="text-center py-8">
                             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                             <p className="mt-2 text-gray-600">Memuat data...</p>
@@ -146,14 +151,31 @@ export const Bantuan = () => {
                     )}
 
                     {/* Error State */}
-                    {loading.isError && (
-                        <div className="text-center py-8">
-                            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                                <p className="text-red-800">
-                                    {loading.error?.message || 'Terjadi kesalahan saat memuat data'}
+                    {isError && (
+                        <div className="flex flex-col items-center text-center py-2 p-2">
+                            <div className="text-center py-6">
+                                <div className="text-gray-400 text-6xl mb-4">🔍</div>
+                                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                    Tidak ada hasil ditemukan
+                                </h3>
+                                <p className="text-gray-600 mb-4">
+                                    Coba ubah filter pencarian atau kata kunci Anda
                                 </p>
+                                <div className="w-80 items-center bg-red-50 border border-red-100 rounded-lg mb-4">
+                                    <p className="text-red-800">
+                                        {isError ? error.message : 'Terjadi kesalahan saat memuat data'}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-center space-y-2">
                                 <button
-                                    onClick={() => actions.refresh()}
+                                    onClick={searchActions.clearFilters}
+                                    className="text-blue-600 hover:text-blue-700 font-medium"
+                                >
+                                    Hapus semua filter
+                                </button>
+                                <button
+                                    onClick={() => refetch()}
                                     className="mt-2 text-red-600 hover:text-red-700 font-medium"
                                 >
                                     Coba lagi
@@ -163,7 +185,7 @@ export const Bantuan = () => {
                     )}
 
                     {/* Cards Grid */}
-                    {!loading.isLoading && !loading.isError && (
+                    {!isLoading && !isError && (
                         <>
                             {arts.length > 0 ? (
                                 <>
@@ -185,7 +207,7 @@ export const Bantuan = () => {
                                                 priceRange: art.priceRange,
                                                 isAvailable: art.availability.isAvailable,
                                             };
-                                            
+
                                             return (
                                                 <MitraBantuanCard key={art.$id} data={cardData} />
                                             );
@@ -195,12 +217,12 @@ export const Bantuan = () => {
                                     {/* Load More Button */}
                                     {pagination?.hasNextPage && (
                                         <div className="text-center">
-                                            <button 
-                                                onClick={actions.loadMore}
-                                                disabled={loading.isLoading}
-                                                className="bg-white hover:bg-gray-50 text-blue-600 font-medium py-3 px-8 rounded-lg border-2 border-blue-600 transition-all duration-300 hover:shadow-md disabled:bg-gray-100"
-                                            >
-                                                {loading.isLoading ? 'Memuat...' : 'Lihat lebih banyak'}
+                                            <button
+                                                onClick={() => fetchNextPage()}
+                                                disabled={isLoading}
+                                                className="bg-white hover:bg-gray-50 text-blue-600 font-medium py-3 px-8 rounded-lg border-2 border-blue-600 transition-all duration-300 hover:shadow-md disabled:bg-gray-100">
+
+                                                {isLoading ? 'Memuat...' : 'Lihat lebih banyak'}
                                             </button>
                                         </div>
                                     )}
@@ -208,7 +230,7 @@ export const Bantuan = () => {
                                     {/* Results Info */}
                                     {pagination && (
                                         <div className="text-center mt-4 text-gray-600 text-sm">
-                                            Menampilkan {arts.length} dari {pagination.total} hasil
+                                            Halaman {pagination.page} dari {pagination.totalPages} - Total {pagination.total} hasil
                                         </div>
                                     )}
                                 </>

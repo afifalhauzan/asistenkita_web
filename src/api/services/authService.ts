@@ -1,18 +1,8 @@
-/**
- * Auth Service
- * Authentication API service using the core API client
- */
-
 import { account } from '@/lib/appwrite';
 import { ID } from 'appwrite';
-import { apiClient } from '../core';
 import type { User, AppwriteError } from '@/types/auth';
-import type { ApiResponse } from '@/types/api';
 
 class AuthService {
-  /**
-   * Get current authenticated user
-   */
   async getCurrentUser(): Promise<User | null> {
     try {
       return await account.get() as User;
@@ -21,9 +11,6 @@ class AuthService {
     }
   }
 
-  /**
-   * Login user with email and password
-   */
   async login(email: string, password: string): Promise<User> {
     try {
       // Input validation
@@ -56,9 +43,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Register new user
-   */
+
   async signup(email: string, password: string, name: string): Promise<User> {
     try {
       // Input validation
@@ -94,9 +79,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Logout current session
-   */
+
   async logout(): Promise<void> {
     try {
       await account.deleteSession('current');
@@ -118,9 +101,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Send password reset email
-   */
+
   async sendPasswordResetEmail(email: string): Promise<void> {
     try {
       if (!email || !email.trim()) {
@@ -142,9 +123,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Update user password
-   */
+
   async updatePassword(newPassword: string, oldPassword: string): Promise<void> {
     try {
       if (!newPassword || !newPassword.trim()) {
@@ -166,9 +145,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Update user profile
-   */
+
   async updateProfile(name: string, email?: string): Promise<User> {
     try {
       if (!name || !name.trim()) {
@@ -201,9 +178,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Verify email with token
-   */
+
   async verifyEmail(userId: string, secret: string): Promise<void> {
     try {
       await account.updateVerification(userId, secret);
@@ -213,9 +188,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Send email verification
-   */
+
   async sendEmailVerification(): Promise<void> {
     try {
       await account.createVerification(`${window.location.origin}/verify-email`);
@@ -225,9 +198,7 @@ class AuthService {
     }
   }
 
-  /**
-   * Check if user is authenticated
-   */
+
   async isAuthenticated(): Promise<boolean> {
     try {
       const user = await this.getCurrentUser();
@@ -237,9 +208,6 @@ class AuthService {
     }
   }
 
-  /**
-   * Get user session info
-   */
   async getSession(): Promise<any> {
     try {
       return await account.getSession('current');
@@ -271,8 +239,6 @@ class AuthService {
           return 'Terlalu banyak percobaan. Tunggu beberapa menit dan coba lagi.';
         case 500:
           return 'Server sedang bermasalah. Coba lagi dalam beberapa saat.';
-        case 503:
-          return 'Layanan sedang tidak tersedia. Coba lagi nanti.';
         default:
           break;
       }
@@ -289,22 +255,12 @@ class AuthService {
           return 'Pengguna tidak ditemukan.';
         case 'user_session_not_found':
           return 'Sesi tidak ditemukan. Silakan login kembali.';
-        case 'user_password_mismatch':
-          return 'Password saat ini salah.';
-        case 'user_email_not_whitelisted':
-          return 'Email ini tidak diizinkan untuk mendaftar.';
         case 'user_invalid_token':
           return 'Token tidak valid atau sudah kedaluwarsa.';
-        case 'user_blocked':
-          return 'Akun Anda telah diblokir. Hubungi admin.';
         case 'rate_limit_exceeded':
           return 'Terlalu banyak percobaan. Tunggu sebentar dan coba lagi.';
-        case 'user_email_already_exists':
-          return 'Email sudah terdaftar. Gunakan email lain atau login.';
         case 'password_recently_used':
           return 'Password baru tidak boleh sama dengan password sebelumnya.';
-        case 'user_phone_already_exists':
-          return 'Nomor telepon sudah terdaftar.';
         default:
           break;
       }
@@ -330,10 +286,6 @@ class AuthService {
       
       if (message.includes('already exists')) {
         return 'Email sudah terdaftar. Gunakan email lain atau login.';
-      }
-      
-      if (message.includes('password') && message.includes('weak')) {
-        return 'Password terlalu lemah. Gunakan kombinasi huruf, angka, dan simbol.';
       }
       
       // Return original message if no translation available

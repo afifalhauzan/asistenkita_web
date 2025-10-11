@@ -7,11 +7,8 @@ import Link from "next/link";
 import Img from "next/image";
 
 const AboutUsHero: React.FC = () => {
-    const { user, isAuthenticated, loading } = useAuth();
-
     return (
         <div className="min-h-screen bg-gray-50 relative overflow-hidden">
-            {/* <div className="absolute top-20 right-50 w-8 h-8 bg-orange-300 rounded-full opacity-70"></div> */}
 
             <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-30 md:pt-20">
                 <div className="grid lg:grid-cols-2 gap-16 sm:gap-12 items-center min-h-[80vh]">

@@ -1,16 +1,9 @@
-/**
- * API Configuration
- * Central configuration for all API endpoints and constants
- */
-
-// Appwrite Configuration
 export const APPWRITE_CONFIG = {
   endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string,
   projectId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
   apiKey: process.env.NEXT_PUBLIC_APPWRITE_API_KEY as string,
 } as const;
 
-// Database Configuration
 export const DATABASE_CONFIG = {
   databaseId: process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID as string,
   collections: {
@@ -22,9 +15,7 @@ export const DATABASE_CONFIG = {
   },
 } as const;
 
-// API Endpoints
 export const API_ENDPOINTS = {
-  // ART endpoints
   arts: {
     list: '/arts',
     create: '/arts',
@@ -34,7 +25,7 @@ export const API_ENDPOINTS = {
     search: '/arts/search',
     filter: '/arts/filter',
   },
-  // Auth endpoints
+
   auth: {
     login: '/auth/login',
     signup: '/auth/signup',
@@ -42,13 +33,13 @@ export const API_ENDPOINTS = {
     profile: '/auth/profile',
     refresh: '/auth/refresh',
   },
-  // User endpoints
+
   users: {
     profile: (id: string) => `/users/${id}`,
     update: (id: string) => `/users/${id}`,
     preferences: (id: string) => `/users/${id}/preferences`,
   },
-  // Review endpoints
+ 
   reviews: {
     list: (artId: string) => `/arts/${artId}/reviews`,
     create: (artId: string) => `/arts/${artId}/reviews`,
@@ -57,25 +48,22 @@ export const API_ENDPOINTS = {
   },
 } as const;
 
-// Request Configuration
 export const REQUEST_CONFIG = {
-  timeout: 30000, // 30 seconds
+  timeout: 30000,
   retries: 3,
-  retryDelay: 1000, // 1 second
+  retryDelay: 1000,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 } as const;
 
-// Pagination Configuration
 export const PAGINATION_CONFIG = {
   defaultLimit: 12,
   maxLimit: 100,
   defaultOffset: 0,
 } as const;
 
-// Error Messages
 export const ERROR_MESSAGES = {
   network: 'Koneksi jaringan bermasalah. Silakan coba lagi.',
   timeout: 'Permintaan timeout. Silakan coba lagi.',
@@ -87,7 +75,6 @@ export const ERROR_MESSAGES = {
   unknown: 'Terjadi kesalahan yang tidak diketahui.',
 } as const;
 
-// Status Codes
 export const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
@@ -100,7 +87,3 @@ export const HTTP_STATUS = {
   INTERNAL_SERVER_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
 } as const;
-
-// Environment check
-export const isProduction = process.env.NODE_ENV === 'production';
-export const isDevelopment = process.env.NODE_ENV === 'development';

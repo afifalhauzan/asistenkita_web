@@ -1,5 +1,6 @@
 import "/src/app/app.css";
 import { AuthProvider } from '@/features/auth/context/AuthContext';
+import { QueryProvider } from '@/providers/QueryProvider';
 import type { LayoutProps } from '@/types/routing';
 import type { Metadata } from 'next';
 
@@ -22,9 +23,11 @@ export default function RootLayout({ children }: LayoutProps) {
         <link rel="icon" type="image/svg+xml" href="/appwrite.svg" />
       </head>
       <body className={"bg-[#FAFAFB] font-['Plus_Jakarta_Sans'] text-sm text-[#56565C]"}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

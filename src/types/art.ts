@@ -1,8 +1,3 @@
-/**
- * ART (Asisten Rumah Tangga) Types
- * Specific interfaces for ART profiles, services, and operations
- */
-
 import type { 
   BaseEntity, 
   EntityStatus, 
@@ -16,39 +11,16 @@ import type {
   SearchParams 
 } from './api';
 
-// ART Specializations
-export type ARTSpecialization = 
-  | 'pengasuh-anak' 
-  | 'nanny' 
-  | 'art-umum' 
-  | 'perawat-lansia' 
-  | 'tukang-kebun' 
-  | 'supir' 
-  | 'satpam' 
-  | 'cleaning-service';
+export type ARTSpecialization = any;
 
-// ART Skills
-export type ARTSkill = 
-  | 'memasak' 
-  | 'menyetrika' 
-  | 'membersihkan' 
-  | 'merawat-bayi' 
-  | 'merawat-anak' 
-  | 'merawat-lansia' 
-  | 'berkebun' 
-  | 'menyupir' 
-  | 'pijat' 
-  | 'first-aid';
+export type ARTSkill = any;
 
-// Work Type
-export type WorkType = 'live-in' | 'live-out' | 'part-time' | 'contract';
+export type WorkType = any;
 
-// Experience Level
-export type ExperienceLevel = 'beginner' | 'intermediate' | 'experienced' | 'expert';
+export type ExperienceLevel = any;
 
 // ART Profile Interface
 export interface ARTProfile extends BaseEntity {
-  // Personal Information
   name: string;
   email: string;
   phone: string;
@@ -56,7 +28,6 @@ export interface ARTProfile extends BaseEntity {
   dateOfBirth?: string;
   gender: 'male' | 'female';
   
-  // Professional Information
   specializations: ARTSpecialization[];
   skills: ARTSkill[];
   experience: {
@@ -65,42 +36,33 @@ export interface ARTProfile extends BaseEntity {
     description?: string;
   };
   
-  // Service Details
   workTypes: WorkType[];
   priceRange: PriceRange;
   availability: Availability;
   
-  // Location
   location: LocationData;
   serviceAreas: string[]; // Cities/areas they can serve
   
-  // Profile Details
   bio: string;
   description: string;
   languages: string[];
-  
-  // Status and Verification
+
   status: EntityStatus;
   verification: VerificationStatus;
   
-  // Ratings and Reviews
   rating: RatingData;
   
-  // Contact
   contact: ContactInfo;
   
-  // Additional Info
   certifications?: string[];
   education?: string;
   previousJobs?: PreviousJob[];
   
-  // Metadata
-  profileCompleteness: number; // Percentage
+  profileCompleteness: number;
   lastActive?: string;
   joinedAt: string;
 }
 
-// Previous Job Experience
 export interface PreviousJob {
   id: string;
   employer: string;
@@ -117,7 +79,6 @@ export interface PreviousJob {
   };
 }
 
-// ART Search Filters
 export interface ARTSearchFilters extends SearchParams {
   specializations?: ARTSpecialization[];
   skills?: ARTSkill[];
@@ -132,10 +93,6 @@ export interface ARTSearchFilters extends SearchParams {
   location?: {
     cities?: string[];
     radius?: number; // In kilometers
-    coordinates?: {
-      latitude: number;
-      longitude: number;
-    };
   };
   rating?: {
     min?: number;
@@ -157,7 +114,6 @@ export interface ARTSearchFilters extends SearchParams {
   languages?: string[];
 }
 
-// ART Search Params (for API)
 export interface ARTSearchParams extends PaginationParams {
   q?: string; // Search query
   filters?: ARTSearchFilters;
@@ -167,7 +123,6 @@ export interface ARTSearchParams extends PaginationParams {
   };
 }
 
-// Create ART Profile Data
 export interface CreateARTProfileData {
   name: string;
   email: string;
@@ -190,7 +145,6 @@ export interface CreateARTProfileData {
   gender: 'male' | 'female';
 }
 
-// Update ART Profile Data
 export interface UpdateARTProfileData extends Partial<CreateARTProfileData> {
   availability?: Availability;
   contact?: ContactInfo;
@@ -198,7 +152,6 @@ export interface UpdateARTProfileData extends Partial<CreateARTProfileData> {
   education?: string;
 }
 
-// ART List Item (simplified for lists)
 export interface ARTListItem {
   $id: string;
   name: string;
@@ -225,12 +178,11 @@ export interface ARTListItem {
   status: EntityStatus;
 }
 
-// ART Card Props (for components)
 export interface ARTCardData {
   id: string;
   name: string;
   avatar?: string;
-  specialization: string; // Primary specialization
+  specialization: string;
   city: string;
   rating: number;
   reviewCount: number;
@@ -241,7 +193,6 @@ export interface ARTCardData {
   description: string;
 }
 
-// Review Interface
 export interface ARTReview extends BaseEntity {
   artId: string;
   userId: string;
@@ -258,7 +209,6 @@ export interface ARTReview extends BaseEntity {
   helpfulCount: number;
 }
 
-// Booking Interface
 export interface ARTBooking extends BaseEntity {
   artId: string;
   clientId: string;
@@ -268,16 +218,14 @@ export interface ARTBooking extends BaseEntity {
   endDate?: string;
   price: {
     amount: number;
-    currency: string;
-    unit: 'hourly' | 'daily' | 'weekly' | 'monthly';
+    unit: string;
   };
-  status: 'pending' | 'confirmed' | 'in-progress' | 'completed' | 'cancelled';
+  status: string;
   description: string;
   location: LocationData;
   contact: ContactInfo;
 }
 
-// Statistics Interface
 export interface ARTStatistics {
   totalARTs: number;
   verifiedARTs: number;

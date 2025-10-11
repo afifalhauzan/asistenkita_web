@@ -1,5 +1,3 @@
-// Frontend component types for the application
-
 export interface Testimonial {
   id: number;
   name: string;

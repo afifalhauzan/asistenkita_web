@@ -1,10 +1,5 @@
-/**
- * ART Service
- * API service for ART (Asisten Rumah Tangga) operations
- */
-
-import { Query } from 'appwrite';
-import { apiClient } from '../core';
+import { databases } from '@/lib/appwrite';
+import { Query, ID } from 'appwrite';
 import { DATABASE_CONFIG, PAGINATION_CONFIG } from '../config';
 import type { 
   ARTProfile, 
@@ -17,7 +12,6 @@ import type {
   ARTCardData 
 } from '@/types/art';
 import type { 
-  ApiResponse, 
   PaginatedResponse, 
   CreateData, 
   UpdateData 
@@ -91,8 +85,8 @@ class ARTService {
         queries.push(Query.orderDesc('rating.average'));
       }
 
-      // Execute query using Appwrite SDK directly
-      const response = await apiClient.appwriteDatabase.listDocuments(
+      // Execute query using native Appwrite SDK
+      const response = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         queries
@@ -115,16 +109,16 @@ class ARTService {
       };
     } catch (error) {
       console.error('Error fetching ARTs:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
   /**
-   * Get single ART by ID
+   * Get single ART profile by ID
    */
   async getART(id: string): Promise<ARTProfile> {
     try {
-      const response = await apiClient.appwriteDatabase.getDocument(
+      const response = await databases.getDocument(
         this.databaseId,
         this.collectionId,
         id
@@ -133,13 +127,10 @@ class ARTService {
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error fetching ART:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Create new ART profile
-   */
   async createART(data: CreateARTProfileData): Promise<ARTProfile> {
     try {
       const artData = {
@@ -167,23 +158,20 @@ class ARTService {
         joinedAt: new Date().toISOString(),
       };
 
-      const response = await apiClient.appwriteDatabase.createDocument(
+      const response = await databases.createDocument(
         this.databaseId,
         this.collectionId,
-        'unique()',
+        ID.unique(),
         artData
       );
 
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error creating ART:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Update ART profile
-   */
   async updateART(id: string, data: UpdateARTProfileData): Promise<ARTProfile> {
     try {
       // Get current profile to calculate new completeness
@@ -193,7 +181,7 @@ class ARTService {
         profileCompleteness: this.calculateCompleteness({ ...currentProfile, ...data }),
       };
 
-      const response = await apiClient.appwriteDatabase.updateDocument(
+      const response = await databases.updateDocument(
         this.databaseId,
         this.collectionId,
         id,
@@ -203,37 +191,29 @@ class ARTService {
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error updating ART:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Delete ART profile
-   */
   async deleteART(id: string): Promise<void> {
     try {
-      await apiClient.appwriteDatabase.deleteDocument(
+      await databases.deleteDocument(
         this.databaseId,
         this.collectionId,
         id
       );
     } catch (error) {
       console.error('Error deleting ART:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Search ARTs with advanced filters
-   */
+
   async searchARTs(params: ARTSearchParams): Promise<PaginatedResponse<ARTListItem>> {
     return this.getARTs(params);
   }
 
-  /**
-   * Get featured/recommended ARTs
-   */
-  async getFeaturedARTs(limit: number = 6): Promise<ARTListItem[]> {
+  async getFeaturedARTs(limit: number = 4): Promise<ARTListItem[]> {
     try {
       const queries = [
         Query.equal('verification.isVerified', true),
@@ -243,7 +223,7 @@ class ARTService {
         Query.limit(limit),
       ];
 
-      const response = await apiClient.appwriteDatabase.listDocuments(
+      const response = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         queries
@@ -252,30 +232,28 @@ class ARTService {
       return response.documents.map(this.transformToListItem);
     } catch (error) {
       console.error('Error fetching featured ARTs:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Get ART statistics
-   */
+
   async getStatistics(): Promise<ARTStatistics> {
     try {
       // This would typically be a separate endpoint or aggregation
       // For now, we'll fetch basic stats
-      const totalResponse = await apiClient.appwriteDatabase.listDocuments(
+      const totalResponse = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         [Query.limit(1)]
       );
 
-      const verifiedResponse = await apiClient.appwriteDatabase.listDocuments(
+      const verifiedResponse = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         [Query.equal('verification.isVerified', true), Query.limit(1)]
       );
 
-      const activeResponse = await apiClient.appwriteDatabase.listDocuments(
+      const activeResponse = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         [Query.equal('status', 'active'), Query.limit(1)]
@@ -293,13 +271,36 @@ class ARTService {
       } as ARTStatistics;
     } catch (error) {
       console.error('Error fetching statistics:', error);
-      throw error;
+      throw this.handleAppwriteError(error);
     }
   }
 
-  /**
-   * Transform Appwrite document to ARTProfile
-   */
+
+  private handleAppwriteError(error: any): Error {
+    console.error('Appwrite error:', error);
+    
+    // Handle specific Appwrite error codes
+    if (error.code) {
+      switch (error.code) {
+        case 404:
+          return new Error('Data tidak ditemukan');
+        case 401:
+          return new Error('Anda tidak memiliki akses');
+        case 403:
+          return new Error('Akses ditolak');
+        case 429:
+          return new Error('Terlalu banyak permintaan, coba lagi nanti');
+        case 500:
+          return new Error('Terjadi kesalahan server');
+        default:
+          return new Error(error.message || 'Terjadi kesalahan yang tidak diketahui');
+      }
+    }
+
+    return new Error(error.message || 'Terjadi kesalahan yang tidak diketahui');
+  }
+
+
   private transformToProfile(doc: any): ARTProfile {
     return {
       $id: doc.$id,
@@ -310,9 +311,7 @@ class ARTService {
     } as ARTProfile;
   }
 
-  /**
-   * Transform Appwrite document to ARTListItem
-   */
+
   private transformToListItem(doc: any): ARTListItem {
     return {
       $id: doc.$id,
@@ -329,9 +328,7 @@ class ARTService {
     } as ARTListItem;
   }
 
-  /**
-   * Transform ARTListItem to ARTCardData (for components)
-   */
+
   static transformToCardData(art: ARTListItem): ARTCardData {
     return {
       id: art.$id,
@@ -349,9 +346,7 @@ class ARTService {
     };
   }
 
-  /**
-   * Calculate profile completeness percentage
-   */
+
   private calculateCompleteness(data: any): number {
     const requiredFields = [
       'name', 'email', 'phone', 'specializations', 'bio', 
