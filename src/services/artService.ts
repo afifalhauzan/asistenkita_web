@@ -21,9 +21,6 @@ class ARTService {
   private readonly collectionId = DATABASE_CONFIG.collections.arts;
   private readonly databaseId = DATABASE_CONFIG.databaseId;
 
-  /**
-   * Get all ARTs with pagination and filtering
-   */
   async getARTs(params: ARTSearchParams = {}): Promise<PaginatedResponse<ARTListItem>> {
     try {
       const {
@@ -76,7 +73,6 @@ class ARTService {
         }
       }
 
-      // Add sorting
       if (sort) {
         const orderType = sort.direction === 'desc' ? Query.orderDesc : Query.orderAsc;
         queries.push(orderType(sort.field));
@@ -85,14 +81,12 @@ class ARTService {
         queries.push(Query.orderDesc('rating.average'));
       }
 
-      // Execute query using native Appwrite SDK
       const response = await databases.listDocuments(
         this.databaseId,
         this.collectionId,
         queries
       );
 
-      // Transform to ARTListItem format
       const arts = response.documents.map(this.transformToListItem);
 
       return {
@@ -109,13 +103,10 @@ class ARTService {
       };
     } catch (error) {
       console.error('Error fetching ARTs:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
-  /**
-   * Get single ART profile by ID
-   */
   async getART(id: string): Promise<ARTProfile> {
     try {
       const response = await databases.getDocument(
@@ -127,7 +118,7 @@ class ARTService {
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error fetching ART:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
@@ -168,7 +159,7 @@ class ARTService {
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error creating ART:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
@@ -191,7 +182,7 @@ class ARTService {
       return this.transformToProfile(response);
     } catch (error) {
       console.error('Error updating ART:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
@@ -204,7 +195,7 @@ class ARTService {
       );
     } catch (error) {
       console.error('Error deleting ART:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
@@ -232,7 +223,7 @@ class ARTService {
       return response.documents.map(this.transformToListItem);
     } catch (error) {
       console.error('Error fetching featured ARTs:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
 
@@ -271,35 +262,9 @@ class ARTService {
       } as ARTStatistics;
     } catch (error) {
       console.error('Error fetching statistics:', error);
-      throw this.handleAppwriteError(error);
+      throw error;
     }
   }
-
-
-  private handleAppwriteError(error: any): Error {
-    console.error('Appwrite error:', error);
-    
-    // Handle specific Appwrite error codes
-    if (error.code) {
-      switch (error.code) {
-        case 404:
-          return new Error('Data tidak ditemukan');
-        case 401:
-          return new Error('Anda tidak memiliki akses');
-        case 403:
-          return new Error('Akses ditolak');
-        case 429:
-          return new Error('Terlalu banyak permintaan, coba lagi nanti');
-        case 500:
-          return new Error('Terjadi kesalahan server');
-        default:
-          return new Error(error.message || 'Terjadi kesalahan yang tidak diketahui');
-      }
-    }
-
-    return new Error(error.message || 'Terjadi kesalahan yang tidak diketahui');
-  }
-
 
   private transformToProfile(doc: any): ARTProfile {
     return {
@@ -375,8 +340,5 @@ class ARTService {
   }
 }
 
-// Export singleton instance
 export const artService = new ARTService();
-
-// Export the class for testing
 export { ARTService };
