@@ -28,6 +28,7 @@ export interface LoginFormData {
 export interface SignupFormData {
   name: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
   agreeToTerms: boolean;
@@ -39,7 +40,7 @@ export interface AuthContextType {
   initialized: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<AuthResult>;
-  signup: (email: string, password: string, name: string) => Promise<AuthResult>;
+  signup: (email: string, password: string, name: string, phone: string) => Promise<AuthResult>;
   logout: () => Promise<AuthResult>;
   logoutAll: () => Promise<AuthResult>;
   sendPasswordResetEmail: (email: string) => Promise<AuthResult>;
@@ -49,7 +50,7 @@ export interface AuthContextType {
 
 export interface AuthActions {
   login: (email: string, password: string) => Promise<AuthResult>;
-  signup: (email: string, password: string, name: string) => Promise<AuthResult>;
+  signup: (email: string, password: string, name: string, phone: string) => Promise<AuthResult>;
   logout: () => Promise<AuthResult>;
   logoutAll: () => Promise<AuthResult>;
   sendPasswordResetEmail: (email: string) => Promise<AuthResult>;

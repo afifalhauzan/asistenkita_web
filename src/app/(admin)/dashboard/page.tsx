@@ -78,6 +78,10 @@ function DashboardContent(): React.ReactElement {
                   <dt className="text-sm font-medium text-gray-500">Role:</dt>
                   <dd className="text-sm text-green-600 font-medium">{user?.labels || 'N/A'}</dd>
                 </div>
+                <div className="flex justify-between">
+                  <dt className="text-sm font-medium text-gray-500">No Telp:</dt>
+                  <dd className="text-sm text-green-600 font-medium">{user?.phone || 'N/A'}</dd>
+                </div>
               </dl>
             </div>
           </div>

@@ -15,7 +15,7 @@ interface SignupFormProps {
 
 export const SignupForm: React.FC<SignupFormProps> = ({ 
   onSuccess, 
-  redirectTo = '/dashboard' 
+  redirectTo = '/onboarding' 
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
@@ -35,6 +35,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       password: '',
       confirmPassword: '',
       agreeToTerms: false
@@ -42,26 +43,25 @@ export const SignupForm: React.FC<SignupFormProps> = ({
     mode: 'onChange'
   });
 
-  // Watch fields for error clearing
   const name = watch('name');
   const email = watch('email');
+  const phone = watch('phone');
   const password = watch('password');
   const confirmPassword = watch('confirmPassword');
 
-  // Clear auth error when user starts typing
   useEffect(() => {
     if (errors.root) {
-      // clearErrors('root');
+      clearErrors('root');
     }
-  }, [name, email, password, confirmPassword, clearErrors]);
+  }, [name, email, phone, password, confirmPassword, clearErrors]);
 
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
     clearErrors();
 
     try {
-      console.log('SignupForm: Attempting signup with:', { name: data.name, email: data.email });
-      const result = await signup(data.email, data.password, data.name);
+      console.log('SignupForm: Attempting signup with:', { name: data.name, email: data.email, phone: data.phone });
+      const result = await signup(data.email, data.password, data.name, data.phone);
       console.log('SignupForm: Signup result:', result);
 
       if (result.success && result.user) {
@@ -180,6 +180,33 @@ export const SignupForm: React.FC<SignupFormProps> = ({
               />
               {errors.name && (
                 <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+              )}
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                Nomor Telepon
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                autoComplete="tel"
+                {...register('phone', {
+                  required: 'Nomor telepon harus diisi',
+                  pattern: {
+                    value: /^(\+62|62|0)[0-9]{8,13}$/,
+                    message: 'Format nomor telepon tidak valid. Gunakan format Indonesia (+62, 62, atau 0)'
+                  }
+                })}
+                className={`w-full px-4 py-3 bg-gray-100 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
+                  errors.phone ? 'border-red-500 ring-2 ring-red-200' : ''
+                }`}
+                placeholder="+62812xxxxxxxx atau 0812xxxxxxxx"
+                disabled={isLoading}
+              />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
               )}
             </div>
 

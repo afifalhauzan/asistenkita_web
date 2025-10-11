@@ -44,7 +44,7 @@ class AuthService {
   }
 
 
-  async signup(email: string, password: string, name: string): Promise<User> {
+  async signup(email: string, password: string, name: string, phone: string): Promise<User> {
     try {
       // Input validation
       if (!name || !name.trim()) {
@@ -68,11 +68,15 @@ class AuthService {
         throw new Error('Format email tidak valid.');
       }
 
+      console.log('Signup: Creating account for:', email);
       // Create account using Appwrite
       await account.create(ID.unique(), email.trim(), password, name.trim());
       
+      await account.updatePhone(phone.trim(), password);
       // Automatically log in after signup
       return await this.login(email, password);
+
+
     } catch (error) {
       console.error('Signup error:', error);
       throw new Error(this.getErrorMessage(error as AppwriteError));

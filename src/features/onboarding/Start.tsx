@@ -45,7 +45,7 @@ export const Start = () => {
                                     Cari dan pekerjakan asisten terpercaya.
                                 </p>
 
-                                <Link href="/register/client">
+                                <Link href="/bantuan">
                                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                         Sebagai Klien
                                     </button>
@@ -68,7 +68,7 @@ export const Start = () => {
                                     Buat profil dan temukan pekerjaan
                                 </p>
 
-                                <Link href="/register/worker">
+                                <Link href="/onboarding/art-signup">
                                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                         Pencari Kerja
                                     </button>

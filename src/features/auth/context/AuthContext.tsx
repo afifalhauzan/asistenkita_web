@@ -59,10 +59,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signup = async (email: string, password: string, name: string): Promise<AuthResult> => {
+  const signup = async (email: string, password: string, name: string, phone: string): Promise<AuthResult> => {
     try {
       setLoading(true);
-      const user = await authService.signup(email, password, name);
+      const user = await authService.signup(email, password, name, phone);
       setUser(user);
       return { success: true, user };
     } catch (error) {

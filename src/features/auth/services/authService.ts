@@ -38,9 +38,43 @@ class AuthService {
     }
   }
 
-  async signup(email: string, password: string, name: string): Promise<User> {
+  async signup(email: string, password: string, name: string, phone: string): Promise<User> {
     try {
-      await account.create(ID.unique(), email, password, name);
+      // Input validation
+      if (!name || !name.trim()) {
+        throw new Error('Nama harus diisi.');
+      }
+      
+      if (!email || !email.trim()) {
+        throw new Error('Email harus diisi.');
+      }
+
+      if (!phone || !phone.trim()) {
+        throw new Error('Nomor telepon harus diisi.');
+      }
+      
+      if (!password || !password.trim()) {
+        throw new Error('Password harus diisi.');
+      }
+
+      if (password.length < 8) {
+        throw new Error('Password minimal 8 karakter.');
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        throw new Error('Format email tidak valid.');
+      }
+
+      // Indonesian phone number validation (starts with +62, 62, or 0)
+      const phoneRegex = /^(\+62|62|0)[0-9]{8,13}$/;
+      if (!phoneRegex.test(phone.trim().replace(/\s/g, ''))) {
+        throw new Error('Format nomor telepon tidak valid. Gunakan format Indonesia (+62, 62, atau 0).');
+      }
+
+      await account.create(ID.unique(), email.trim(), password, name.trim());
+      // await account.updatePhone(phone.trim(), password);
+
       // Automatically log in after signup
       return await this.login(email, password);
     } catch (error) {
