@@ -12,7 +12,7 @@ export type {
 
 export type {
   PaginatedResponse,
-} from '@/types/api';
+} from '@/types/services';
 
 export type {
   User,

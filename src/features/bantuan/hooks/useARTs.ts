@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useInfiniteQuery, } from '@tanstack/react-query';
-import { artService } from '@/api/services/artService';
+import { artService } from '@/services/artService';
 import { artQueryKeys } from '@/lib/queryKeys';
 import type { ARTListItem, ARTSearchParams, ARTCardData, ARTSearchFilters, ARTProfile} from '@/types/art';
 

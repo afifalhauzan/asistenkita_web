@@ -9,17 +9,13 @@ import type {
   VerificationStatus,
   PaginationParams,
   SearchParams 
-} from './api';
+} from './services';
 
 export type ARTSpecialization = any;
-
 export type ARTSkill = any;
-
 export type WorkType = any;
-
 export type ExperienceLevel = any;
 
-// ART Profile Interface
 export interface ARTProfile extends BaseEntity {
   name: string;
   email: string;

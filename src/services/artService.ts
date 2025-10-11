@@ -1,6 +1,6 @@
 import { databases } from '@/lib/appwrite';
 import { Query, ID } from 'appwrite';
-import { DATABASE_CONFIG, PAGINATION_CONFIG } from '../config';
+import { DATABASE_CONFIG, PAGINATION_CONFIG } from '@/lib/appwrite';
 import type { 
   ARTProfile, 
   ARTListItem, 
@@ -15,7 +15,7 @@ import type {
   PaginatedResponse, 
   CreateData, 
   UpdateData 
-} from '@/types/api';
+} from '@/types/services';
 
 class ARTService {
   private readonly collectionId = DATABASE_CONFIG.collections.arts;
