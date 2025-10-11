@@ -16,7 +16,7 @@ export interface MitraData {
   city: string;
   description: string;
   image?: string;
-  avatar?: string;
+  avatar_id?: string;
   isVerified: boolean;
   reviewCount?: number;
   experience?: number;

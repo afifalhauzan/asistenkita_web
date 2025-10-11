@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useQuery, useInfiniteQuery, } from '@tanstack/react-query';
 import { artService } from '@/services/artService';
 import { artQueryKeys } from '@/lib/queryKeys';
-import type { ARTListItem, ARTSearchParams, ARTCardData, ARTSearchFilters, ARTProfile} from '@/types/art';
+import type { ARTListItem, ARTSearchParams, ARTSearchFilters, ARTProfile} from '@/types/art';
 
 
 export function useARTs(params: ARTSearchParams) {
@@ -27,9 +27,9 @@ export function useARTSearch() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filters, setFilters] = useState<ARTSearchFilters>({});
   const [sortBy, setSortBy] = useState<{
-    field: 'name' | 'rating' | 'experience' | 'price' | 'distance' | 'joinedAt' | 'lastActive';
+    field: 'name' | 'rating_average' | 'age' | 'salary_min' | '$createdAt' | '$updatedAt';
     direction: 'asc' | 'desc';
-  }>({ field: 'rating', direction: 'desc' });
+  }>({ field: 'rating_average', direction: 'desc' });
 
   const searchParams = useMemo((): ARTSearchParams => ({
     q: searchQuery,
@@ -85,23 +85,4 @@ export function useFeaturedARTs(limit: number = 4) {
     queryFn: () => artService.getFeaturedARTs(limit),
     staleTime: 10 * 60 * 1000,
   });
-}
-
-export function useARTCardData(arts: ARTListItem[]): ARTCardData[] {
-  return useMemo(() => {
-    return arts.map(art => ({
-      id: art.$id,
-      name: art.name,
-      avatar: art.avatar,
-      specialization: art.specializations[0] || 'Asisten Rumah Tangga',
-      city: art.location.city,
-      rating: art.rating.average,
-      reviewCount: art.rating.count,
-      experience: art.experience.years,
-      priceRange: art.priceRange,
-      isVerified: art.verification.isVerified,
-      isAvailable: art.availability.isAvailable,
-      description: `${art.experience.level} dengan ${art.experience.years} tahun pengalaman`,
-    }));
-  }, [arts]);
 }

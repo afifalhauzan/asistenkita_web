@@ -31,9 +31,9 @@ export const Bantuan = () => {
         switch (filterType) {
             case 'specialization':
                 if (value === '') {
-                    searchActions.updateFilters({ specializations: undefined });
+                    searchActions.updateFilters({ skills: undefined });
                 } else {
-                    searchActions.updateFilters({ specializations: [value as any] });
+                    searchActions.updateFilters({ skills: [value] });
                 }
                 break;
             case 'location':
@@ -195,17 +195,22 @@ export const Bantuan = () => {
                                             const cardData = {
                                                 id: art.$id,
                                                 name: art.name,
-                                                specialization: art.specializations[0] || 'Asisten Rumah Tangga',
-                                                rating: art.rating.average,
-                                                city: art.location.city,
-                                                description: `${art.experience.level} dengan ${art.experience.years} tahun pengalaman`,
-                                                avatar: art.avatar,
-                                                image: art.avatar,
-                                                isVerified: art.verification.isVerified,
-                                                reviewCount: art.rating.count,
-                                                experience: art.experience.years,
-                                                priceRange: art.priceRange,
-                                                isAvailable: art.availability.isAvailable,
+                                                specialization: art.skills?.[0] || art.job_types?.[0] || 'Asisten Rumah Tangga',
+                                                rating: art.rating_average || 0,
+                                                city: art.domicile_city || 'Tidak ada informasi',
+                                                description: art.bio || 'Tidak ada deskripsi',
+                                                avatar: art.avatar_id,
+                                                image: art.avatar_id,
+                                                isVerified: art.is_verified || false,
+                                                reviewCount: art.rating_count || 0,
+                                                experience: art.age || 0,
+                                                priceRange: {
+                                                    min: art.salary_min || 0,
+                                                    max: art.salary_max || 0,
+                                                    currency: 'IDR',
+                                                    unit: art.salary_unit || 'monthly',
+                                                },
+                                                isAvailable: true, // Assume available for now
                                             };
 
                                             return (

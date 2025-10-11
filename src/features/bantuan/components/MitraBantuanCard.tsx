@@ -1,6 +1,8 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
+import { storageService } from '@/lib/storageService';
 import type { MitraCardProps } from '@/types/components';
 
 export const MitraBantuanCard: React.FC<MitraCardProps> = ({ data }) => {
@@ -19,15 +21,20 @@ export const MitraBantuanCard: React.FC<MitraCardProps> = ({ data }) => {
     ));
   };
 
+  console.log('MitraBantuanCard data:', data);
+
   return (
     <div className="bg-gray-50 rounded-2xl p-6 box-shadow-default hover:shadow-md transition-all duration-300 border border-gray-100">
       {/* Profile Header */}
       <div className="flex flex-row  items-center mb-4">
         <div className="relative">
           <img
-            src={data.image || "/api/placeholder/60/60"}
+            src={storageService.getAvatarUrl(data.image)}
             alt={data.name}
             className="w-14 h-14 rounded-full object-cover"
+            onError={(e) => {
+              // Fallback to placeholder if image fails to load
+            }}
           />
           {/* Verification Badge */}
           {data.isVerified && (
@@ -65,9 +72,11 @@ export const MitraBantuanCard: React.FC<MitraCardProps> = ({ data }) => {
       </div>
 
       {/* Lihat Profil Button */}
-      <button className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-3 px-4 rounded-lg transition-all duration-300 border border-blue-200 hover:border-blue-300">
-        Lihat Profil
-      </button>
+      <Link href={`/art/${data.id}`}>
+        <button className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-3 px-4 rounded-lg transition-all duration-300 border border-blue-200 hover:border-blue-300">
+          Lihat Profil
+        </button>
+      </Link>
     </div>
   );
 };

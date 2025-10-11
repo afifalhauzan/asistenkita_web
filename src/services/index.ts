@@ -5,9 +5,9 @@ export type {
   ARTProfile,
   ARTListItem,
   ARTSearchParams,
-  CreateARTProfileData,
-  UpdateARTProfileData,
-  ARTCardData,
+  CreateARTRequest,
+  UpdateARTRequest,
+  ARTStatistics,
 } from '@/types/art';
 
 export type {

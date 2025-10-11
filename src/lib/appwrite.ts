@@ -1,13 +1,15 @@
-import { Client, Account, Databases } from "appwrite";
+import { Client, Account, Databases, Storage } from "appwrite";
 
 const client: Client = new Client()
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string)
 
+
 const account: Account = new Account(client);
 const databases: Databases = new Databases(client);
+const storage: Storage = new Storage(client);
 
-export { client, account, databases };
+export { client, account, databases, storage };
 
 
 export const DATABASE_CONFIG = {
@@ -18,6 +20,9 @@ export const DATABASE_CONFIG = {
     reviews: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_REVIEWS as string,
     skills: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SKILLS as string,
     bookings: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_BOOKINGS as string,
+  },
+  buckets: {
+    artphoto: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ARTPHOTO as string,
   },
 } as const;
 

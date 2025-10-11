@@ -5,11 +5,9 @@ import type {
   ARTProfile, 
   ARTListItem, 
   ARTSearchParams, 
-  CreateARTProfileData, 
-  UpdateARTProfileData,
-  ARTReview,
-  ARTStatistics,
-  ARTCardData 
+  CreateARTRequest, 
+  UpdateARTRequest,
+  ARTStatistics
 } from '@/types/art';
 import type { 
   PaginatedResponse, 
@@ -44,32 +42,56 @@ class ARTService {
 
       // Add filters
       if (filters) {
-        if (filters.specializations?.length) {
-          queries.push(Query.contains('specializations', filters.specializations));
+        if (filters.skills?.length) {
+          queries.push(Query.contains('skills', filters.skills));
+        }
+        
+        if (filters.job_types?.length) {
+          queries.push(Query.contains('job_types', filters.job_types));
+        }
+        
+        if (filters.work_arrangement?.length) {
+          queries.push(Query.contains('work_arrangement', filters.work_arrangement));
+        }
+        
+        if (filters.gender?.length) {
+          queries.push(Query.contains('gender', filters.gender));
         }
         
         if (filters.location?.cities?.length) {
-          queries.push(Query.contains('location.city', filters.location.cities));
+          queries.push(Query.contains('domicile_city', filters.location.cities));
         }
         
-        if (filters.verification?.isVerified !== undefined) {
-          queries.push(Query.equal('verification.isVerified', filters.verification.isVerified));
+        if (filters.location?.districts?.length) {
+          queries.push(Query.contains('domicile_district', filters.location.districts));
         }
         
-        if (filters.availability?.isAvailable !== undefined) {
-          queries.push(Query.equal('availability.isAvailable', filters.availability.isAvailable));
+        if (filters.verification?.is_verified !== undefined) {
+          queries.push(Query.equal('is_verified', filters.verification.is_verified));
         }
         
         if (filters.rating?.min) {
-          queries.push(Query.greaterThanEqual('rating.average', filters.rating.min));
+          queries.push(Query.greaterThanEqual('rating_average', filters.rating.min));
         }
         
-        if (filters.experienceLevel?.length) {
-          queries.push(Query.contains('experience.level', filters.experienceLevel));
+        if (filters.rating?.min_count) {
+          queries.push(Query.greaterThanEqual('rating_count', filters.rating.min_count));
         }
         
-        if (filters.workTypes?.length) {
-          queries.push(Query.contains('workTypes', filters.workTypes));
+        if (filters.age_range?.min) {
+          queries.push(Query.greaterThanEqual('age', filters.age_range.min));
+        }
+        
+        if (filters.age_range?.max) {
+          queries.push(Query.lessThanEqual('age', filters.age_range.max));
+        }
+        
+        if (filters.salary_range?.min) {
+          queries.push(Query.greaterThanEqual('salary_min', filters.salary_range.min));
+        }
+        
+        if (filters.salary_range?.max) {
+          queries.push(Query.lessThanEqual('salary_max', filters.salary_range.max));
         }
       }
 
@@ -78,7 +100,7 @@ class ARTService {
         queries.push(orderType(sort.field));
       } else {
         // Default sort by rating
-        queries.push(Query.orderDesc('rating.average'));
+        queries.push(Query.orderDesc('rating_average'));
       }
 
       const response = await databases.listDocuments(
@@ -122,7 +144,7 @@ class ARTService {
     }
   }
 
-  async createART(data: CreateARTProfileData): Promise<ARTProfile> {
+  async createART(data: CreateARTRequest): Promise<ARTProfile> {
     try {
       const artData = {
         ...data,
@@ -163,7 +185,7 @@ class ARTService {
     }
   }
 
-  async updateART(id: string, data: UpdateARTProfileData): Promise<ARTProfile> {
+  async updateART(id: string, data: UpdateARTRequest): Promise<ARTProfile> {
     try {
       // Get current profile to calculate new completeness
       const currentProfile = await this.getART(id);
@@ -251,14 +273,13 @@ class ARTService {
       );
 
       return {
-        totalARTs: totalResponse.total,
-        verifiedARTs: verifiedResponse.total,
-        activeARTs: activeResponse.total,
+        total: totalResponse.total,
+        verified: verifiedResponse.total,
+        unverified: totalResponse.total - verifiedResponse.total,
         averageRating: 4.2, // This would come from aggregation
-        totalReviews: 0, // This would come from reviews collection
-        specializations: {}, // This would come from aggregation
-        cities: {}, // This would come from aggregation
-        experienceLevels: {}, // This would come from aggregation
+        topSkills: [], // This would come from aggregation
+        locationDistribution: [], // This would come from aggregation
+        workArrangementDistribution: [], // This would come from aggregation
       } as ARTStatistics;
     } catch (error) {
       console.error('Error fetching statistics:', error);
@@ -281,34 +302,27 @@ class ARTService {
     return {
       $id: doc.$id,
       name: doc.name,
-      avatar: doc.avatar,
-      specializations: doc.specializations || [],
-      experience: doc.experience || { years: 0, level: 'beginner' },
-      location: doc.location || { city: '' },
-      rating: doc.rating || { average: 0, count: 0 },
-      priceRange: doc.priceRange || { min: 0, max: 0, currency: 'IDR' },
-      verification: doc.verification || { isVerified: false },
-      availability: doc.availability || { isAvailable: false },
-      status: doc.status || 'pending',
+      avatar_id: doc.avatar_id,
+      bio: doc.bio,
+      age: doc.age,
+      gender: doc.gender,
+      education: doc.education,
+      skills: doc.skills || [],
+      job_types: doc.job_types || [],
+      work_arrangement: doc.work_arrangement,
+      work_experience: doc.work_experience,
+      domicile_city: doc.domicile_city,
+      domicile_district: doc.domicile_district,
+      salary_min: doc.salary_min,
+      salary_max: doc.salary_max,
+      salary_unit: doc.salary_unit,
+      is_verified: doc.is_verified || false,
+      ektp_file_id: doc.ektp_file_id,
+      rating_average: doc.rating_average || 0,
+      rating_count: doc.rating_count || 0,
+      $createdAt: doc.$createdAt,
+      $updatedAt: doc.$updatedAt,
     } as ARTListItem;
-  }
-
-
-  static transformToCardData(art: ARTListItem): ARTCardData {
-    return {
-      id: art.$id,
-      name: art.name,
-      avatar: art.avatar,
-      specialization: art.specializations[0] || 'Asisten Rumah Tangga',
-      city: art.location.city,
-      rating: art.rating.average,
-      reviewCount: art.rating.count,
-      experience: art.experience.years,
-      priceRange: art.priceRange,
-      isVerified: art.verification.isVerified,
-      isAvailable: art.availability.isAvailable,
-      description: `${art.experience.level} dengan ${art.experience.years} tahun pengalaman`,
-    };
   }
 
 
