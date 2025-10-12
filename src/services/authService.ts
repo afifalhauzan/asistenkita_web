@@ -72,10 +72,9 @@ class AuthService {
       // Create account using Appwrite
       await account.create(ID.unique(), email.trim(), password, name.trim());
       
-      await account.updatePhone(phone.trim(), password);
+      // await account.updatePhone(phone.trim(), password);
       // Automatically log in after signup
       return await this.login(email, password);
-
 
     } catch (error) {
       console.error('Signup error:', error);

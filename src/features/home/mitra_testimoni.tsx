@@ -37,9 +37,9 @@ const MitraTestimoni: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex w-40 h-10 justify-center items-center bg-gray-50 hover:bg-blue-100 rounded-2xl border-2 border-blue-600 cursor-pointer transition-all duration-300 hover:scale-105">
-                        <h1 className="font-bold text-blue-600">
+                        <Link href="/bantuan" className="font-bold text-blue-600">
                             Lihat Semua
-                        </h1>
+                        </Link>
                         <svg className="w-5 h-5 ml-2 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
