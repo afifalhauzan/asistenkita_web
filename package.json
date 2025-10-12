@@ -19,6 +19,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "flowbite-react": "^0.12.9",
     "framer-motion": "^12.23.24",
     "next": "15.4.3",
     "next-nprogress-bar": "^2.4.7",

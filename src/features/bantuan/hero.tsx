@@ -6,7 +6,7 @@ import { LogoFull } from '../../components/LogoFull';
 
 export const Hero = () => {
     return (
-        <div className="max-w-6xl relative z-10 flex flex-col items-center md:justify-start min-h-130 px-6 py-8 mt-25 md:mt-30">
+        <div className="max-w-6xl relative z-10 flex flex-col items-center md:justify-start min-h-90 px-6 py-8 mt-25 md:mt-30">
             {/* Hero Content */}
             <div className="text-center space-y-8 max-w-2xl">
                 {/* Main Title */}
@@ -26,7 +26,7 @@ export const Hero = () => {
                 </p>
 
                 {/* Search Bar */}
-                <div className="mt-12">
+                {/* <div className="mt-12">
                     <div className="relative max-w-lg mx-auto">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ export const Hero = () => {
                             className="w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-full focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-300"
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

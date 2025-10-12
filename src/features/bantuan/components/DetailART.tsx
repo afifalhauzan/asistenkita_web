@@ -6,6 +6,7 @@ import type { DetailARTProps } from '@/types/art.ts';
 import { useParams, useRouter } from 'next/navigation';
 import { useART } from '@/features/bantuan/hooks/useARTs';
 import { storageService } from '@/lib/storageService';
+import { LoginPromptModal, useLoginPrompt } from './LoginPromptModal';
 import Link from 'next/link';
 
 export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
@@ -18,6 +19,12 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
   const artId = params.id as string;
   
   const { data: art, isLoading, error } = useART(artId);
+  const { 
+    isModalOpen, 
+    handleContactART, 
+    handleLoginRedirect, 
+    closeModal 
+  } = useLoginPrompt(artId);
 
   console.log('DetailART data:', data);
 
@@ -291,7 +298,10 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
 
                 {/* Contact Actions */}
                 <div className="space-y-3">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <button 
+                    onClick={() => handleContactART(artId)}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
                     Hubungi ART
                   </button>
                   <button className="w-full bg-white hover:bg-gray-50 text-blue-600 font-semibold py-4 px-6 rounded-xl border-2 border-blue-600 transition-all duration-300">
@@ -303,6 +313,13 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
           </div>
         </div>
       </div>
+
+      {/* Login Prompt Modal */}
+      <LoginPromptModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onLoginRedirect={handleLoginRedirect}
+      />
     </div>
   );
 };

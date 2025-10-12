@@ -10,12 +10,12 @@ const AboutUsHero: React.FC = () => {
     return (
         <div className="min-h-screen bg-gray-50 relative overflow-hidden">
 
-            <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-30 md:pt-20">
+            <main className="max-w-6xl z-10 mx-auto px-6 sm:px-6 lg:px-8 py-12 pt-22 md:pt-20">
                 <div className="grid lg:grid-cols-2 gap-16 sm:gap-12 items-center min-h-[80vh]">
                     {/* Left Content */}
                     <div className="space-y-8">
                         <div className="space-y-6">
-                            <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-bold leading-tight">
+                            <h1 className="text-5xl md:text-5xl lg:text-5xl xl:text-5xl font-bold leading-tight">
                                 <span className="text-gray-900">Temukan Bantuan</span>
                                 <br />
                                 <span className="text-gray-900">Terpercaya,</span>
@@ -34,7 +34,7 @@ const AboutUsHero: React.FC = () => {
                         <div>
                             <Link
                                 href="/bantuan"
-                                className="inline-flex items-center space-x-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                                className="inline-flex items-center space-x-3 mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

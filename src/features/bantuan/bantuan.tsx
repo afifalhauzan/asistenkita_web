@@ -50,8 +50,8 @@ export const Bantuan = () => {
 
 
     return (
-        <div className="min-h-screen w-full overflow-x-hidden bg-gray-50">
-            <div className="relative md:flex flex-col  items-center justify-start sm:justify-center min-h-screen overflow-hidden">
+        <div className="w-full overflow-x-hidden bg-gray-50">
+            <div className="relative md:flex flex-col  items-center justify-start sm:justify-center overflow-hidden">
 
                 <div className="absolute -top-30 -left-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>
                 <div className="absolute top-90 -right-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>

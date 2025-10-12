@@ -9,7 +9,7 @@ export interface Testimonial {
 }
 
 export interface MitraData {
-  id: number | string;
+  id: string;
   name: string;
   specialization: string;
   rating: number;

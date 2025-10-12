@@ -2,7 +2,7 @@ import type { MitraData } from '@/types/components';
 
 export const mitraData: MitraData[] = [
   {
-    id: 1,
+    id: "1",
     name: "Siti Rahmawati",
     specialization: "Spesialis Toddler",
     city: "Jakarta",
@@ -12,7 +12,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 2,
+    id: "2",
     name: "Dewi Sartika",
     specialization: "Asisten Rumah Tangga",
     city: "Jakarta",
@@ -22,7 +22,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 3,
+    id: "3",
     name: "Rina Kusuma",
     specialization: "Spesialis Bayi",
     city: "Jakarta",
@@ -32,7 +32,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 4,
+    id: "4",
     name: "Maya Indah",
     specialization: "Pengasuh Lansia",
     city: "Jakarta",
@@ -42,7 +42,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 5,
+    id: "5",
     name: "Sari Melati",
     specialization: "Asisten Rumah Tangga",
     city: "Jakarta",
@@ -52,7 +52,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 6,
+    id: "6",
     name: "Fitri Handayani",
     specialization: "Spesialis Anak",
     city: "Jakarta",
@@ -62,7 +62,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 7,
+    id: "7",
     name: "Lestari Wulandari",
     specialization: "Nanny Profesional",
     city: "Jakarta",
@@ -72,7 +72,7 @@ export const mitraData: MitraData[] = [
     isVerified: true
   },
   {
-    id: 8,
+    id: "8",
     name: "Nurul Safitri",
     specialization: "Asisten Masak",
     city: "Jakarta",
