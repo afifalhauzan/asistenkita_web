@@ -3,12 +3,20 @@
 import React from 'react';
 import type { ARTProfile } from '@/types/art';
 import type { DetailARTProps } from '@/types/art.ts';
+import type { Review } from '@/types/review';
 import { useParams, useRouter } from 'next/navigation';
 import { useART } from '@/features/bantuan/hooks/useARTs';
 import { storageService } from '@/lib/storageService';
 import { LoginPromptModal, useLoginPrompt } from './LoginPromptModal';
 import Link from 'next/link';
 import { useAuth } from '@/features/auth/hooks/useAuth';
+import {
+  mockReviewsData,
+  mockEducation,
+  mockServices,
+  mockSkills,
+  mockTarif
+} from '@/data/mockReviews';
 
 
 export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
@@ -113,12 +121,12 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-white shadow-sm">
+    <div className="bg-gray-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mt-20 ">
         <div className="flex items-center">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center text-md text-gray-600 hover:text-gray-900 transition-colors"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -129,210 +137,191 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
         </div>
       </div>
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          {/* Profile Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-6">
-            <div className="flex items-center">
-              <div className="relative">
-                <img
-                  src={storageService.getAvatarUrl(art.avatar_id)}
-                  alt={art.name}
-                  className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-                  onError={(e) => {
-                    // Fallback to placeholder if image fails to load
-                  }}
-                />
-                {art.is_verified && (
-                  <div className="absolute -bottom-2 -right-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg">
-                    ✓ Terverifikasi
-                  </div>
-                )}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
+
+          {/* Left Column - Profile Card */}
+          <div className="">
+            <div className="flex flex-col items-center box-shadow-default mb-4 p-6 rounded-2xl">
+
+              {/* Profile Header */}
+              <div className="text-center mb-6">
+                <div className="relative inline-block mb-4">
+                  <img
+                    src={storageService.getAvatarUrl(art.avatar_id)}
+                    alt={art.name}
+                    className="w-24 h-24 rounded-full object-cover mx-auto border-4 border-white shadow-lg"
+                    onError={(e) => {
+                      // Fallback to placeholder if image fails to load
+                    }}
+                  />
+                  {art.is_verified && (
+                    <div className="absolute -bottom-1 -right-1 bg-green-500 text-white rounded-full p-1">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-1">{art.name} ✓</h1>
+                <p className="text-gray-600 mb-2">Pengasuh Anak</p>
+                <div className="flex items-center justify-center text-sm text-gray-500">
+                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                  Kota Malang
+                </div>
+
+                {/* Rating */}
+                <div className="flex items-center justify-center mt-3">
+                  {renderStars(Math.floor(mockReviewsData.summary.averageRating))}
+                  <span className="ml-1 text-sm font-medium text-gray-600">
+                    ({mockReviewsData.summary.totalReviews})
+                  </span>
+                </div>
               </div>
-              <div className="ml-6 text-white">
-                <h2 className="text-3xl font-bold">{art.name}</h2>
-                <p className="text-blue-100 text-lg mt-1">
-                  {art.job_types?.[0] ? art.job_types[0].replace('-', ' ').toUpperCase() : 'Asisten Rumah Tangga'}
-                </p>
-                <div className="flex items-center mt-3">
-                  <div className="flex items-center">
-                    {renderStars(Math.floor(art.rating_average || 0))}
-                    <span className="ml-2 text-blue-100 font-medium">
-                      {art.rating_average?.toFixed(1) || '0.0'} ({art.rating_count || 0} ulasan)
-                    </span>
+
+              {/* Experience Badge */}
+              <div className="grid grid-cols-2 gap-4 md:gap-8 mb-6">
+                <div className="text-center">
+                  <div className="bg-blue-50 rounded-lg p-3">
+                    <p className="text-2xl font-bold text-blue-600">2 Tahun</p>
+                    <p className="text-sm text-gray-600">Pengalaman Kerja</p>
                   </div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-green-50 rounded-lg p-3">
+                    <p className="text-2xl font-bold text-green-600">1jt/Bulan</p>
+                    <p className="text-sm text-gray-600">Tarif mulai dari</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <button
+                onClick={() => handleContactART(artId)}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 mb-0"
+              >
+                Kirim Pesan
+              </button>
+            </div>
+
+            {/* Security Section */}
+            <div className="bg-gray-50 rounded-lg p-6 box-shadow-default">
+              <h3 className="font-semibold text-2xl text-gray-900 mb-2">Keamanan</h3>
+              <p className="text-sm text-gray-600 mb-5">Ibu Siti telah terverifikasi oleh AsistenKita.</p>
+              <div className="space-y-2 border-2 border-gray-200 rounded-2xl p-4">
+                <div className="flex items-center text-sm">
+                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-gray-700">AsistenKita.com Background Check</span>
+                </div>
+                <div className="text-xs text-gray-500 ml-5 pb-2">Diverifikasi pada 20 Januari 2023</div>
+                <div className="flex items-center text-sm">
+                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-gray-700">Foto diambil menggunakan ID Januari 2024</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Profile Content */}
-          <div className="p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Left Column - Main Info */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Bio */}
-                {art.bio && (
-                  <div className="bg-gray-50 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Tentang Saya</h3>
-                    <p className="text-gray-700 leading-relaxed">{art.bio}</p>
-                  </div>
-                )}
+          {/* Right Column - Details */}
+          <div className="lg:col-span-2 gap-4 md:gap-8 space-y-3 md:space-x-4">
 
-                {/* Work Experience */}
-                {art.work_experience && (
-                  <div className="bg-gray-50 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Pengalaman Kerja</h3>
-                    <p className="text-gray-700 leading-relaxed">{art.work_experience}</p>
-                  </div>
-                )}
+            {/* About Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Tentang {art.name}</h2>
+              <p className="text-gray-700 leading-relaxed">
+                {art.bio || "Tidak ada deskripsi tersedia."}
+              </p>
+            </div>
 
-                {/* Skills */}
-                {art.skills && art.skills.length > 0 && (
-                  <div className="bg-gray-50 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Keahlian</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {art.skills.map((skill, index) => (
-                        <span
-                          key={index}
-                          className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-medium"
-                        >
-                          {skill.charAt(0).toUpperCase() + skill.slice(1).replace('-', ' ')}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Job Types */}
-                {art.job_types && art.job_types.length > 0 && (
-                  <div className="bg-gray-50 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Jenis Pekerjaan</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {art.job_types.map((jobType, index) => (
-                        <span
-                          key={index}
-                          className="bg-green-100 text-green-800 px-3 py-2 rounded-full text-sm font-medium"
-                        >
-                          {jobType.charAt(0).toUpperCase() + jobType.slice(1).replace('-', ' ')}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Right Column - Details */}
-              <div className="space-y-6">
-                {isAuthenticated ? (
-                  // --- VIEW FOR AUTHENTICATED USERS ---
-                  <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Informasi Personal</h3>
-                    <div className="space-y-3">
-                      {art.age && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Usia:</span>
-                          <span className="font-medium">{art.age} tahun</span>
-                        </div>
-                      )}
-                      {art.gender && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Jenis Kelamin:</span>
-                          <span className="font-medium">{getGenderText(art.gender)}</span>
-                        </div>
-                      )}
-                      {art.education && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Pendidikan:</span>
-                          <span className="font-medium">{art.education}</span>
-                        </div>
-                      )}
-                      {art.work_arrangement && (
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Sistem Kerja:</span>
-                          <span className="font-medium">{getWorkArrangementText(art.work_arrangement)}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  // --- VIEW FOR GUESTS ---
-                  <div className="bg-gray-200 border border-gray-200 rounded-xl p-6 h- flex flex-col items-center justify-center min-h-[200px]">
-                    {/* Lock Icon SVG */}
-                    <svg
-                      className="w-10 h-10 text-gray-400 mb-3"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3A5.25 5.25 0 0012 1.5zm.75 10.5a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0v-2.25z" />
-                    </svg>
-                    <p className="font-semibold text-gray-800 text-center">
-                      Login untuk melihat detail informasi
-                    </p>
-                  </div>
-                )}
-
-
-                {/* Location */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Lokasi</h3>
-                  <div className="space-y-3">
-                    {art.domicile_city && (
-                      <div className="flex items-center text-gray-700">
-                        <svg className="w-5 h-5 mr-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <div>
-                          <p className="font-medium">{art.domicile_city}</p>
-                          {art.domicile_district && (
-                            <p className="text-sm text-gray-500">{art.domicile_district}</p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Salary Range */}
-                {(art.salary_min || art.salary_max) && (
-                  <div className="bg-white border border-gray-200 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Range Gaji</h3>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-green-600">
-                        {art.salary_min && art.salary_max ? (
-                          `${formatCurrency(art.salary_min)} - ${formatCurrency(art.salary_max)}`
-                        ) : art.salary_min ? (
-                          `Mulai ${formatCurrency(art.salary_min)}`
-                        ) : art.salary_max ? (
-                          `Hingga ${formatCurrency(art.salary_max)}`
-                        ) : (
-                          'Nego'
-                        )}
-                      </p>
-                      {art.salary_unit && (
-                        <p className="text-sm text-gray-500 mt-1">
-                          {getSalaryUnitText(art.salary_unit)}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Contact Actions */}
-                <div className="space-y-3">
-                  <button
-                    onClick={() => handleContactART(artId)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    Hubungi ART
-                  </button>
-                  <button className="w-full bg-white hover:bg-gray-50 text-blue-600 font-semibold py-4 px-6 rounded-xl border-2 border-blue-600 transition-all duration-300">
-                    Simpan Profil
-                  </button>
+            {/* Education Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Pendidikan</h2>
+              <div className="space-y-4">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="font-semibold text-gray-900">{data.education}</h3>
                 </div>
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-gray-900">Ulasan Terbaru</h2>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-gray-900">
+                    {data.rating_average?.toFixed(1)}
+                  </div>
+                  <div className="flex items-center justify-end">
+                    {renderStars(Math.floor(data.rating_average ?? 0))}
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    berdasarkan {data.rating_count} ulasan
+                  </p>
+                </div>
+              </div>
+
+              {/* Latest Review */}
+              {mockReviewsData.reviews[0] && (
+                <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center mb-2">
+                    {renderStars(mockReviewsData.reviews[0].rating)}
+                  </div>
+                  <p className="text-gray-700 mb-3">"{mockReviewsData.reviews[0].comment}"</p>
+                  <div className="flex items-center">
+                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+                    <div>
+                      <p className="font-medium text-gray-900">{mockReviewsData.reviews[0].reviewerName}</p>
+                      <p className="text-sm text-gray-500">{mockReviewsData.reviews[0].createdAt}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                Lihat Semua
+              </button>
+            </div>
+
+            {/* Services Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Layanan</h2>
+              <div className="grid grid-cols-2 gap-4">
+                {data.job_types?.map((service, index) => (
+                  <span className="font-medium" key={index}>
+                    {service}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Skills Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Skills</h2>
+              <div className="flex flex-wrap gap-2">
+                {data.skills?.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Pricing Section */}
+            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Tarif</h2>
+              <div className="bg-blue-50 rounded-lg p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600 mb-2">
+                  {data.salary_min?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })} - {data.salary_max?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
+                </div>
+                <p className="text-sm text-gray-600">{data.salary_unit}</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
