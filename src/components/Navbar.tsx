@@ -62,8 +62,9 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {/* <Link
+          <div className="flex items-center space-x-10">
+            <div className="hidden md:flex items-center space-x-8 pt-1">
+              {/* <Link
               href="/"
               className={`relative transition-colors pb-1 ${isActiveLink('/')
                 ? 'text-blue-600 font-bold'
@@ -75,145 +76,172 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
               )}
             </Link> */}
-            <Link
-              href="/bantuan"
-              className={`relative transition-colors pb-1 ${isActiveLink('/bantuan')
-                ? 'text-blue-600 font-bold'
-                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
-                }`}
-            >
-              Cari Asisten
-              {isActiveLink('/bantuan') && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-              )}
-            </Link>
-            <Link
-              href="/lowongan"
-              className={`relative transition-colors pb-1 ${isActiveLink('/mitra')
-                ? 'text-blue-600 font-bold'
-                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
-                }`}
-            >
-              Pasang Lowongan
-              {isActiveLink('/lowongan') && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-              )}
-            </Link>
-             <Link
-              href="/pekerjaan"
-              className={`relative transition-colors pb-1 ${isActiveLink('/mitra')
-                ? 'text-blue-600 font-bold'
-                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
-                }`}
-            >
-              Cari Pekerjaan
-              {isActiveLink('/pekerjaan') && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-              )}
-            </Link>
-            <Link
-              href="/aboutus"
-              className={`relative transition-colors pb-1 ${isActiveLink('/aboutus')
-                ? 'text-blue-600 font-bold'
-                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
-                }`}
-            >
-              Tentang Kami
-              {isActiveLink('/aboutus') && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-              )}
-            </Link>
-          </div>
-
-          {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            {loading ? (
-              <div className="flex items-center space-x-4">
-                <Link
-                  href="/login"
-                  className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
-                >
-                  Masuk
-                </Link>
-                <Link
-                  href="/signup"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-colors"
-                >
-                  Daftar
-                </Link>
-              </div>
-            ) : isAuthenticated ? (
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center space-x-3 rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors shadow-sm"
-                >
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 text-xs font-medium">
-                      {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
-                    </span>
-                  </div>
-                  <p className="text-md font-semibold text-slate-600">
-                    {user?.name || 'User'}
-                  </p>
-                  <svg
-                    className={`w-4 h-4 text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+              {!user?.labels?.includes('art') && (
+                <>
+                  <Link
+                    href="/bantuan"
+                    className={`relative transition-colors pb-1 ${isActiveLink('/bantuan')
+                      ? 'text-blue-600 font-bold'
+                      : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                      }`}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                    Cari Asisten
+                    {isActiveLink('/bantuan') && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                    )}
+                  </Link>
+                  <Link
+                    href="/lowongan"
+                    className={`relative transition-colors pb-1 ${isActiveLink('/lowongan')
+                      ? 'text-blue-600 font-bold'
+                      : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                      }`}
+                  >
+                    Pasang Lowongan
+                    {isActiveLink('/lowongan') && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                    )}
+                  </Link>
+                </>
+              )}
 
-                {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg py-2 z-10">
-                    <div className="px-4 py-3">
-                      <div className="flex flex-col">
-                        <p className="text-sm font-medium text-gray-900">
-                          {user?.name || 'User'}
-                        </p>
-                        <p className="text-xs text-gray-500">{user?.email}</p>
+              {!user?.labels?.includes('majikan') && (
+                <Link
+                  href="/pekerjaan"
+                  className={`relative transition-colors pb-1 ${isActiveLink('/pekerjaan')
+                    ? 'text-blue-600 font-bold'
+                    : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                    }`}
+                >
+                  Cari Pekerjaan
+                  {isActiveLink('/pekerjaan') && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                  )}
+                </Link>
+              )}
+
+              {isAuthenticated && (
+                <Link
+                  href="/chat"
+                  className={`relative transition-colors pb-1 ${isActiveLink('/chat')
+                    ? 'text-blue-600 font-bold'
+                    : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                    }`}
+                >
+                  Chat
+                  {isActiveLink('/chat') && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                  )}
+                </Link>
+              )}
+
+              {!isAuthenticated && (
+                <Link
+                  href="/aboutus"
+                  className={`relative transition-colors pb-1 ${isActiveLink('/aboutus')
+                    ? 'text-blue-600 font-bold'
+                    : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                    }`}
+                >
+                  Tentang Kami
+                  {isActiveLink('/aboutus') && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                  )}
+                </Link>
+              )}
+            </div>
+
+            {/* Auth Buttons */}
+            <div className="hidden md:flex items-center space-x-4 pl-4">
+              {loading ? (
+                <div className="flex items-center space-x-4">
+                  <Link
+                    href="/login"
+                    className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
+                  >
+                    Masuk
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-medium transition-colors"
+                  >
+                    Daftar
+                  </Link>
+                </div>
+              ) : isAuthenticated ? (
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={toggleDropdown}
+                    className="flex items-center space-x-3 rounded-lg px-4 py-2 hover:bg-gray-100 transition-colors shadow-sm"
+                  >
+                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-blue-600 text-xs font-medium">
+                        {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
+                      </span>
+                    </div>
+                    <p className="text-md font-semibold text-slate-600">
+                      {user?.name || 'User'}
+                    </p>
+                    <svg
+                      className={`w-4 h-4 text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg py-2 z-10">
+                      <div className="flex w-full justify-between px-4 py-3">
+                        <div className="flex flex-col">
+                          <p className="text-sm font-medium text-gray-900">
+                            {user?.name || 'User'}
+                          </p>
+                          <p className="text-xs text-gray-500">{user?.email}</p>
+                        </div>
+                        <p className="text-xs text-blue-500">{user?.labels}</p>
+                      </div>
+                      <div className="py-2">
+                        <Link
+                          href="/dashboard"
+                          className="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 hover:text-blue-700 font-medium"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          Dashboard
+                        </Link>
+                        <button
+                          onClick={() => {
+                            handleLogout();
+                            setIsDropdownOpen(false);
+                          }}
+                          disabled={isLoggingOut}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium disabled:opacity-50"
+                        >
+                          {isLoggingOut ? 'Signing out...' : 'Sign out'}
+                        </button>
                       </div>
                     </div>
-                    <div className="py-2">
-                      <Link
-                        href="/dashboard"
-                        className="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 hover:text-blue-700 font-medium"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Dashboard
-                      </Link>
-                      <button
-                        onClick={() => {
-                          handleLogout();
-                          setIsDropdownOpen(false);
-                        }}
-                        disabled={isLoggingOut}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium disabled:opacity-50"
-                      >
-                        {isLoggingOut ? 'Signing out...' : 'Sign out'}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center space-x-6">
-                <Link
-                  href="/login"
-                  className="text-gray-700 font-bold hover:text-gray-900 transition-colors"
-                >
-                  Masuk
-                </Link>
-                <Link
-                  href="/signup"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold transition-colors"
-                >
-                  Daftar
-                </Link>
-              </div>
-            )}
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center space-x-6">
+                  <Link
+                    href="/login"
+                    className="text-gray-700 font-bold hover:text-gray-900 transition-colors"
+                  >
+                    Masuk
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-bold transition-colors"
+                  >
+                    Daftar
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -249,12 +277,12 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
 
       {/* Mobile menu */}
       <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${isMobileMenuOpen
-          ? 'max-h-screen opacity-100'
-          : 'max-h-0 opacity-0'
+        ? 'max-h-screen opacity-100'
+        : 'max-h-0 opacity-0'
         }`}>
         <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${isMobileMenuOpen
-            ? 'transform translate-y-0'
-            : 'transform -translate-y-2'
+          ? 'transform translate-y-0'
+          : 'transform -translate-y-2'
           }`}>
           {/* Navigation Links */}
           {/* <Link
@@ -323,18 +351,14 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
               </div>
             ) : isAuthenticated ? (
               <div className="space-y-1">
-                <div className="flex items-center px-3 py-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-blue-600 text-xs font-medium">
-                      {user?.name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
-                    </span>
-                  </div>
+                <div className="flex w-full justify-between px-4 py-3">
                   <div className="flex flex-col">
-                    <p className="text-base font-medium text-gray-900">
+                    <p className="text-sm font-medium text-gray-900">
                       {user?.name || 'User'}
                     </p>
-                    <p className="text-sm text-gray-500">{user?.email}</p>
+                    <p className="text-md text-gray-500">{user?.email}</p>
                   </div>
+                  <p className="text-md text-blue-500">{user?.labels}</p>
                 </div>
                 <Link
                   href="/dashboard"
