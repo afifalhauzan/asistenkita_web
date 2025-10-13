@@ -226,14 +226,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({
                 className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label htmlFor="terms" className="text-sm text-gray-600 leading-normal">
-                Dengan masuk atau mendaftar, kamu menyetujui{' '}
-                <Link href="/terms" className="text-blue-600 hover:text-blue-700">
+                Dengan masuk, kamu menyetujui{' '}
+                <a className="text-blue-600 hover:text-blue-700">
                   Syarat & Ketentuan
-                </Link>{' '}
+                </a>{' '}
                 dan{' '}
-                <Link href="/privacy" className="text-blue-600 hover:text-blue-700">
+                <a className="text-blue-600 hover:text-blue-700">
                   Kebijakan Privasi
-                </Link>{' '}
+                </a>{' '}
                 kami.
               </label>
             </div>

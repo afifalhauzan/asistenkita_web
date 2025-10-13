@@ -339,13 +339,13 @@ export const SignupForm: React.FC<SignupFormProps> = ({
               />
               <label htmlFor="terms" className="text-sm text-gray-600 leading-normal">
                 Dengan mendaftar, kamu menyetujui{' '}
-                <Link href="/terms" className="text-blue-600 hover:text-blue-700">
+                <a className="text-blue-600 hover:text-blue-700">
                   Syarat & Ketentuan
-                </Link>{' '}
+                </a>{' '}
                 dan{' '}
-                <Link href="/privacy" className="text-blue-600 hover:text-blue-700">
+                <a className="text-blue-600 hover:text-blue-700">
                   Kebijakan Privasi
-                </Link>{' '}
+                </a>{' '}
                 kami.
               </label>
             </div>
