@@ -6,16 +6,17 @@ interface Phase1FormData {
   name: string;
   email: string;
   phone: string;
+  ktpPhoto?: FileList;
 }
 
-interface ArtSignupPhase1Props {
+interface Phase1Props {
   initialData: Phase1FormData;
   onNext: (data: Phase1FormData) => void;
   onBack?: () => void;
   isLoading?: boolean;
 }
 
-export const ArtSignupPhase1: React.FC<ArtSignupPhase1Props> = ({
+export const Phase1: React.FC<Phase1Props> = ({
   initialData,
   onNext,
   onBack,
@@ -39,7 +40,7 @@ export const ArtSignupPhase1: React.FC<ArtSignupPhase1Props> = ({
       {/* Name Field */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          Nama Lengkap
+          Nama Lengkap (sesuai KTP)
         </label>
         <input
           id="name"
@@ -55,7 +56,7 @@ export const ArtSignupPhase1: React.FC<ArtSignupPhase1Props> = ({
           className={`w-full px-4 py-3 bg-gray-100 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200 ${
             errors.name ? 'ring-2 ring-red-500 bg-red-50' : ''
           }`}
-          placeholder="Masukkan nama lengkap"
+          placeholder="Nama"
           disabled={isLoading}
         />
         {errors.name && (
@@ -66,7 +67,7 @@ export const ArtSignupPhase1: React.FC<ArtSignupPhase1Props> = ({
       {/* Email Field */}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          Email
+          Email Aktif
         </label>
         <input
           id="email"
@@ -90,31 +91,58 @@ export const ArtSignupPhase1: React.FC<ArtSignupPhase1Props> = ({
         )}
       </div>
 
-      {/* Phone Field */}
+      {/* WhatsApp Phone Field */}
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-          Nomor Telepon
+          Nomor WhatsApp Aktif
         </label>
         <input
           id="phone"
           type="tel"
           autoComplete="tel"
           {...register('phone', {
-            required: 'Nomor telepon harus diisi',
+            required: 'Nomor WhatsApp harus diisi',
             pattern: {
               value: /^(\+62|62|0)[0-9]{8,13}$/,
-              message: 'Format nomor telepon tidak valid. Gunakan format Indonesia (+62, 62, atau 0)'
+              message: 'Format nomor WhatsApp tidak valid. Gunakan format Indonesia (+62, 62, atau 0)'
             }
           })}
           className={`w-full px-4 py-3 bg-gray-100 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-200 ${
             errors.phone ? 'ring-2 ring-red-500 bg-red-50' : ''
           }`}
-          placeholder="+62812xxxxxxxx atau 0812xxxxxxxx"
+          placeholder="+62"
           disabled={isLoading}
         />
         {errors.phone && (
           <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
         )}
+      </div>
+
+
+      {/* KTP Photo Upload */}
+      <div>
+        <label htmlFor="ktpPhoto" className="block text-sm font-medium text-gray-700 mb-2">
+          Foto KTP
+        </label>
+        <div className="relative">
+          <input
+            id="ktpPhoto"
+            type="file"
+            accept="image/*"
+            {...register('ktpPhoto')}
+            className="sr-only"
+            disabled={isLoading}
+          />
+          <label
+            htmlFor="ktpPhoto"
+            className="flex items-center justify-center w-full px-4 py-3 bg-gray-100 border-0 rounded-lg cursor-pointer hover:bg-gray-200 focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-200"
+          >
+            <svg className="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <span className="text-gray-500">Unggah File</span>
+          </label>
+        </div>
       </div>
 
       {/* Navigation Buttons */}

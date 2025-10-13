@@ -5,26 +5,31 @@ import { useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LogoFull } from '../../components/LogoFull';
-import { ArtSignupPhase1 } from './components/ArtSignupPhase1';
-import { ArtSignupPhase2 } from './components/ArtSignupPhase2';
-import { ArtSignupPhase3 } from './components/ArtSignupPhase3';
+import { Phase1 } from './components/Phase1';
+import { ArtSignupPhase2 } from './components/art/ArtSignupPhase2';
+import { ArtSignupPhase3 } from './components/art/ArtSignupPhase3';
+import { artSignupService } from '../../services/artSignupService';
 
 // Combined form data interface
 interface ArtSignupFormData {
-  // Phase 1 data
+  // Phase 1 data - General User Data (reusable for any role)
   name: string;
   email: string;
   phone: string;
-  // Phase 2 data
-  experience: string;
-  skills: string[];
-  availability: string;
-  location: string;
-  // Phase 3 data
-  password: string;
-  confirmPassword: string;
-  profilePhoto?: FileList;
+  ktpPhoto?: FileList;
+  // Phase 2 data - Professional Details (ART specific)
+  services: string[];
+  specialSkills: string[];
+  salaryMin: number;
+  salaryMax: number;
+  salaryUnit: string;
+  availability: string[];
+  // Phase 3 data - Profile Completion (ART specific)
+  profileTitle: string;
   bio: string;
+  education: string;
+  university: string;
+  graduationYear: string;
   agreeToTerms: boolean;
 }
 
@@ -40,53 +45,114 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<ArtSignupFormData>({
-    // Phase 1 defaults
+    // Phase 1 defaults - General User Data
     name: '',
     email: '',
     phone: '',
-    // Phase 2 defaults
-    experience: '',
-    skills: [],
-    availability: '',
-    location: '',
-    // Phase 3 defaults
-    password: '',
-    confirmPassword: '',
+    // Phase 2 defaults - Professional Details
+    services: [],
+    specialSkills: [],
+    salaryMin: 0,
+    salaryMax: 0,
+    salaryUnit: '/Bulan',
+    availability: [],
+    // Phase 3 defaults - Profile Completion
+    profileTitle: '',
     bio: '',
+    education: '',
+    university: '',
+    graduationYear: '',
     agreeToTerms: false
   });
 
   const router = useRouter();
 
   // Phase navigation handlers
-  const handlePhase1Next = (data: { name: string; email: string; phone: string }) => {
+  const handlePhase1Next = (data: { 
+    name: string; 
+    email: string; 
+    phone: string; 
+    ktpPhoto?: FileList; 
+  }) => {
     setFormData(prev => ({ ...prev, ...data }));
     setCurrentStep(2);
   };
 
-  const handlePhase2Next = (data: { experience: string; skills: string[]; availability: string; location: string }) => {
+  const handlePhase2Next = (data: { 
+    services: string[]; 
+    specialSkills: string[]; 
+    salaryMin: number; 
+    salaryMax: number; 
+    salaryUnit: string; 
+    availability: string[];
+    profileTitle: string;
+    bio: string;
+    education: string;
+    university: string;
+    graduationYear: string;
+  }) => {
     setFormData(prev => ({ ...prev, ...data }));
     setCurrentStep(3);
   };
 
-  const handlePhase3Submit = async (data: { password: string; confirmPassword: string; profilePhoto?: FileList; bio: string; agreeToTerms: boolean }) => {
+  const handlePhase3Submit = async (data: { 
+    agreeToTerms: boolean; 
+  }) => {
     setIsLoading(true);
     
     try {
       const finalData = { ...formData, ...data };
       console.log('ArtSignup: Final submission data:', finalData);
       
-      // TODO: Implement actual ART signup API call here
-      // For now, just simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Prepare data for submission
+      const submissionData = {
+        // Personal Information
+        name: finalData.name,
+        email: finalData.email,
+        phone: finalData.phone,
+        ktpPhoto: finalData.ktpPhoto?.[0], // Get first file from FileList
+        
+        // Professional Details
+        services: finalData.services,
+        specialSkills: finalData.specialSkills,
+        salaryRange: {
+          min: finalData.salaryMin,
+          max: finalData.salaryMax,
+          unit: finalData.salaryUnit,
+        },
+        availability: finalData.availability,
+        
+        // Profile Information
+        profileTitle: finalData.profileTitle,
+        bio: finalData.bio,
+        education: finalData.education,
+        university: finalData.university,
+        graduationYear: finalData.graduationYear,
+        
+        // Agreement
+        agreeToTerms: finalData.agreeToTerms,
+      };
       
-      if (onSuccess) {
-        onSuccess();
+      // Submit to backend using the service
+      const result = await artSignupService.submitArtSignup(submissionData);
+      
+      if (result.success) {
+        console.log('ArtSignup: Success!', result);
+        
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push(redirectTo);
+        }
       } else {
-        router.push(redirectTo);
+        console.error('ArtSignup: Submission failed:', result.error);
+        // TODO: Show error message to user
+        alert(`Pendaftaran gagal: ${result.error}`);
       }
     } catch (err) {
       console.error('ArtSignup: Submission error:', err);
+      // TODO: Show error message to user
+      alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
     } finally {
       setIsLoading(false);
     }
@@ -104,9 +170,9 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
       case 1:
         return 'Data Diri';
       case 2:
-        return 'Keahlian & Pengalaman';
+        return 'Detail Profesional';
       case 3:
-        return 'Akun & Profil';
+        return 'Cek Ulang & Aktifkan Profil Anda';
       default:
         return 'Pendaftaran ART';
     }
@@ -115,11 +181,11 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
   const getPhaseSubtitle = () => {
     switch (currentStep) {
       case 1:
-        return 'Harap isi formulir ini dengan benar';
+        return 'Tenang, data Anda aman. Informasi ini hanya kami gunakan untuk memvalidasi identitas Anda dan tidak akan dibagikan ke siapapun.';
       case 2:
-        return 'Ceritakan keahlian dan pengalaman Anda';
+        return 'Anggap bagian ini sebagai \'etalase\' diri Anda. Semakin lengkap, semakin besar peluang Anda untuk direkrut!';
       case 3:
-        return 'Lengkapi akun dan profil Anda';
+        return 'Pastikan semuanya sempurna. Profil ini akan tayang dan bisa dilihat oleh ribuan keluarga yang mencari asisten hebat seperti Anda!';
       default:
         return 'Proses pendaftaran AsistenKita';
     }
@@ -137,7 +203,7 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
           </div>
 
           {/* Form Container */}
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+          <div className={`w-full bg-white rounded-2xl shadow-lg p-8 ${currentStep === 3 ? 'max-w-4xl' : 'max-w-md'}`}>
             {/* Step Indicator */}
             <div className="flex justify-center mb-8">
               <div className="flex items-center space-x-4">
@@ -168,11 +234,12 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
             </div>
 
             {currentStep === 1 && (
-              <ArtSignupPhase1
+              <Phase1
                 initialData={{
                   name: formData.name,
                   email: formData.email,
-                  phone: formData.phone
+                  phone: formData.phone,
+                  ktpPhoto: formData.ktpPhoto,
                 }}
                 onNext={handlePhase1Next}
                 isLoading={isLoading}
@@ -182,10 +249,17 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
             {currentStep === 2 && (
               <ArtSignupPhase2
                 initialData={{
-                  experience: formData.experience,
-                  skills: formData.skills,
+                  services: formData.services,
+                  specialSkills: formData.specialSkills,
+                  salaryMin: formData.salaryMin,
+                  salaryMax: formData.salaryMax,
+                  salaryUnit: formData.salaryUnit,
                   availability: formData.availability,
-                  location: formData.location
+                  profileTitle: formData.profileTitle,
+                  bio: formData.bio,
+                  education: formData.education,
+                  university: formData.university,
+                  graduationYear: formData.graduationYear
                 }}
                 onNext={handlePhase2Next}
                 onBack={handleBack}
@@ -195,14 +269,9 @@ export const ArtSignup: React.FC<ArtSignupProps> = ({
 
             {currentStep === 3 && (
               <ArtSignupPhase3
-                initialData={{
-                  password: formData.password,
-                  confirmPassword: formData.confirmPassword,
-                  profilePhoto: formData.profilePhoto,
-                  bio: formData.bio,
-                  agreeToTerms: formData.agreeToTerms
-                }}
+                allFormData={formData}
                 onSubmit={handlePhase3Submit}
+                onUpdateData={(updatedData) => setFormData(prev => ({ ...prev, ...updatedData }))}
                 onBack={handleBack}
                 isLoading={isLoading}
               />

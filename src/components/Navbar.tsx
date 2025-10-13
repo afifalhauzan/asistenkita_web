@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                 : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
-              Pasang Lowongan
+              Cari Asisten
               {isActiveLink('/bantuan') && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
               )}
@@ -271,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
             }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Pasang Lowongan
+            Cari Asisten
           </Link>
           <Link
             href="/mitra"

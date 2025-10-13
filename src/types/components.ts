@@ -21,8 +21,8 @@ export interface MitraData {
   reviewCount?: number;
   experience?: number;
   priceRange?: {
-    min: number;
-    max: number;
+    min?: number;
+    max?: number;
     currency: string;
     unit?: string;
   };

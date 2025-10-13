@@ -8,6 +8,8 @@ import { useART } from '@/features/bantuan/hooks/useARTs';
 import { storageService } from '@/lib/storageService';
 import { LoginPromptModal, useLoginPrompt } from './LoginPromptModal';
 import Link from 'next/link';
+import { useAuth } from '@/features/auth/hooks/useAuth';
+
 
 export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
   if (!data) {
@@ -17,13 +19,15 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
   const params = useParams();
   const router = useRouter();
   const artId = params.id as string;
-  
+
+  const { isAuthenticated } = useAuth();
+
   const { data: art, isLoading, error } = useART(artId);
-  const { 
-    isModalOpen, 
-    handleContactART, 
-    handleLoginRedirect, 
-    closeModal 
+  const {
+    isModalOpen,
+    handleContactART,
+    handleLoginRedirect,
+    closeModal
   } = useLoginPrompt(artId);
 
   console.log('DetailART data:', data);
@@ -110,20 +114,20 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
 
   return (
     <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mt-20 ">
-          <div className="flex items-center">
-            <button 
-              onClick={() => router.back()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Kembali
-            </button>
-            <h1 className="ml-4 text-xl font-semibold text-gray-900">Profil ART</h1>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mt-20 ">
+        <div className="flex items-center">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Kembali
+          </button>
+          <h1 className="ml-4 text-xl font-semibold text-gray-900">Profil ART</h1>
         </div>
+      </div>
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -220,36 +224,55 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
 
               {/* Right Column - Details */}
               <div className="space-y-6">
-                {/* Personal Info */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Informasi Personal</h3>
-                  <div className="space-y-3">
-                    {art.age && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Usia:</span>
-                        <span className="font-medium">{art.age} tahun</span>
-                      </div>
-                    )}
-                    {art.gender && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Jenis Kelamin:</span>
-                        <span className="font-medium">{getGenderText(art.gender)}</span>
-                      </div>
-                    )}
-                    {art.education && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Pendidikan:</span>
-                        <span className="font-medium">{art.education}</span>
-                      </div>
-                    )}
-                    {art.work_arrangement && (
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Sistem Kerja:</span>
-                        <span className="font-medium">{getWorkArrangementText(art.work_arrangement)}</span>
-                      </div>
-                    )}
+                {isAuthenticated ? (
+                  // --- VIEW FOR AUTHENTICATED USERS ---
+                  <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Informasi Personal</h3>
+                    <div className="space-y-3">
+                      {art.age && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Usia:</span>
+                          <span className="font-medium">{art.age} tahun</span>
+                        </div>
+                      )}
+                      {art.gender && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Jenis Kelamin:</span>
+                          <span className="font-medium">{getGenderText(art.gender)}</span>
+                        </div>
+                      )}
+                      {art.education && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Pendidikan:</span>
+                          <span className="font-medium">{art.education}</span>
+                        </div>
+                      )}
+                      {art.work_arrangement && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Sistem Kerja:</span>
+                          <span className="font-medium">{getWorkArrangementText(art.work_arrangement)}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  // --- VIEW FOR GUESTS ---
+                  <div className="bg-gray-200 border border-gray-200 rounded-xl p-6 h- flex flex-col items-center justify-center min-h-[200px]">
+                    {/* Lock Icon SVG */}
+                    <svg
+                      className="w-10 h-10 text-gray-400 mb-3"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3A5.25 5.25 0 0012 1.5zm.75 10.5a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0v-2.25z" />
+                    </svg>
+                    <p className="font-semibold text-gray-800 text-center">
+                      Login untuk melihat detail informasi
+                    </p>
+                  </div>
+                )}
+
 
                 {/* Location */}
                 <div className="bg-white border border-gray-200 rounded-xl p-6">
@@ -298,7 +321,7 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
 
                 {/* Contact Actions */}
                 <div className="space-y-3">
-                  <button 
+                  <button
                     onClick={() => handleContactART(artId)}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                   >

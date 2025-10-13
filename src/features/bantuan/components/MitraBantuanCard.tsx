@@ -13,7 +13,7 @@ export const MitraBantuanCard: React.FC<MitraCardProps> = ({ data }) => {
     handleLoginRedirect,
     closeModal
   } = useLoginPrompt(data.id);
-  
+
   const renderStars = (rating: number): React.ReactNode[] => {
     return [...Array(5)].map((_, index) => (
       <svg
@@ -32,61 +32,95 @@ export const MitraBantuanCard: React.FC<MitraCardProps> = ({ data }) => {
 
   return (
     <>
-      <div className="bg-gray-50 rounded-2xl p-6 box-shadow-default hover:shadow-md transition-all duration-300 border border-gray-100">
+      <div>
+
+      </div>
+      <div className="max-w-3xl bg-gray-50 rounded-2xl p-6 box-shadow-default hover:shadow-md transition-all duration-300 border border-gray-100">
         {/* Profile Header */}
         <div className="flex flex-row  items-center mb-4">
           <div className="relative">
             <img
               src={storageService.getAvatarUrl(data.image)}
               alt={data.name}
-              className="w-14 h-14 rounded-full object-cover"
+              className="w-28 h-28 rounded-full object-cover"
               onError={(e) => {
                 // Fallback to placeholder if image fails to load
               }}
             />
-            {/* Verification Badge */}
-            {data.isVerified && (
-              <div className=" bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                ✓ Terverifikasi
-              </div>
-            )}
-          </div>
-          <div className="ml-4 flex-1">
-            <h3 className="font-semibold text-gray-900 text-lg">{data.name}</h3>
-            <p className="text-gray-500 text-sm">{data.specialization}</p>
-          </div>
-        </div>
 
-        {/* Experience and Location */}
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center text-gray-600 text-sm">
-            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-            </svg>
-            Umur: {data.experience} tahun
           </div>
-          <div className="flex i  tems-center text-gray-600 text-sm">
-            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-            </svg>
-            {data.city}
+
+          <div className="w-full flex-1 flex-col">
+            <div className="flex flex-row justify-between">
+              <div className="ml-4 ">
+                <div className="flex items-center space-x-2">
+                  <h3 className="font-semibold text-gray-900 text-lg">{data.name}</h3>
+                  {/* Verification Badge */}
+                  {data.isVerified && (
+                    <div className="group flex items-center overflow-hidden bg-green-500 text-white rounded-full cursor-pointer">
+
+                      {/* 1. Checkmark Icon (Always Visible) */}
+                      <div className="px-1.5 py-0.5">
+                        <span>✓</span>
+                      </div>
+
+                      {/* 2. Text Container (Expands on Hover) */}
+                      <div className="max-w-0 group-hover:max-w-xs transition-all duration-500 ease-in-out">
+                        <span className="pr-2 text-xs font-medium whitespace-nowrap">
+                          Terverifikasi
+                        </span>
+                      </div>
+
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-gray-500 text-sm">{data.specialization}</p>
+                {/* Experience and Location */}
+                <div className="space-y-2 mb-4 mt-2">
+                  <div className="flex items-center text-gray-600 text-sm">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                    </svg>
+                    Umur: {data.experience} tahun
+                  </div>
+                  <div className="flex items-center text-gray-600 text-sm">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                    </svg>
+                    {data.city}
+                  </div>
+                  <div className="flex items-center mb-0">
+                    <div className="flex">{renderStars(data.rating)}</div>
+                    <span className="ml-2 text-sm font-medium text-gray-700">{data.rating}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-gray-500 font-semibold text-md">Mulai dari :</p>
+                <p className="text-gray-500 font-bold text-md md:text-lg">{data.priceRange?.min ? `Rp ${data.priceRange.min}` : 'Harga Negosiasi'}</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Rating */}
-        <div className="flex items-center mb-6">
-          <div className="flex">{renderStars(data.rating)}</div>
-          <span className="ml-2 text-sm font-medium text-gray-700">{data.rating}</span>
+        <div className="text-left mb-6">
+          <div className="text-gray-600 text-sm leading-relaxed">
+            {data.description}
+          </div>
         </div>
 
         {/* Lihat Profil Button */}
 
-        <button
-          onClick={() => handleContactART(data.id)}
-          className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-3 px-4 rounded-lg transition-all duration-300 border border-blue-200 hover:border-blue-300">
-          Lihat Profil
-        </button>
+        <Link href={`/art/${data.id}`}>
+          <button
+            className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 font-medium py-3 px-4 rounded-lg transition-all duration-300 border border-blue-200 hover:border-blue-300">
+            Lihat Profil
+          </button>
+        </Link>
       </div>
+
 
       <LoginPromptModal
         isOpen={isModalOpen}

@@ -1,4 +1,4 @@
-import "/src/app/app.css";
+import "@/app/app.css";
 import { AuthProvider } from '@/features/auth/context/AuthContext';
 import { QueryProvider } from '@/providers/QueryProvider';
 import type { LayoutProps } from '@/types/routing';

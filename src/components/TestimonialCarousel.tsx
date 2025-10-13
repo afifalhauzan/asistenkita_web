@@ -1,7 +1,7 @@
 "use client";
 
-import EmblaCarousel from './carousel/EmblaCarousel'
-import '/src/app/embla.css'
+import EmblaCarousel from '@/components/carousel/EmblaCarousel'
+import '@/app/embla.css'
 import type { Testimonial } from '@/types/components'
 
 interface TestimonialCarouselProps {

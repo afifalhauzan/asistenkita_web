@@ -1,5 +1,6 @@
 export { authService, AuthService } from './authService';
 export { artService, ARTService } from './artService';
+export { artSignupService } from './artSignupService';
 
 export type {
   ARTProfile,
@@ -9,6 +10,15 @@ export type {
   UpdateARTRequest,
   ARTStatistics,
 } from '@/types/art';
+
+export type {
+  ArtSignupFormData,
+  ArtSignupSubmissionData,
+  ArtSignupResult,
+  Phase1FormData,
+  Phase2FormData,
+  Phase3FormData,
+} from '@/types/artSignup';
 
 export type {
   PaginatedResponse,
