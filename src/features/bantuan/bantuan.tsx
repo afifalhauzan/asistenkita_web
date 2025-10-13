@@ -59,11 +59,10 @@ export const Bantuan = () => {
                 <Hero />
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 py-8 w-full">
-                    <div className="rounded-2xl p-6 box-shadow-default border border-gray-100 mb-8">
+                    {/* <div className="rounded-2xl p-6 box-shadow-default border border-gray-100 mb-8">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6">Cari dan Filter</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            {/* Search Input */}
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +78,6 @@ export const Bantuan = () => {
                                 />
                             </div>
 
-                            {/* Skills Filter */}
                             <div className="relative">
                                 <select
                                     onChange={(e) => handleFilterChange('specialization', e.target.value)}
@@ -99,7 +97,6 @@ export const Bantuan = () => {
                                 </div>
                             </div>
 
-                            {/* Location Filter */}
                             <div className="relative">
                                 <select
                                     onChange={(e) => handleFilterChange('location', e.target.value)}
@@ -119,7 +116,6 @@ export const Bantuan = () => {
                                 </div>
                             </div>
 
-                            {/* Search Button */}
                             <button
                                 onClick={handleSearch}
                                 disabled={isLoading}
@@ -129,7 +125,6 @@ export const Bantuan = () => {
                             </button>
                         </div>
 
-                        {/* Clear Filters */}
                         {(search.query || Object.keys(search.filters).length > 0) && (
                             <div className="mt-4">
                                 <button
@@ -140,7 +135,7 @@ export const Bantuan = () => {
                                 </button>
                             </div>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Loading State */}
                     {isLoading && (

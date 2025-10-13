@@ -77,8 +77,8 @@ const AboutUsHero: React.FC = () => {
                             </div>
 
                             <div className="flex items-center justify-center rounded-2xl">
-                                <div className=" ml-30 sm:mr-0 rotate-2 hover:rotate-5 transition-all duration-300">
-                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-50 rounded-2xl" />
+                                <div className="ml-30 sm:ml-0 sm:mr-0 rotate-2 hover:rotate-5 transition-all duration-300">
+                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-50 rounded-2xl" />
                                     <div className="absolute top-40 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">💑</span>
                                     </div>

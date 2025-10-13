@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link
+            {/* <Link
               href="/"
               className={`relative transition-colors pb-1 ${isActiveLink('/')
                 ? 'text-blue-600 font-bold'
@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
               {isActiveLink('/') && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
               )}
-            </Link>
+            </Link> */}
             <Link
               href="/bantuan"
               className={`relative transition-colors pb-1 ${isActiveLink('/bantuan')
@@ -88,14 +88,26 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
               )}
             </Link>
             <Link
-              href="/mitra"
+              href="/lowongan"
               className={`relative transition-colors pb-1 ${isActiveLink('/mitra')
                 ? 'text-blue-600 font-bold'
                 : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
                 }`}
             >
-              Jadi Mitra Kerja
-              {isActiveLink('/mitra') && (
+              Pasang Lowongan
+              {isActiveLink('/lowongan') && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+              )}
+            </Link>
+             <Link
+              href="/pekerjaan"
+              className={`relative transition-colors pb-1 ${isActiveLink('/mitra')
+                ? 'text-blue-600 font-bold'
+                : 'text-gray-700 hover:text-gray-900 font-semibold nav-link'
+                }`}
+            >
+              Cari Pekerjaan
+              {isActiveLink('/pekerjaan') && (
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
               )}
             </Link>
@@ -236,74 +248,74 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
-        isMobileMenuOpen
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${isMobileMenuOpen
           ? 'max-h-screen opacity-100'
           : 'max-h-0 opacity-0'
-      }`}>
-        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${
-          isMobileMenuOpen
+        }`}>
+        <div className={`px-4 py-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/20 border-t transition-transform duration-300 ease-out ${isMobileMenuOpen
             ? 'transform translate-y-0'
             : 'transform -translate-y-2'
-        }`}>
+          }`}>
           {/* Navigation Links */}
-          <Link
+          {/* <Link
             href="/"
-            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${
-              isActiveLink('/')
+            className={`block px-3 py-2 rounded-md text-base font-bold transition-all duration-200 delay-75 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Beranda
-          </Link>
+          </Link> */}
           <Link
             href="/bantuan"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${
-              isActiveLink('/bantuan')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-100 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/bantuan')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Cari Asisten
           </Link>
           <Link
             href="/mitra"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${
-              isActiveLink('/mitra')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/mitra')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Jadi Mitra Kerja
+            Pasang Lowongan
+          </Link>
+          <Link
+            href="/mitra"
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-150 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/mitra')
+                ? 'text-blue-600 bg-blue-50'
+                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Cari Pekerjaan
           </Link>
           <Link
             href="/aboutus"
-            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${
-              isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-            } ${
-              isActiveLink('/aboutus')
+            className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 delay-200 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+              } ${isActiveLink('/aboutus')
                 ? 'text-blue-600 bg-blue-50'
                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-            }`}
+              }`}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Tentang Kami
           </Link>
 
           {/* Auth Section */}
-          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${
-            isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
-          }`}>
+          <div className={`pt-4 pb-3 border-t border-gray-200 transition-all duration-200 delay-250 ${isMobileMenuOpen ? 'animate-in slide-in-from-left-4 fade-in' : ''
+            }`}>
             {loading ? (
               <div className="flex items-center px-3 py-2">
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
