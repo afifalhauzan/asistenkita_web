@@ -8,10 +8,10 @@ import { useAuth } from '../auth/hooks/useAuth';
 export const Chat = () => {
     const { user } = useAuth();
     return (
-        <div className="relative z-10 flex flex-col items-center md:justify-start px-6 py-8 mt-10 md:mt-25">
-            <div className="max-w-6xl max-h-screen w-full">
+        <div className="overflow-hidden bg-gray-50 relative z-10 flex flex-col items-center md:justify-start ">
+            <div className="max-w-6xl max-h-screen w-full p-10 md:p-0 py-8 mt-20 md:mt-35">
                 {/* Chat Coming Soon Layout */}
-                <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="grid md:grid-cols-2 gap-10 md:gap-4 items-center ">
                     {/* Left Side - Mock Chat Interface */}
                     <div className="bg-gray-100 rounded-2xl p-6 shadow-lg relative overflow-hidden">
                         {/* Mock Chat Header */}
@@ -75,7 +75,7 @@ export const Chat = () => {
                     </div>
 
                     {/* Right Side - Coming Soon Message */}
-                    <div className="text-center space-y-6">
+                    <div className="text-center space-y-6 order-first md:order-last">
                         <div className="space-y-4">
                             <h1 className="text-6xl md:text-7xl font-black text-blue-600 text-shadow-lg text-shadow-blue-200 tracking-tight">
                                 COMING
