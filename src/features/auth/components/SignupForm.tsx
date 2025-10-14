@@ -91,7 +91,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-4">
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-4 pl-0 md:pl-20">
         <div className="flex justify-start mb-6">
           <LogoFull />
         </div>

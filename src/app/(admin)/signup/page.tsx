@@ -7,7 +7,7 @@ import type { NextPage } from '@/types/routing';
 
 const SignupPage: NextPage = () => {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen ">
       <SignupForm />
     </div>
   );
