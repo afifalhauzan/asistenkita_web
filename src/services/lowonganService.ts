@@ -147,8 +147,6 @@ class LowonganService {
         is_active: false,
         applications_count: 0,
         views_count: 0,
-        // Set expiry to 30 days from now if not provided
-        expires_at: data.expires_at || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
       };
 
       const response = await databases.createDocument(
@@ -355,7 +353,6 @@ class LowonganService {
       is_active: doc.is_active || false,
       applications_count: doc.applications_count || 0,
       views_count: doc.views_count || 0,
-      expires_at: doc.expires_at || null,
     };
   }
 
@@ -379,7 +376,6 @@ class LowonganService {
       is_active: doc.is_active || false,
       applications_count: doc.applications_count || 0,
       views_count: doc.views_count || 0,
-      expires_at: doc.expires_at || null,
     };
   };
 }

@@ -62,7 +62,6 @@ export interface Lowongan extends BaseEntity {
   is_active?: boolean;
   applications_count?: number;
   views_count?: number;
-  expires_at?: string; // ISO date string
 }
 
 // Interface for creating a new lowongan
@@ -77,7 +76,6 @@ export interface CreateLowonganRequest {
   work_arrangement?: LowonganWorkArrangement[];
   salary_min?: number;
   salary_max?: number;
-  expires_at?: string; // ISO date string
 }
 
 // Interface for updating a lowongan
@@ -129,7 +127,6 @@ export interface LowonganListItem {
   is_active?: boolean;
   applications_count?: number;
   views_count?: number;
-  expires_at?: string;
   $createdAt: string;
   $updatedAt: string;
 }
