@@ -216,27 +216,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               )}
             </div>
 
-            <div className="flex items-start space-x-3 ">
-              <input
-                id="terms"
-                type="checkbox"
-                {...register('agreeToTerms', {
-                  required: 'Anda harus menyetujui Syarat & Ketentuan serta Kebijakan Privasi kami',
-                })}
-                className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="terms" className="text-sm text-gray-600 leading-normal">
-                Dengan masuk, kamu menyetujui{' '}
-                <a className="text-blue-600 hover:text-blue-700">
-                  Syarat & Ketentuan
-                </a>{' '}
-                dan{' '}
-                <a className="text-blue-600 hover:text-blue-700">
-                  Kebijakan Privasi
-                </a>{' '}
-                kami.
-              </label>
-            </div>
             {errors.agreeToTerms && (
               <p className="text-sm text-red-600">{errors.agreeToTerms.message}</p>
             )}
