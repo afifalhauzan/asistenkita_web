@@ -7,7 +7,7 @@ import Providers from './providers';
 
 export const metadata: Metadata = {
   title: "AsistenKita - Platform Jasa ART Terpercaya",
-  description: "Platform Jasa ART Terpercaya",
+  description: "Platform Jasa ART",
 };
 
 export default function RootLayout({ children }: LayoutProps) {
