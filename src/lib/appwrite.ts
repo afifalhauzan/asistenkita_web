@@ -21,6 +21,7 @@ export const DATABASE_CONFIG = {
     reviews: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_REVIEWS as string,
     skills: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SKILLS as string,
     bookings: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_BOOKINGS as string,
+    lowongan: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_LOWONGAN as string,
   },
   buckets: {
     artphoto: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ARTPHOTO as string,

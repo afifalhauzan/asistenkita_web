@@ -8,9 +8,8 @@ export const MitraCard: React.FC<MitraCardProps> = ({ data }) => {
     return [...Array(5)].map((_, index) => (
       <svg
         key={index}
-        className={`w-4 h-4 ${
-          index < rating ? 'text-yellow-400' : 'text-gray-300'
-        }`}
+        className={`w-4 h-4 ${index < rating ? 'text-yellow-400' : 'text-gray-300'
+          }`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -28,7 +27,7 @@ export const MitraCard: React.FC<MitraCardProps> = ({ data }) => {
           alt={data.name}
           className="w-full h-full object-cover"
         />
-        
+
         {/* Verification Badge */}
         {data.isVerified && (
           <div className="absolute top-4 left-4 bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium flex items-center">
@@ -39,20 +38,36 @@ export const MitraCard: React.FC<MitraCardProps> = ({ data }) => {
           </div>
         )}
 
+        {/* data.isVerified && (
+          <div className="absolute top-4 left-4group flex items-center overflow-hidden bg-green-500 text-white rounded-full cursor-pointer">
+
+            <div className="px-1.5 py-0.5">
+              <span>✓</span>
+            </div>
+
+            <div className="max-w-0 group-hover:max-w-xs transition-all duration-500 ease-in-out">
+              <span className="pr-2 text-xs font-medium whitespace-nowrap">
+                Terverifikasi
+              </span>
+            </div>
+
+          </div>
+        ) */}
+
         {/* Overlay for text visibility */}
         <div className="absolute h-full inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        
+
         {/* Content positioned over overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 className="text-2xl font-bold mb-0">{data.name}</h3>
           <p className="text-gray-200 text-sm mb-4">{data.specialization}</p>
-          
+
           {/* Rating */}
           <div className="flex items-center mb-1">
             <div className="flex">{renderStars(data.rating)}</div>
             <span className="ml-2 text-sm text-gray-300">({data.rating})</span>
           </div>
-          
+
           {/* Description */}
           <p className="text-gray-300 text-sm leading-relaxed">{data.description}</p>
         </div>

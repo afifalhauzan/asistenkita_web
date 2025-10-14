@@ -9,7 +9,7 @@ export const Chat = () => {
     const { user } = useAuth();
     return (
         <div className="overflow-hidden bg-gray-50 relative z-10 flex flex-col items-center md:justify-start ">
-            <div className="max-w-6xl max-h-screen w-full p-10 md:p-0 py-8 mt-20 md:mt-35">
+            <div className="max-w-6xl h-screen w-full p-10 md:p-0 py-8 mt-20 md:mt-35">
                 {/* Chat Coming Soon Layout */}
                 <div className="grid md:grid-cols-2 gap-10 md:gap-4 items-center ">
                     {/* Left Side - Mock Chat Interface */}

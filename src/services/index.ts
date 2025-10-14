@@ -1,6 +1,7 @@
 export { authService, AuthService } from './authService';
 export { artService, ARTService } from './artService';
 export { artSignupService } from './artSignupService';
+export { lowonganService, LowonganService } from './lowonganService';
 
 export type {
   ARTProfile,
@@ -10,6 +11,19 @@ export type {
   UpdateARTRequest,
   ARTStatistics,
 } from '@/types/art';
+
+export type {
+  Lowongan,
+  LowonganListItem,
+  LowonganSearchParams,
+  CreateLowonganRequest,
+  UpdateLowonganRequest,
+  LowonganStatistics,
+  LowonganGender,
+  LowonganJobType,
+  LowonganSkill,
+  LowonganWorkArrangement,
+} from '@/types/lowongan';
 
 export type {
   ArtSignupFormData,

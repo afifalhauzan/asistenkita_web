@@ -242,7 +242,7 @@ export const Bantuan = () => {
                                             </div>
                                         </div>
 
-                                        <div className="grid grid-cols-1 gap-2 sm:order-1 ">
+                                        <div className="grid grid-cols-1 w-full sm:w-4/5 gap-2 sm:order-1 ">
                                             {arts.map((art) => {
                                                 // Transform ARTListItem to MitraData format
                                                 const cardData = {

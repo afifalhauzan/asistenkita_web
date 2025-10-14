@@ -4,6 +4,7 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import type { NextPage } from '@/types/routing';
 import { Chat } from "@/features/chat/chat";
+import { Footer } from "@/components/Footer";
 
 const ChatPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -16,6 +17,7 @@ const ChatPage: NextPage = () => {
                 {/* Hero Section */}
                 <Chat />
             </main>
+            <Footer />
         </div>
     );
 };

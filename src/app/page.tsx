@@ -7,6 +7,7 @@ import Trusted from "@/features/home/trusted";
 import Link from "next/link";
 import MitraTestimoni from "@/features/home/mitra_testimoni";
 import type { NextPage } from '@/types/routing';
+import { Footer } from "@/components/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       <Hero />
       <Trusted />
       <MitraTestimoni />
+      <Footer />
     </div>
   );
 };

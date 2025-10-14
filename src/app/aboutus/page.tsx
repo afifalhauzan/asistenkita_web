@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
 import type { NextPage } from '@/types/routing';
 import { AboutUs } from "@/features/aboutus/AboutUs";
+import { Footer } from "@/components/Footer";
 
 const AboutUsPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -16,6 +17,7 @@ const AboutUsPage: NextPage = () => {
             <main className="">
                 <AboutUs />
             </main>
+            <Footer />
         </div>
     );
 };

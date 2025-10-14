@@ -224,114 +224,165 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
             </div>
           </div>
 
-          {/* Right Column - Details */}
-          <div className="lg:col-span-2 gap-4 md:gap-8 space-y-3 md:space-x-4">
 
-            {/* About Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Tentang {art.name}</h2>
-              <p className="text-gray-700 leading-relaxed">
-                {art.bio || "Tidak ada deskripsi tersedia."}
-              </p>
-            </div>
-
-            {/* Education Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Pendidikan</h2>
-              <div className="space-y-4">
-                <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="font-semibold text-gray-900">{data.education}</h3>
-                </div>
-              </div>
-            </div>
-
-            {/* Reviews Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Ulasan Terbaru</h2>
-                <div className="text-right">
-                  <div className="text-3xl font-bold text-gray-900">
-                    {data.rating_average?.toFixed(1)}
+          <div className="lg:col-span-2">
+            {isAuthenticated ? (
+              <>
+                <div className="lg:col-span-2 gap-4 md:gap-8 space-y-3 md:space-x-4">
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Tentang {art.name}</h2>
+                    <p className="text-gray-700 leading-relaxed">
+                      {art.bio || "Tidak ada deskripsi tersedia."}
+                    </p>
                   </div>
-                  <div className="flex items-center justify-end">
-                    {renderStars(Math.floor(data.rating_average ?? 0))}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    berdasarkan {data.rating_count} ulasan
-                  </p>
-                </div>
-              </div>
 
-              {/* Latest Review */}
-              {mockReviewsData.reviews[0] && (
-                <div className="border border-gray-200 rounded-lg p-4 mb-4">
-                  <div className="flex items-center mb-2">
-                    {renderStars(mockReviewsData.reviews[0].rating)}
+                  {/* Education Section */}
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Pendidikan</h2>
+                    <div className="space-y-4">
+                      <div className="border-l-4 border-blue-500 pl-4">
+                        <h3 className="font-semibold text-gray-900">{data.education}</h3>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-gray-700 mb-3">"{mockReviewsData.reviews[0].comment}"</p>
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-medium text-gray-900">{mockReviewsData.reviews[0].reviewerName}</p>
-                      <p className="text-sm text-gray-500">{mockReviewsData.reviews[0].createdAt}</p>
+
+                  {/* Reviews Section */}
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <div className="flex justify-between items-center mb-6">
+                      <h2 className="text-xl font-bold text-gray-900">Ulasan Terbaru</h2>
+                      <div className="text-right">
+                        <div className="text-3xl font-bold text-gray-900">
+                          {data.rating_average?.toFixed(1)}
+                        </div>
+                        <div className="flex items-center justify-end">
+                          {renderStars(Math.floor(data.rating_average ?? 0))}
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          berdasarkan {data.rating_count} ulasan
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Latest Review */}
+                    {mockReviewsData.reviews[0] && (
+                      <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                        <div className="flex items-center mb-2">
+                          {renderStars(mockReviewsData.reviews[0].rating)}
+                        </div>
+                        <p className="text-gray-700 mb-3">"{mockReviewsData.reviews[0].comment}"</p>
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
+                          <div>
+                            <p className="font-medium text-gray-900">{mockReviewsData.reviews[0].reviewerName}</p>
+                            <p className="text-sm text-gray-500">{mockReviewsData.reviews[0].createdAt}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                      Lihat Semua
+                    </button>
+                  </div>
+
+                  {/* Services Section */}
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Layanan</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                      {data.job_types?.map((service, index) => (
+                        <span className="font-medium" key={index}>
+                          {service}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Skills Section */}
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Skills</h2>
+                    <div className="flex flex-wrap gap-2">
+                      {data.skills?.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-medium"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Pricing Section */}
+                  <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-4">Tarif</h2>
+                    <div className="bg-blue-50 rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold text-blue-600 mb-2">
+                        {data.salary_min?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })} - {data.salary_max?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
+                      </div>
+                      <p className="text-sm text-gray-600">{data.salary_unit}</p>
                     </div>
                   </div>
                 </div>
-              )}
+              </>
+            ) : (
+              <>
+                <div className="relative">
+                  {/* 1. Blurred Background Content */}
+                  <div className="space-y-6 blur-md select-none pointer-events-none">
+                    <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                      <h2 className="text-xl font-bold text-gray-900 mb-4">Tentang Kandidat</h2>
+                      <p className="text-gray-700 leading-relaxed space-y-2">
+                        <span className="block h-4 bg-gray-200 rounded w-full"></span>
+                        <span className="block h-4 bg-gray-200 rounded w-5/6"></span>
+                        <span className="block h-4 bg-gray-200 rounded w-3/4"></span>
+                      </p>
+                    </div>
 
-              <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
-                Lihat Semua
-              </button>
-            </div>
+                    {/* Education Placeholder */}
+                    <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                      <h2 className="text-xl font-bold text-gray-900 mb-4">Pendidikan & Ulasan</h2>
+                      <p className="text-gray-700 leading-relaxed space-y-2">
+                        <span className="block h-4 bg-gray-200 rounded w-1/2"></span>
+                        <span className="block h-4 bg-gray-200 rounded w-2/3"></span>
+                      </p>
+                    </div>
 
-            {/* Services Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Layanan</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {data.job_types?.map((service, index) => (
-                  <span className="font-medium" key={index}>
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </div>
+                    {/* Skills Placeholder */}
+                    <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
+                      <h2 className="text-xl font-bold text-gray-900 mb-4">Skills & Layanan</h2>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="block h-8 bg-gray-200 rounded-full w-20"></span>
+                        <span className="block h-8 bg-gray-200 rounded-full w-24"></span>
+                        <span className="block h-8 bg-gray-200 rounded-full w-16"></span>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Skills Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Skills</h2>
-              <div className="flex flex-wrap gap-2">
-                {data.skills?.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="bg-blue-100 text-blue-800 px-3 py-2 rounded-full text-sm font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Pricing Section */}
-            <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Tarif</h2>
-              <div className="bg-blue-50 rounded-lg p-4 text-center">
-                <div className="text-2xl font-bold text-blue-600 mb-2">
-                  {data.salary_min?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })} - {data.salary_max?.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}
+                  {/* 2. Login Call-to-Action Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm rounded-2xl">
+                    <div className="text-center bg-white p-8 rounded-xl shadow-2xl max-w-sm">
+                      <h3 className="text-2xl font-bold text-gray-900">Akses Informasi Lengkap</h3>
+                      <p className="text-gray-600 mt-2 mb-6">
+                        Masuk atau daftar untuk melihat detail lengkap profil, ulasan, dan tarif kandidat.
+                      </p>
+                      <Link href="/login" className="inline-block w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                        Lanjutkan
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">{data.salary_unit}</p>
-              </div>
-            </div>
-
+              </>
+            )}
           </div>
         </div>
-      </div>
 
-      {/* Login Prompt Modal */}
-      <LoginPromptModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onLoginRedirect={handleLoginRedirect}
-      />
+        {/* Login Prompt Modal */}
+        <LoginPromptModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onLoginRedirect={handleLoginRedirect}
+        />
+      </div>
     </div>
   );
 };

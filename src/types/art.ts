@@ -26,7 +26,7 @@ export interface ARTProfile extends BaseEntity {
   // Professional info
   skills?: string[];
   job_types?: string[];
-  work_arrangement?: WorkArrangement;
+  work_arrangement?: WorkArrangement[];
   work_experience?: string;
   
   // Location

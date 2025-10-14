@@ -4,6 +4,7 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import Link from "next/link";
 import type { NextPage } from '@/types/routing';
+import { Footer } from "@/components/Footer";
 
 const MitraPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
@@ -16,6 +17,7 @@ const MitraPage: NextPage = () => {
                 {/* Hero Section */}
                 <h1> Mitra kerja</h1>
             </main>
+            <Footer />
         </div>
     );
 };
