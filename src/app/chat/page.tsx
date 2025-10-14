@@ -3,7 +3,7 @@
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Navbar } from "@/components/Navbar";
 import type { NextPage } from '@/types/routing';
-import { Chat } from "@/features/chat]/chat";
+import { Chat } from "@/features/chat/chat";
 
 const ChatPage: NextPage = () => {
     const { user, isAuthenticated, loading } = useAuth();
