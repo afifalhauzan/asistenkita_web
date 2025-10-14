@@ -1,6 +1,6 @@
 "use client";
 
-import Image from 'next/image';
+import Img from 'next/image';
 
 export const VisiMisi = () => {
     return (
@@ -51,15 +51,15 @@ export const VisiMisi = () => {
                         {/* Family images placeholder */}
                         <div className="mt-8 space-y-4">
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 h-32 flex items-center justify-center">
-                                    <span className="text-blue-600 font-medium">Keluarga Bahagia</span>
+                                <div className="flex items-center justify-center">
+                                    <Img src="/aboutus_1.png" alt="Family 1" width={200} height={70} className="" />
                                 </div>
-                                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 h-32 flex items-center justify-center">
-                                    <span className="text-blue-600 font-medium">Asisten Terverifikasi</span>
+                                <div className="flex items-center justify-center">
+                                   <Img src="/aboutus_2.png" alt="Family 2" width={200} height={70} className="" />
                                 </div>
                             </div>
-                            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 h-24 flex items-center justify-center">
-                                <span className="text-blue-600 font-medium">Hubungan Saling Menguntungkan</span>
+                            <div className="flex items-center justify-center">
+                                <Img src="/aboutus_3.png" alt="Family 2" width={470} height={50} className="" />
                             </div>
                         </div>
                     </div>
