@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { LogoFull } from '../../../components/LogoFull';
 import type { SignupFormData, User } from '@/types/auth';
+import Img from 'next/image';
 
 interface SignupFormProps {
   onSuccess?: (user: User) => void;
@@ -90,31 +91,31 @@ export const SignupForm: React.FC<SignupFormProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen h-120 flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-4 pl-0 md:pl-20">
-        <div className="flex justify-start mb-6">
-          <LogoFull />
-        </div>
-
-        <div className="flex-1 flex flex-col justify-center max-w-md">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Selamat Datang!
-          </h1>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Yuk, buat akun Anda di AsistenKita.
-          </p>
-        </div>
-
-        {/* Image placeholder - will be added by user */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-full h-64 rounded-lg flex items-center justify-center text-gray-400">
-
-          </div>
-        </div>
-      </div>
+              <div className="flex justify-start mb-6">
+                <LogoFull />
+              </div>
+      
+              <div className="flex-1 flex flex-col justify-center max-w-md">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                  Selamat Datang Kembali!
+                </h1>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Yuk, buat akun Anda di AsistenKita.
+                </p>
+              </div>
+      
+              {/* Image placeholder - will be added by user */}
+              <div className="flex-1 flex items-center justify-center">
+                <div className="w-full h-120 rounded-lg flex items-start justify-start text-gray-400">
+                  <Img src="/logindaftar_asset.png" width={700} height={700} alt="Placeholder Image" className="object-cover" />
+                </div>
+              </div>
+            </div>
 
       {/* Right Side - Sign Up Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full lg:w-1/3 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
