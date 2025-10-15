@@ -93,6 +93,54 @@ class AuthService {
   }
 
   /**
+   * Update user labels (e.g., 'majikan', 'art')
+   * This calls the server-side API route to update labels in Appwrite database
+   */
+  async updateLabels(labels: string[]): Promise<User> {
+    try {
+      console.log('Updating user labels to:', labels);
+      
+      // Get current user to get userId
+      const currentUser = await this.getCurrentUser();
+      if (!currentUser) {
+        throw new Error('No user logged in');
+      }
+
+      console.log('Current user ID:', currentUser.$id);
+
+      // Call server-side API to update labels
+      const response = await fetch('/api/users/update-labels', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: currentUser.$id,
+          labels: labels
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update labels');
+      }
+
+      console.log('Labels updated successfully via API:', data.user);
+      console.log('Updated labels:', data.user.labels);
+      
+      // Get fresh user data
+      const updatedUser = await this.getCurrentUser();
+      console.log('Refreshed user data:', updatedUser);
+      
+      return updatedUser!;
+    } catch (error) {
+      console.error('Update labels error:', error);
+      throw new Error(this.getErrorMessage(error as AppwriteError));
+    }
+  }
+
+  /**
    * Logout all sessions
    */
   async logoutAll(): Promise<void> {

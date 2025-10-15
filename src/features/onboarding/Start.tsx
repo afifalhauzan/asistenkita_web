@@ -1,10 +1,38 @@
 "use client";
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Img from 'next/image';
-import Link from 'next/link';
 import { LogoFull } from '../../components/LogoFull';
+import { authService } from '@/services/authService';
 
 export const Start = () => {
+    const router = useRouter();
+    const [isUpdating, setIsUpdating] = useState(false);
+
+    const handleRoleSelection = async (role: 'majikan' | 'art', path: string) => {
+        if (isUpdating) return;
+        
+        setIsUpdating(true);
+        console.log(`User selected role: ${role}`);
+        
+        try {
+            // Update user labels in Appwrite
+            const updatedUser = await authService.updateLabels([role]);
+            console.log('Labels updated successfully:', updatedUser);
+            console.log('Current user labels:', updatedUser?.prefs?.labels || updatedUser?.labels);
+            
+            // Navigate to the appropriate signup page
+            router.push(path);
+        } catch (error) {
+            console.error('Failed to update user labels:', error);
+            // Still navigate even if label update fails
+            router.push(path);
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
     return (
         <div className="min-h-screen w-full overflow-x-hidden bg-gray-50">
             <div className="relative min-h-screen w-full overflow-hidden">
@@ -45,11 +73,13 @@ export const Start = () => {
                                     Cari dan pekerjakan asisten terpercaya.
                                 </p>
 
-                                <Link href="/onboarding/keluarga-signup">
-                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                                        Sebagai Klien
-                                    </button>
-                                </Link>
+                                <button 
+                                    onClick={() => handleRoleSelection('majikan', '/onboarding/keluarga-signup')}
+                                    disabled={isUpdating}
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Sebagai Klien
+                                </button>
                             </div>
                         </div>
 
@@ -68,11 +98,13 @@ export const Start = () => {
                                     Buat profil dan temukan pekerjaan
                                 </p>
 
-                                <Link href="/onboarding/art-signup">
-                                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                                        Pencari Kerja
-                                    </button>
-                                </Link>
+                                <button 
+                                    onClick={() => handleRoleSelection('art', '/onboarding/art-signup')}
+                                    disabled={isUpdating}
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    Pencari Kerja
+                                </button>
                             </div>
                         </div>
                     </div>

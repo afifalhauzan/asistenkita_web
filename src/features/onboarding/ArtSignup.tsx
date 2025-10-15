@@ -40,7 +40,7 @@ interface ArtSignupProps {
 
 export const ArtSignup: React.FC<ArtSignupProps> = ({ 
   onSuccess, 
-  redirectTo = '/dashboard' 
+  redirectTo = '/pekerjaan' 
 }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
