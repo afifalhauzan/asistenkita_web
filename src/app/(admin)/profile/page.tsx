@@ -1,13 +1,13 @@
 import { ProtectedRoute } from '@/features/auth/components/ProtectedRoute';
 import type { NextPage } from '@/types/routing';
-import { DashboardContent } from '@/features/dashboard/DashboardContent';
+import { ProfileContent } from '@/features/profile/ProfileContent';
 
-const DashboardPage: NextPage = () => {
+const ProfilePage: NextPage = () => {
   return (
     <ProtectedRoute>
-      <DashboardContent />
+      <ProfileContent />
     </ProtectedRoute>
   );
 };
 
-export default DashboardPage;
+export default ProfilePage;

@@ -26,9 +26,9 @@ interface MajikanSignupState {
   phase2: CreateLowonganRequest | null;
 }
 
-export default function MajikanSignup({ 
-  onSuccess, 
-  redirectTo = '/dashboard' 
+export default function MajikanSignup({
+  onSuccess,
+  redirectTo = '/bantuan'
 }: MajikanSignupProps) {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -86,18 +86,18 @@ export default function MajikanSignup({
     switch (currentStep) {
       case 1:
         return {
-          title: "Buat Akun Keluarga",
-          subtitle: "Langkah 1 dari 3: Informasi Dasar"
+          title: 'Data Diri',
+          subtitle: 'Tenang, data Anda aman. Informasi ini hanya kami gunakan untuk memvalidasi identitas Anda dan tidak akan dibagikan ke siapapun.'
         };
       case 2:
         return {
           title: "Detail Lowongan Kerja",
-          subtitle: "Langkah 2 dari 3: Buat Lowongan ART"
+          subtitle: "Buat Lowongan ART"
         };
       case 3:
         return {
           title: "Konfirmasi & Publikasi",
-          subtitle: "Langkah 3 dari 3: Review Lowongan"
+          subtitle: "Review Lowongan"
         };
       default:
         return { title: "", subtitle: "" };
@@ -107,44 +107,48 @@ export default function MajikanSignup({
   const { title, subtitle } = renderPhaseTitle();
 
   return (
-    <div className="min-h-screen BG-GRAY-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-block mb-6">
-            <LogoFull className="h-12 mx-auto" />
-          </Link>
-          
-          <div className="flex justify-center items-center space-x-4 mb-6">
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-              currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
-            } font-semibold text-sm`}>
-              1
-            </div>
-            <div className={`h-1 w-16 ${
-              currentStep >= 2 ? 'bg-blue-600' : 'bg-gray-200'
-            }`} />
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-              currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
-            } font-semibold text-sm`}>
-              2
-            </div>
-            <div className={`h-1 w-16 ${
-              currentStep >= 3 ? 'bg-blue-600' : 'bg-gray-200'
-            }`} />
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
-              currentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'
-            } font-semibold text-sm`}>
-              3
-            </div>
-          </div>
-
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">{title}</h1>
-          <p className="text-lg text-gray-600">{subtitle}</p>
-        </div>
-
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8">
-            {currentStep === 1 && (
+    <div className="min-h-screen w-full overflow-x-hidden bg-gray-50">
+          <div className="relative min-h-screen w-full overflow-hidden">
+            <div className="absolute -bottom-30 -left-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>
+            <div className="absolute top-0 -right-40 w-96 h-96 rounded-full bg-blue-500/30 blur-[120px]"></div>
+    
+            <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
+              <div className="mb-8 flex items-center justify-center">
+                <LogoFull />
+              </div>
+    
+              {/* Form Container */}
+              <div className={`w-full bg-white rounded-2xl shadow-lg p-8 ${currentStep === 3 ? 'max-w-4xl' : 'max-w-md'}`}>
+                {/* Step Indicator */}
+                <div className="flex justify-center mb-8">
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                      currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      1
+                    </div>
+                    <div className={`w-8 h-0.5 ${currentStep >= 2 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                      currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      2
+                    </div>
+                    <div className={`w-8 h-0.5 ${currentStep >= 3 ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                      currentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                    }`}>
+                      3
+                    </div>
+                  </div>
+                </div>
+    
+                {/* Title */}
+                <div className="text-center mb-8">
+                  <h1 className="text-2xl font-bold text-gray-900 mb-2">{renderPhaseTitle().title}</h1>
+                  <p className="text-gray-600 text-sm">{renderPhaseTitle().subtitle}</p>
+                </div>
+    
+                {currentStep === 1 && (
               <Phase1
                 onNext={handlePhase1Next}
                 isLoading={isLoading}
@@ -168,10 +172,9 @@ export default function MajikanSignup({
                 isLoading={isLoading}
               />
             )}
+              </div>
+            </div>
           </div>
-
         </div>
-      </div>
-    </div>
   );
 }

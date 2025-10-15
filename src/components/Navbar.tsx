@@ -205,11 +205,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                       </div>
                       <div className="py-2">
                         <Link
-                          href="/dashboard"
+                          href="/profile"
                           className="block px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 hover:text-blue-700 font-medium"
                           onClick={() => setIsDropdownOpen(false)}
                         >
-                          Dashboard
+                          Profil Saya
                         </Link>
                         <button
                           onClick={() => {
@@ -361,11 +361,11 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                   <p className="text-md text-blue-500">{user?.labels}</p>
                 </div>
                 <Link
-                  href="/dashboard"
+                  href="/profile"
                   className="block px-3 py-2 rounded-md text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 transition-colors duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Dashboard
+                  Profil Saya
                 </Link>
                 <button
                   onClick={() => {

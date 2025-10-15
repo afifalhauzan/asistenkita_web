@@ -13,7 +13,7 @@ export const Hero = () => {
             {/* Subtitle */}
             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
                 Platform aman yang menghubungkan keluarga dengan Asisten Rumah Tangga & 
-                Nanny terverifikasi di seluruh Indonesia.
+                Keluarga terverifikasi di seluruh Indonesia.
             </p>
             
             {/* Two columns for ART and Majikan */}
@@ -30,7 +30,7 @@ export const Hero = () => {
                 
                 {/* Sebagai Majikan */}
                 <div className="bg-white rounded-2xl p-8 box-shadow-default hover:shadow-xl transition-all duration-300">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Sebagai Majikan</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Sebagai Keluarga</h3>
                     <p className="text-gray-600 leading-relaxed">
                         Sediakan ekspektasi yang 
                         jelas dari awal dengan fitur 

@@ -228,7 +228,6 @@ const Lowongan: NextPage = () => {
                     </div>
                 )}
             </main>
-            <Footer />
         </div>
     );
 };

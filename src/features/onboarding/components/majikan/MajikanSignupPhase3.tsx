@@ -254,7 +254,7 @@ export function MajikanSignupPhase3({
       {/* Keahlian Khusus */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Keahlian Khusus yang Harus Dikuasai
+          Keahlian Khusus yang Dibutuhkan
         </label>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {(Object.keys(LOWONGAN_SKILL_LABELS) as LowonganSkill[]).map((skill) => (
@@ -296,7 +296,7 @@ export function MajikanSignupPhase3({
       {/* Tarif yang Diharapkan */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Tarif yang Anda Harapkan
+          Tarif yang Anda Berikan
         </label>
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -361,7 +361,7 @@ export function MajikanSignupPhase3({
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={isLoading}
         >
           {isLoading ? 'Mendaftar...' : 'Buat Akun & Publikasi'}

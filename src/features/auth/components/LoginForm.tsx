@@ -16,7 +16,7 @@ interface LoginFormProps {
 
 export const LoginForm: React.FC<LoginFormProps> = ({ 
   onSuccess, 
-  redirectTo = '/dashboard' 
+  redirectTo = '/bantuan' 
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
