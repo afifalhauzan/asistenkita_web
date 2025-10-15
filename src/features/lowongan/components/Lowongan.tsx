@@ -85,7 +85,7 @@ const Lowongan: NextPage = () => {
                     {!isAuthenticated && (
                         <div className="text-center p-6 bg-white rounded-lg shadow-md max-w-md mx-auto">
                             <p className="text-gray-600 mb-4">
-                                Silakan login sebagai majikan untuk membuat lowongan
+                                Silakan login sebagai Keluarga untuk membuat lowongan
                             </p>
                             <a
                                 href="/login"

@@ -1,6 +1,7 @@
 export { authService, AuthService } from './authService';
 export { artService, ARTService } from './artService';
 export { artSignupService } from './artSignupService';
+export { majikanSignupService } from './majikanSignupService';
 export { lowonganService, LowonganService } from './lowonganService';
 
 export type {
