@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
     LowonganListItem,
@@ -9,6 +9,8 @@ import {
     LOWONGAN_SKILL_LABELS,
     LOWONGAN_WORK_ARRANGEMENT_LABELS
 } from '@/types/lowongan';
+import { lowonganService } from '@/services/lowonganService';
+import { useAuth } from '@/features/auth/hooks/useAuth';
 
 interface LowonganCardProps {
     lowongan: LowonganListItem;
@@ -19,7 +21,7 @@ interface LowonganCardProps {
     onClose?: (id: string) => void;
 }
 
-export default function LowonganCard({
+export default function LowonganCardAdmin({
     lowongan,
     showActions = false,
     onEdit,
@@ -27,6 +29,11 @@ export default function LowonganCard({
     onPublish,
     onClose
 }: LowonganCardProps) {
+    const { user, isAuthenticated, loading } = useAuth();
+    const [lowongans, setLowongans] = useState<LowonganListItem[]>([]);
+    const [isLoadingLowongans, setIsLoadingLowongans] = useState(true);
+    const [activeTab, setActiveTab] = useState<'semua' | 'buka' | 'tutup'>('semua');
+    
     const formatSalary = (min?: number, max?: number) => {
         if (!min && !max) return 'Negosiasi';
 
@@ -79,18 +86,60 @@ export default function LowonganCard({
         );
     };
 
+    const handleEdit = (id: string) => {
+        // TODO: Implement edit functionality
+        console.log('Edit lowongan:', id);
+    };
+
+    const handleDelete = async (id: string) => {
+        if (confirm('Apakah Anda yakin ingin menghapus lowongan ini?')) {
+            try {
+                await lowonganService.deleteLowongan(id);
+                setLowongans(prev => prev.filter(l => l.$id !== id));
+            } catch (error) {
+                console.error('Error deleting lowongan:', error);
+                alert('Gagal menghapus lowongan');
+            }
+        }
+    };
+
+    const handleClose = async (id: string) => {
+        if (confirm('Apakah Anda yakin ingin menutup lowongan ini?')) {
+            try {
+                await lowonganService.closeLowongan(id);
+                setLowongans(prev => prev.map(l =>
+                    l.$id === id ? { ...l, status: 'closed', is_active: false } : l
+                ));
+            } catch (error) {
+                console.error('Error closing lowongan:', error);
+                alert('Gagal menutup lowongan');
+            }
+        }
+    };
+
     return (
         <div className="bg-white rounded-lg box-shadow-default border border-gray-200 hover:shadow-lg transition-shadow duration-200">
             {/* Header */}
             <div className="p-6">
                 <div className="flex justify-between items-start mb-3">
                     <div className="flex-1">
+                        <p className="text-sm text-gray-600">
+                            {lowongan.applications_count || 0} Asisten melamar pekerjaan ini
+                        </p>
+
+                        <p className="text-sm text-gray-900 font-medium">
+                            Mulai dari
+                        </p>
                         <Link
                             href={`/pekerjaan/${lowongan.$id}`}
                             className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
                         >
                             {lowongan.title}
                         </Link>
+                        {/* Applicants Count */}
+                        <div className="flex justify-between items-center mb-4">
+
+                        </div>
                     </div>
                     {showActions && (
                         <div className="flex items-center space-x-2 ml-4">
@@ -235,6 +284,30 @@ export default function LowonganCard({
                         )}
                     </div>
                 )}
+
+                {/* Action Buttons Below Card */}
+                <div className="flex justify-between items-center">
+                    <div className="flex space-x-4">
+                        <button
+                            onClick={() => handleClose(lowongan.$id)}
+                            className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+                        >
+                            Tutup Lowongan
+                        </button>
+                        <button
+                            onClick={() => handleEdit(lowongan.$id)}
+                            className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+                        >
+                            Edit Lowongan
+                        </button>
+                    </div>
+                    <Link
+                        href={`/pekerjaan/${lowongan.$id}`}
+                        className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                        Lihat Applier
+                    </Link>
+                </div>
             </div>
         </div>
     );

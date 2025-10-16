@@ -16,7 +16,7 @@ interface LoginFormProps {
 
 export const LoginForm: React.FC<LoginFormProps> = ({ 
   onSuccess, 
-  redirectTo = '/profile' 
+  redirectTo = '/dashboard' 
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,11 +39,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     },
     mode: 'onChange'
   });
-
-  // ADD THIS EFFECT TO PROVE IT'S RE-MOUNTING
-  useEffect(() => {
-    console.log('%c LoginForm MOUNTED ', 'background: #222; color: #bada55');
-  }, []); // Empty array means this runs ONLY ONCE when the component mounts.
 
   // FIX: Watch fields individually to get stable string values
   const email = watch('email');
@@ -70,17 +65,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         if (onSuccess) {
           onSuccess(result.user);
         } else {
-          // Check user labels to determine redirect path
-          const userLabels = result.user.labels || [];
-          
-          if (userLabels.includes('majikan')) {
-            router.push('/bantuan');
-          } else if (userLabels.includes('art')) {
-            router.push('/pekerjaan');
-          } else {
-            // Default redirect if no label is set
+            router.push('/dashboard');
             router.push(redirectTo);
-          }
         }
         return;
       }

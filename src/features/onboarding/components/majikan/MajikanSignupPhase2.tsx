@@ -16,7 +16,7 @@ import {
 
 interface MajikanSignupPhase2Props {
   onNext: (data: CreateLowonganRequest) => void;
-  onBack: () => void;
+  onBack?: () => void;
   isLoading?: boolean;
   initialData?: Partial<CreateLowonganRequest>;
 }
@@ -351,17 +351,19 @@ export function MajikanSignupPhase2({
 
       {/* Form Actions */}
       <div className="flex justify-between space-x-4 pt-6 border-t">
-        <button
-          type="button"
-          onClick={onBack}
-          className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 font-medium transition-colors"
-          disabled={isLoading}
-        >
-          Kembali
-        </button>
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 font-medium transition-colors"
+            disabled={isLoading}
+          >
+            Kembali
+          </button>
+        )}
         <button
           type="submit"
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${!onBack ? 'w-full' : ''}`}
           disabled={isLoading}
         >
           {isLoading ? 'Memproses...' : 'Lanjutkan'}

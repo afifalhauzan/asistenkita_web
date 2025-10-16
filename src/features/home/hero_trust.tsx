@@ -59,7 +59,7 @@ const AboutUsHero: React.FC = () => {
 
                             <div className="hidden sm:flex items-center justify-center">
                                 <div className="h-full -rotate-2 hover:-rotate-4 transition-all duration-300">
-                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-45 h-55 rounded-2xl" />
+                                    <Img src="/foto_hero2.png" alt="Anak Bahagia" width="300" height="200" className="w-50 h-40 rounded-2xl" />
                                     <div className="absolute top-0 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">👨‍👩‍👧</span>
                                     </div>
@@ -68,8 +68,8 @@ const AboutUsHero: React.FC = () => {
 
 
                             <div className="hidden sm:flex items-center justify-center">
-                                <div className="h-full  -rotate-4 hover:-rotate-2 transition-all duration-300">
-                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-55 rounded-2xl" />
+                                <div className="h-full mt-10 -rotate-4 hover:-rotate-2 transition-all duration-300">
+                                    <Img src="/foto_hero3.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-55 rounded-2xl" />
                                     <div className="absolute top-10 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">💑</span>
                                     </div>
@@ -78,7 +78,7 @@ const AboutUsHero: React.FC = () => {
 
                             <div className="flex items-center justify-center rounded-2xl">
                                 <div className="ml-30 sm:ml-0 sm:mr-0 rotate-2 hover:rotate-5 transition-all duration-300">
-                                    <Img src="/foto_hero1.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-50 rounded-2xl" />
+                                    <Img src="/foto_hero4.png" alt="Anak Bahagia" width="200" height="200" className="w-50 h-60 rounded-2xl" />
                                     <div className="absolute top-40 -right-5 w-16 h-16 bg-orange-300 rounded-full mx-auto mb-3 flex items-center justify-center">
                                         <span className="text-2xl">💑</span>
                                     </div>

@@ -140,6 +140,9 @@ class LowonganService {
 
   async createLowongan(data: CreateLowonganRequest, userId: string): Promise<Lowongan> {
     try {
+      console.log('LowonganService: Creating lowongan with data:', data);
+      console.log('LowonganService: User ID:', userId);
+      
       const lowonganData = {
         ...data,
         user_id: userId,
@@ -149,6 +152,10 @@ class LowonganService {
         views_count: 0,
       };
 
+      console.log('LowonganService: Final lowongan data to create:', lowonganData);
+      console.log('LowonganService: Database ID:', this.databaseId);
+      console.log('LowonganService: Collection ID:', this.collectionId);
+
       const response = await databases.createDocument(
         this.databaseId,
         this.collectionId,
@@ -156,9 +163,11 @@ class LowonganService {
         lowonganData
       );
 
+      console.log('LowonganService: Document created successfully:', response);
       return this.transformToLowongan(response);
     } catch (error) {
       console.error('Error creating lowongan:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
       throw error;
     }
   }

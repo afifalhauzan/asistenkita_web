@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
       <div className="max-w-7xl mx-auto px-6 py-0 md:py-2 sm:px-6 md:px-7 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center h-14">
           <div className="flex items-center">
-            <Link href="/" className="">
+            <Link href={user && isAuthenticated ? "/dashboard" : "/"} className="">
               <LogoFull />
             </Link>
           </div>

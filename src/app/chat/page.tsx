@@ -14,7 +14,6 @@ const ChatPage: NextPage = () => {
             <Navbar />
 
             <main className="">
-                {/* Hero Section */}
                 <Chat />
             </main>
             <Footer />

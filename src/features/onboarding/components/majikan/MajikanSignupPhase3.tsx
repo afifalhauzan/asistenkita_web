@@ -99,6 +99,7 @@ export function MajikanSignupPhase3({
       work_arrangement: selectedWorkArrangements,
     };
     onSubmit(formData);
+    console.log('Form submitted:', formData);
   };
 
   return (

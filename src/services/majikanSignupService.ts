@@ -1,5 +1,6 @@
 import { MajikanSignupSubmissionData, MajikanSignupResult } from '@/types/majikanSignup';
 import { lowonganService } from './lowonganService';
+import { authService } from './authService';
 
 /**
  * Majikan Signup Service
@@ -14,15 +15,9 @@ class MajikanSignupService {
    */
   async submitMajikanSignup(data: MajikanSignupSubmissionData): Promise<MajikanSignupResult> {
     try {
-      // TODO: Implement actual user creation + lowongan posting
-      // This is a placeholder implementation
-      
       console.log('MajikanSignupService: Submitting data:', data);
       
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock validation for personal information
+      // Validate personal information
       if (!data.phase1.name || !data.phase1.email || !data.phase1.phone) {
         return {
           success: false,
@@ -30,7 +25,7 @@ class MajikanSignupService {
         };
       }
 
-      // Mock validation for lowongan data
+      // Validate lowongan data
       if (!data.lowongan.title || !data.lowongan.description || !data.lowongan.domicile_city) {
         return {
           success: false,
@@ -52,33 +47,55 @@ class MajikanSignupService {
         };
       }
 
-      // TODO: In real implementation:
-      // 1. Create user account (if not exists)
-      // 2. Upload KTP photo to storage (if provided)
-      // 3. Create lowongan using lowonganService.createLowongan(data.lowongan)
-      // 4. Link user to lowongan
+      // Step 1: Get current authenticated user (account already created before onboarding)
+      console.log('MajikanSignupService: Getting current user...');
+      const user = await authService.getCurrentUser();
       
-      // Simulate successful submission
-      const mockUserId = `user_${Date.now()}`;
-      const mockLowonganId = `lowongan_${Date.now()}`;
+      if (!user) {
+        return {
+          success: false,
+          error: 'User not authenticated. Please login first.'
+        };
+      }
       
-      console.log('MajikanSignupService: Mock submission successful');
-      console.log('MajikanSignupService: Generated User ID:', mockUserId);
-      console.log('MajikanSignupService: Generated Lowongan ID:', mockLowonganId);
+      console.log('MajikanSignupService: Current user:', user.$id);
+
+      // // Step 2: Update user labels to 'majikan'
+      // console.log('MajikanSignupService: Updating user labels to majikan...');
+      // await authService.updateLabels(['majikan']);
+      
+      // Step 3: Create lowongan using lowonganService
+      console.log('MajikanSignupService: Creating lowongan...');
+      const lowongan = await lowonganService.createLowongan(data.lowongan, user.$id);
+      
+      console.log('MajikanSignupService: Lowongan created:', lowongan.$id);
+
+      // Step 4: Publish the lowongan immediately
+      console.log('MajikanSignupService: Publishing lowongan...');
+      await lowonganService.publishLowongan(lowongan.$id);
+      
+      console.log('MajikanSignupService: Submission successful');
       
       return {
         success: true,
-        userId: mockUserId,
-        lowonganId: mockLowonganId,
+        userId: user.$id,
+        lowonganId: lowongan.$id,
         message: 'Pendaftaran berhasil! Lowongan Anda telah dipublikasikan dan dapat dilihat oleh ART di platform kami.'
       };
 
     } catch (error: any) {
       console.error('MajikanSignupService: Submission failed:', error);
       
+      // Provide more specific error messages
+      let errorMessage = 'Terjadi kesalahan tak terduga. Silakan coba lagi.';
+      
+      if (error.message) {
+        errorMessage = error.message;
+      }
+      
       return {
         success: false,
-        error: 'Terjadi kesalahan tak terduga. Silakan coba lagi.'
+        error: errorMessage
       };
     }
   }
