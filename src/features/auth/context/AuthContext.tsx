@@ -121,9 +121,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const updateProfile = async (name: string, email?: string): Promise<AuthResult> => {
+  const updateProfile = async (name: string, email?: string, password?: string): Promise<AuthResult> => {
     try {
-      const updatedUser = await authService.updateProfile(name, email);
+      const updatedUser = await authService.updateProfile(name, email, password);
       setUser(updatedUser);
       return { success: true, user: updatedUser };
     } catch (error) {

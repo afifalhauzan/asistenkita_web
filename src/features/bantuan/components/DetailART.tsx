@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { ARTProfile } from '@/types/art';
 import type { DetailARTProps } from '@/types/art.ts';
 import type { Review } from '@/types/review';
@@ -17,6 +17,8 @@ import {
   mockSkills,
   mockTarif
 } from '@/data/mockReviews';
+import { useLowongan } from '@/features/lowongan/hooks/useLowongan';
+import { useAuthContext } from '@/features/auth/context/AuthContext';
 
 
 export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
@@ -24,21 +26,33 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
     return <div className="p-4 bg-white rounded-lg shadow-md">Data ART tidak tersedia.</div>;
   }
 
+  const { isAuthenticated, user } = useAuthContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLoginRedirect = () => {
+    router.push('/login');
+  };
+
   const params = useParams();
   const router = useRouter();
   const artId = params.id as string;
 
-  const { isAuthenticated } = useAuth();
-
   const { data: art, isLoading, error } = useART(artId);
-  const {
-    isModalOpen,
-    handleContactART,
-    handleLoginRedirect,
-    closeModal
-  } = useLoginPrompt(artId);
 
-  console.log('DetailART data:', data);
+  const handleContactART = (id: string) => {
+    if (!isAuthenticated) {
+      setIsModalOpen(true);
+      return;
+    }
+    router.push(`/chat`);
+  };
+
+  console.log('DetailART data:', art);
 
   if (isLoading) {
     return (
@@ -122,6 +136,32 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
 
   return (
     <div className="bg-gray-50 shadow-sm">
+      {/* Login Prompt Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Login Diperlukan</h3>
+            <p className="text-gray-600 mb-6">
+              Anda harus login terlebih dahulu untuk melihat detail ART ini.
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={handleLoginRedirect}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Login
+              </button>
+              <button
+                onClick={closeModal}
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mt-20 ">
         <div className="flex items-center">
           <button
@@ -376,12 +416,6 @@ export const DetailART: React.FC<DetailARTProps> = ({ data }) => {
           </div>
         </div>
 
-        {/* Login Prompt Modal */}
-        <LoginPromptModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          onLoginRedirect={handleLoginRedirect}
-        />
       </div>
     </div>
   );

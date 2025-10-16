@@ -9,6 +9,7 @@ interface ProfileFormData {
   name: string;
   email: string;
   phone: string;
+  password?: string;
 }
 
 interface ProfileEditProps {
@@ -20,23 +21,34 @@ export const ProfileEdit = ({ onCancel, onSuccess }: ProfileEditProps) => {
   const { user } = useAuth();
   const { updateProfile } = useAuthActions();
   const [isLoading, setIsLoading] = useState(false);
+  const [emailChanged, setEmailChanged] = useState(false);
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<ProfileFormData>({
     defaultValues: {
       name: user?.name || '',
       email: user?.email || '',
       phone: user?.phone || '',
+      password: '',
     },
   });
+
+  // Watch email field to detect changes
+  const emailValue = watch('email');
+  const isEmailChanged = emailValue !== user?.email;
 
   const onSubmit = async (data: ProfileFormData) => {
     setIsLoading(true);
     try {
-      const result = await updateProfile(data.name, data.email);
+      // If email is being changed, password is required
+      const emailToUpdate = isEmailChanged ? data.email : undefined;
+      const passwordToUse = isEmailChanged ? data.password : undefined;
+
+      const result = await updateProfile(data.name, emailToUpdate, passwordToUse);
       if (result.success) {
         onSuccess?.();
         alert('Profile updated successfully!');
@@ -103,7 +115,38 @@ export const ProfileEdit = ({ onCancel, onSuccess }: ProfileEditProps) => {
           {errors.email && (
             <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
           )}
+          {isEmailChanged && (
+            <p className="text-yellow-600 text-sm mt-1">
+              ⚠️ Mengubah email memerlukan password untuk verifikasi
+            </p>
+          )}
         </div>
+
+        {isEmailChanged && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password (Required for email change) *
+            </label>
+            <input
+              type="password"
+              {...register('password', {
+                required: isEmailChanged ? 'Password is required when changing email' : false,
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters'
+                }
+              })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Enter your current password"
+            />
+            {errors.password && (
+              <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>
+            )}
+            <p className="text-gray-500 text-xs mt-1">
+              Masukkan password saat ini untuk mengkonfirmasi perubahan email
+            </p>
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -114,10 +157,14 @@ export const ProfileEdit = ({ onCancel, onSuccess }: ProfileEditProps) => {
             {...register('phone')}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Enter your phone number"
+            disabled
           />
           {errors.phone && (
             <p className="text-red-600 text-sm mt-1">{errors.phone.message}</p>
           )}
+          <p className="text-gray-500 text-xs mt-1">
+            Nomor telepon tidak dapat diubah dari sini
+          </p>
         </div>
 
         <div className="flex space-x-3 pt-4">

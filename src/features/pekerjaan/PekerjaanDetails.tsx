@@ -6,18 +6,7 @@ import Link from 'next/link';
 import { Lowongan, LowonganJobType, LowonganSkill } from '@/types/lowongan';
 import { useAuthContext } from '@/features/auth/context/AuthContext';
 import { LOWONGAN_GENDER_LABELS, LOWONGAN_JOB_TYPE_LABELS, LOWONGAN_SKILL_LABELS, LOWONGAN_WORK_ARRANGEMENT_LABELS } from '@/types/lowongan';
-
-// Mock data for demonstration - replace with actual API call
-const mockReviewsData = {
-    reviews: [
-        {
-            rating: 5,
-            comment: "Pengalaman bekerja yang sangat baik! Majikan sangat profesional dan ramah.",
-            reviewerName: "Maria S.",
-            createdAt: "15 Januari 2024",
-        }
-    ]
-};
+import { useLowongan } from '@/features/lowongan/hooks/useLowongan';
 
 interface PekerjaanDetailsProps {
     lowonganId: string;
@@ -28,38 +17,8 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
     const { isAuthenticated, user } = useAuthContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // TODO: Replace with actual hook to fetch lowongan by ID
-    // For now using mock data
-    const [isLoading] = useState(false);
-    const [error] = useState<Error | null>(null);
-
-    // Mock lowongan data - replace with actual API call
-    const data: Lowongan | null = {
-        $id: lowonganId,
-        $permissions: [],
-        title: "Asisten Rumah Tangga Berpengalaman",
-        description: "Kami mencari asisten rumah tangga yang berpengalaman untuk membantu pekerjaan rumah tangga sehari-hari. Kandidat ideal memiliki pengalaman minimal 2 tahun, dapat memasak masakan Indonesia, dan bertanggung jawab.",
-        domicile_city: "Jakarta Selatan",
-        education: "sma",
-        gender: "female",
-        job_types: ["asisten_rumah_tangga" as LowonganJobType, "baby_sitter" as LowonganJobType],
-        skills: ["memasak" as LowonganSkill, "house_cleaning" as LowonganSkill, "mengasuh_anak" as LowonganSkill],
-        work_arrangement: ["live_in"],
-        salary_min: 3000000,
-        salary_max: 4500000,
-        user_id: "user123",
-        is_active: true,
-        applications_count: 12,
-        views_count: 156,
-        $createdAt: "2024-01-15T10:00:00.000Z",
-        $updatedAt: "2024-01-15T10:00:00.000Z",
-    };
-
-    // Mock rating data (not part of Lowongan type)
-    const mockRating = {
-        average: 4.8,
-        count: 24
-    };
+    // Fetch lowongan data using the hook
+    const { data, isLoading, error } = useLowongan(lowonganId);
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -178,31 +137,21 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
                                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                <span className="text-sm">{data.domicile_city}</span>
-                            </div>
+                            </svg>
+                            <span className="text-sm">{data.domicile_city}</span>
+                        </div>
 
-                            {/* Rating */}
-                            <div className="flex items-center justify-center mb-4">
-                                {renderStars(Math.floor(mockRating.average ?? 0))}
-                                <span className="ml-2 text-sm text-gray-600">
-                                    {mockRating.average?.toFixed(1)} ({mockRating.count} ulasan)
-                                </span>
+                        {/* Stats */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="bg-white rounded-lg p-3">
+                                <div className="text-2xl font-bold text-blue-600">{data.applications_count || 0}</div>
+                                <div className="text-sm text-gray-600">Pelamar</div>
                             </div>
-
-                            {/* Stats */}
-                            <div className="grid grid-cols-2 gap-4 mb-6">
-                                <div className="bg-white rounded-lg p-3">
-                                    <div className="text-2xl font-bold text-blue-600">{data.applications_count || 0}</div>
-                                    <div className="text-sm text-gray-600">Pelamar</div>
-                                </div>
-                                <div className="bg-white rounded-lg p-3">
-                                    <div className="text-xl font-bold text-blue-600">{formatCurrency(data.salary_min)}</div>
-                                    <div className="text-sm text-gray-600">Gaji Minimal</div>
-                                </div>
+                            <div className="flex flex-col items-center justify-center bg-white rounded-lg p-3">
+                                <div className="text-lg font-bold text-blue-600">{formatCurrency(data.salary_min)}</div>
+                                <div className="text-sm text-gray-600">Gaji Minimal</div>
                             </div>
-
-                            {/* Action Button */}
+                        </div>                            {/* Action Button */}
                             <button
                                 onClick={() => handleApply(lowonganId)}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 mb-0"
@@ -220,7 +169,7 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
                                     <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                                     <span className="text-gray-700">AsistenKita.com Background Check</span>
                                 </div>
-                                <div className="text-xs text-gray-500 ml-5 pb-2">Diverifikasi pada 20 Januari 2023</div>
+                                <div className="text-xs text-gray-500 ml-5 pb-2">Diverifikasi pada {new Date("2023-01-20").toLocaleDateString("id-ID")}</div>
                                 <div className="flex items-center text-sm">
                                     <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                                     <span className="text-gray-700">Pemberi kerja terverifikasi</span>
@@ -262,45 +211,6 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
                                                 </div>
                                             )}
                                         </div>
-                                    </div>
-
-                                    {/* Reviews Section */}
-                                    <div className="bg-gray-50 rounded-2xl box-shadow-default p-6">
-                                        <div className="flex justify-between items-center mb-6">
-                                            <h2 className="text-xl font-bold text-gray-900">Ulasan Terbaru</h2>
-                                            <div className="text-right">
-                                                <div className="text-3xl font-bold text-gray-900">
-                                                    {mockRating.average?.toFixed(1)}
-                                                </div>
-                                                <div className="flex items-center justify-end">
-                                                    {renderStars(Math.floor(mockRating.average ?? 0))}
-                                                </div>
-                                                <p className="text-sm text-gray-500">
-                                                    berdasarkan {mockRating.count} ulasan
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Latest Review */}
-                                        {mockReviewsData.reviews[0] && (
-                                            <div className="border border-gray-200 rounded-lg p-4 mb-4">
-                                                <div className="flex items-center mb-2">
-                                                    {renderStars(mockReviewsData.reviews[0].rating)}
-                                                </div>
-                                                <p className="text-gray-700 mb-3">"{mockReviewsData.reviews[0].comment}"</p>
-                                                <div className="flex items-center">
-                                                    <div className="w-8 h-8 bg-gray-300 rounded-full mr-3"></div>
-                                                    <div>
-                                                        <p className="font-medium text-gray-900">{mockReviewsData.reviews[0].reviewerName}</p>
-                                                        <p className="text-sm text-gray-500">{mockReviewsData.reviews[0].createdAt}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
-                                            Lihat Semua
-                                        </button>
                                     </div>
 
                                     {/* Job Types Section */}
@@ -396,7 +306,7 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
 
                 {/* Login Prompt Modal */}
                 {isModalOpen && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
                         <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
                             <h3 className="text-2xl font-bold text-gray-900 mb-4">Login Diperlukan</h3>
                             <p className="text-gray-600 mb-6">

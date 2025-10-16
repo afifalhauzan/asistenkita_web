@@ -197,7 +197,7 @@ class AuthService {
   }
 
 
-  async updateProfile(name: string, email?: string): Promise<User> {
+  async updateProfile(name: string, email?: string, password?: string): Promise<User> {
     try {
       if (!name || !name.trim()) {
         throw new Error('Nama harus diisi.');
@@ -206,14 +206,18 @@ class AuthService {
       // Update name
       await account.updateName(name.trim());
       
-      // Update email if provided
+      // Update email if provided - requires password
       if (email && email.trim()) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email.trim())) {
           throw new Error('Format email tidak valid.');
         }
         
-        await account.updateEmail(email.trim(), '');
+        if (!password || password.trim().length < 8) {
+          throw new Error('Password diperlukan untuk mengubah email (minimal 8 karakter).');
+        }
+        
+        await account.updateEmail(email.trim(), password);
       }
       
       // Get updated user data

@@ -45,7 +45,7 @@ export interface AuthContextType {
   logoutAll: () => Promise<AuthResult>;
   sendPasswordResetEmail: (email: string) => Promise<AuthResult>;
   updatePassword: (password: string, oldPassword: string) => Promise<AuthResult>;
-  updateProfile: (name: string, email?: string) => Promise<AuthResult>;
+  updateProfile: (name: string, email?: string, password?: string) => Promise<AuthResult>;
 }
 
 export interface AuthActions {
@@ -55,7 +55,7 @@ export interface AuthActions {
   logoutAll: () => Promise<AuthResult>;
   sendPasswordResetEmail: (email: string) => Promise<AuthResult>;
   updatePassword: (password: string, oldPassword: string) => Promise<AuthResult>;
-  updateProfile: (name: string, email?: string) => Promise<AuthResult>;
+  updateProfile: (name: string, email?: string, password?: string) => Promise<AuthResult>;
 }
 
 export interface FormComponentProps {
