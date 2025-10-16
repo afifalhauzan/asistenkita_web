@@ -2,17 +2,19 @@ import PekerjaanDetails from '@/features/pekerjaan/PekerjaanDetails';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 
-export default function PekerjaanDetailPage({
+export default async function PekerjaanDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-     return (
+    const { id } = await params;
+    
+    return (
         <div className="min-h-screen bg-gray-50">
             <Navbar />
 
             <main className="">
-                <PekerjaanDetails lowonganId={params.id} />
+                <PekerjaanDetails lowonganId={id} />
             </main>
             <Footer />
         </div>

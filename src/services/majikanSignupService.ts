@@ -16,12 +16,21 @@ class MajikanSignupService {
   async submitMajikanSignup(data: MajikanSignupSubmissionData): Promise<MajikanSignupResult> {
     try {
       console.log('MajikanSignupService: Submitting data:', data);
-      
-      // Validate personal information
-      if (!data.phase1.name || !data.phase1.email || !data.phase1.phone) {
+
+
+            // Validate personal information
+      if ( !data.phase1.email) {
         return {
           success: false,
-          error: 'Missing required personal information'
+          error: 'Missing required email personal information'
+        };
+      }
+
+            // Validate personal information
+      if (!data.phase1.name) {
+        return {
+          success: false,
+          error: 'Missing required name personal information'
         };
       }
 
