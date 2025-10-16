@@ -86,7 +86,7 @@ export default function LowonganCard({
                 <div className="flex justify-between items-start mb-3">
                     <div className="flex-1">
                         <Link
-                            href={`/lowongan/${lowongan.$id}`}
+                            href={`/pekerjaan/${lowongan.$id}`}
                             className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
                         >
                             {lowongan.title}

@@ -16,7 +16,7 @@ interface LoginFormProps {
 
 export const LoginForm: React.FC<LoginFormProps> = ({ 
   onSuccess, 
-  redirectTo = '/bantuan' 
+  redirectTo = '/profile' 
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -70,7 +70,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({
         if (onSuccess) {
           onSuccess(result.user);
         } else {
-          router.push(redirectTo);
+          // Check user labels to determine redirect path
+          const userLabels = result.user.labels || [];
+          
+          if (userLabels.includes('majikan')) {
+            router.push('/bantuan');
+          } else if (userLabels.includes('art')) {
+            router.push('/pekerjaan');
+          } else {
+            // Default redirect if no label is set
+            router.push(redirectTo);
+          }
         }
         return;
       }

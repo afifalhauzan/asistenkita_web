@@ -201,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
                           </p>
                           <p className="text-xs text-gray-500">{user?.email}</p>
                         </div>
-                        <p className="text-xs text-blue-500">{user?.labels}</p>
+                        <p className="text-xs text-blue-500">{user?.labels?.includes('majikan') ? 'Keluarga' : user?.labels?.join(', ') || 'User'}</p>
                       </div>
                       <div className="py-2">
                         <Link
