@@ -36,7 +36,7 @@ export const AboutUs = () => {
                     <div className="grid md:grid-cols-3 gap-2 md:gap-8">
                         <div className="bg-white rounded-2xl p-6 text-center box-shadow-default">
                             <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">AL</span>
+                                <Img src="/afiif.jpg" alt="Afiif Al Hauzaan Alfian" width={80} height={80} className="rounded-full" />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">Afiif Al Hauzaan Alfian</h3>
                             <p className="text-blue-600 font-medium">Developer</p>
@@ -44,7 +44,7 @@ export const AboutUs = () => {
 
                         <div className="bg-white rounded-2xl p-6 text-center    box-shadow-default">
                             <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">Atha Azzahra Khairun Nisa</span>
+                                <Img src="/zara.jpg" alt="zara" width={80} height={80} className="rounded-full" />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">Atha Azzahra Khairun Nisa</h3>
                             <p className="text-green-600 font-medium">Product Manager & UX Strategist</p>
@@ -52,7 +52,7 @@ export const AboutUs = () => {
 
                         <div className="bg-white rounded-2xl p-6 text-center box-shadow-default">
                             <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">Elvira Rosa Khoirunnisa</span>
+                                <Img src="/elvira.jpg" alt="Elvira Rosa Khoirunnisa" width={80} height={80} className="rounded-full" />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">Elvira Rosa Khoirunnisa</h3>
                             <p className="text-purple-600 font-medium">UI/UX Designer</p>
