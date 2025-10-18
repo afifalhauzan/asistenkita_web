@@ -20,6 +20,7 @@ export const DATABASE_CONFIG = {
     users: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_USERS as string,
     reviews: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_REVIEWS as string,
     lowongan: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_LOWONGAN as string,
+    applications: process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_APPLICATIONS as string,
   },
   buckets: {
     artphoto: process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ARTPHOTO as string,

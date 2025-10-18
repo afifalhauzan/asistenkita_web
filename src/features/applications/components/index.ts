@@ -1,0 +1,1 @@
+export { default as ApplicantCard } from './ApplicantCard';

@@ -7,6 +7,7 @@ import { Lowongan, LowonganJobType, LowonganSkill } from '@/types/lowongan';
 import { useAuthContext } from '@/features/auth/context/AuthContext';
 import { LOWONGAN_GENDER_LABELS, LOWONGAN_JOB_TYPE_LABELS, LOWONGAN_SKILL_LABELS, LOWONGAN_WORK_ARRANGEMENT_LABELS } from '@/types/lowongan';
 import { useLowongan } from '@/features/lowongan/hooks/useLowongan';
+import { useJobApplication } from '@/features/applications/hooks/useApplication';
 
 interface PekerjaanDetailsProps {
     lowonganId: string;
@@ -16,26 +17,50 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
     const router = useRouter();
     const { isAuthenticated, user } = useAuthContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [applicationMessage, setApplicationMessage] = useState('');
 
     // Fetch lowongan data using the hook
     const { data, isLoading, error } = useLowongan(lowonganId);
 
+    // Application management
+    const {
+        hasApplied,
+        existingApplication,
+        isCheckingApplication,
+        isApplying,
+        applicationError,
+        handleApply: applyToJob,
+        clearError
+    } = useJobApplication(lowonganId, user?.$id || '');
+
     const closeModal = () => {
         setIsModalOpen(false);
+        clearError();
     };
 
     const handleLoginRedirect = () => {
         router.push('/login');
     };
 
-    const handleApply = (id: string) => {
+    const handleApply = async (id: string) => {
         if (!isAuthenticated) {
             setIsModalOpen(true);
             return;
         }
-        // TODO: Implement apply logic
-        console.log('Applying to job:', id);
-        router.push(`/chat`);
+
+        // Check if user is ART (has 'art' label)
+        const userLabels = user?.labels || [];
+        if (!userLabels.includes('art')) {
+            alert('Hanya pengguna dengan role ART yang dapat melamar pekerjaan ini.');
+            return;
+        }
+
+        // Apply to job with optional message
+        const success = await applyToJob(applicationMessage);
+        if (success) {
+            alert('Lamaran berhasil dikirim!');
+            router.push('/dashboard');
+        }
     };
 
     const renderStars = (rating: number) => {
@@ -64,7 +89,7 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
         });
     };
 
-    if (isLoading) {
+    if (isLoading || isCheckingApplication) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center">
@@ -151,13 +176,55 @@ const PekerjaanDetails: React.FC<PekerjaanDetailsProps> = ({ lowonganId }) => {
                                 <div className="text-lg font-bold text-blue-600">{formatCurrency(data.salary_min)}</div>
                                 <div className="text-sm text-gray-600">Gaji Minimal</div>
                             </div>
-                        </div>                            {/* Action Button */}
-                            <button
-                                onClick={() => handleApply(lowonganId)}
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 mb-0"
-                            >
-                                Lamar Pekerjaan
-                            </button>
+                        </div>
+
+                            {/* Action Button */}
+                            {isAuthenticated && user?.labels?.includes('art') ? (
+                                <div className="space-y-3">
+                                    {applicationError && (
+                                        <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-sm">
+                                            {applicationError}
+                                        </div>
+                                    )}
+                                    
+                                    {hasApplied ? (
+                                        <div className="w-full">
+                                            <div className="bg-green-100 text-green-800 text-center py-3 px-6 rounded-lg mb-2">
+                                                ✓ Anda sudah melamar pekerjaan ini
+                                            </div>
+                                            <div className="text-xs text-gray-600 text-center">
+                                                Status: {existingApplication?.status === 'pending' ? 'Menunggu' : 
+                                                        existingApplication?.status === 'accepted' ? 'Diterima' :
+                                                        existingApplication?.status === 'rejected' ? 'Ditolak' : 'Dibatalkan'}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                               {/* `             <textarea
+                                                value={applicationMessage}
+                                                onChange={(e) => setApplicationMessage(e.target.value)}
+                                                placeholder="Pesan lamaran (opsional)..."
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none text-sm"
+                                                rows={3}
+                                            />` */}
+                                            <button
+                                                onClick={() => handleApply(lowonganId)}
+                                                disabled={isApplying}
+                                                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                                            >
+                                                {isApplying ? 'Mengirim Lamaran...' : 'Lamar Pekerjaan'}
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => handleApply(lowonganId)}
+                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                                >
+                                    Lamar Pekerjaan
+                                </button>
+                            )}
                         </div>
 
                         {/* Security Section */}

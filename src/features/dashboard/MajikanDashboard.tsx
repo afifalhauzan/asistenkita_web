@@ -74,6 +74,7 @@ const MajikanDashboard: NextPage = () => {
                                 key={lowongan.$id}
                                 lowongan={lowongan}
                                 showActions={false}
+                                showApplicantsLink={true}
                             />
                         ))}
                     </div>

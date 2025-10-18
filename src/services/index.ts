@@ -3,6 +3,7 @@ export { artService, ARTService } from './artService';
 export { artSignupService } from './artSignupService';
 export { majikanSignupService } from './majikanSignupService';
 export { lowonganService, LowonganService } from './lowonganService';
+export { applicationService, ApplicationService } from './applicationService';
 
 export type {
   ARTProfile,
@@ -38,6 +39,16 @@ export type {
 export type {
   PaginatedResponse,
 } from '@/types/services';
+
+export type {
+  Application,
+  ApplicationListItem,
+  ApplicationSearchParams,
+  CreateApplicationRequest,
+  UpdateApplicationRequest,
+  ApplicationStatistics,
+  ApplicationStatus,
+} from '@/types/application';
 
 export type {
   User,
